@@ -25,13 +25,13 @@
     component: './Welcome',
   },
   {
-    name: '任务中心',
+    name: 'task-center',
     path: '/task-center',
     access: 'normalRouteFilter',
     icon: 'smile',
     routes: [
       {
-        name: '任务类型配置',
+        name: 'task-setting',
         path: '/task-center/task-setting/index',
         component: './task-center/task-setting/index',
       },
