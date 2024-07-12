@@ -1,0 +1,12 @@
+.form-content-search.labelAlignRight .ant-form-item-label > label{
+  width: 110px !important;
+	text-align: right !important;
+	color: #333;
+}
+.has-gridForm .ant-form-item-label{
+	width: 120px;
+	text-align: right;
+}
+.has-gridForm .ant-form-item {
+	margin-bottom: 15px;
+}

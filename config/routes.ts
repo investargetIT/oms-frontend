@@ -25,10 +25,10 @@
     component: './Welcome',
   },
   {
-    path: '/test',
-    name: 'test',
+    path: '/add-task',
+    name: 'add-task',
     icon: 'smile',
-    component: './Test',
+    component: './AddTask',
   },
   {
     path: '/admin',
