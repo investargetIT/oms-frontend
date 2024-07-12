@@ -25,10 +25,17 @@
     component: './Welcome',
   },
   {
-    path: '/add-task',
-    name: 'add-task',
+    name: '任务中心',
+    path: '/task-center',
+    access: 'normalRouteFilter',
     icon: 'smile',
-    component: './AddTask',
+    routes: [
+      {
+        name: '任务类型配置',
+        path: '/task-center/task-setting/index',
+        component: './task-center/task-setting/index',
+      },
+    ],
   },
   {
     path: '/admin',
