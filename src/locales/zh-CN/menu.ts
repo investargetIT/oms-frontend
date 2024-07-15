@@ -50,5 +50,9 @@ export default {
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
   'menu.task-center': '任务中心',
+  'menu.task-center.task-me': '我的待办任务',
+  'menu.task-center.task-all': '全部任务',
+  'menu.task-center.task-sale': '销售任务',
+  'menu.task-center.item-task': '全部项目任务',
   'menu.task-center.task-setting': '任务类型配置',
 };

@@ -30,6 +30,26 @@
     access: 'normalRouteFilter',
     icon: 'smile',
     routes: [
+      // {
+      //   name: 'task-me',
+      //   path: '/task-center/task-me/index',
+      //   component: './task-center/task-all/index',
+      // },
+      // {
+      //   name: 'task-all',
+      //   path: '/task-center/task-all/index',
+      //   component: './task-center/task-all/index',
+      // },
+      // {
+      //   name: 'task-sale',
+      //   path: '/task-center/task-sale/index',
+      //   component: './task-center/task-all/index',
+      // },
+      {
+        name: 'item-task',
+        path: '/task-center/item-task/index',
+        component: './task-center/item-task/index',
+      },
       {
         name: 'task-setting',
         path: '/task-center/task-setting/index',
