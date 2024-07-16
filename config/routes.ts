@@ -61,42 +61,42 @@
     ],
   },
   {
-    name: '系统设置',
+    name: 'system',
     path: '/system',
     access: 'normalRouteFilter',
     routes: [
       {
-        name: '基础设置',
+        name: 'basic',
         path: '/system/basic',
         routes: [
           {
-            name: '渠道配置',
+            name: 'channel',
             path: '/system/basic/channel',
             component: './System/ChannelConfig/index',
           },
           {
-            name: '售后原因配置',
+            name: 'SAC',
             path: '/system/basic/SAC',
             component: './System/SAC/index',
           },
           {
-            name: 'JV配置',
+            name: 'JV',
             path: '/system/basic/JV',
             component: './System/Jvconfig/index',
           },
           {
-            name: '负毛利+报备清单维护',
+            name: 'inventoryMaintenance',
             path: '/system/basic/inventoryMaintenance',
             component: './System/InventoryMaintenance/index',
           },
         ],
       },
       {
-        name: '报价单操作配置',
+        name: 'offer-config',
         path: '/system/offer-config',
         routes: [
           {
-            name: '基础数据配置',
+            name: 'basic-config',
             path: '/system/offer-config/basic-config',
             component: './System/OfferConfig/BasicConfig',
           },
