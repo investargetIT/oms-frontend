@@ -1,0 +1,72 @@
+.sku-detail {
+  .ant-form-item {
+    margin-bottom: 8px;
+    .ant-input-number-sm {
+      width: 100% !important;
+    }
+    .ant-form-item-label > label {
+      width: 110px;
+      color: rgba(9, 9, 9, 0.5);
+      line-height: 26px;
+      white-space: break-spaces;
+      text-align: left;
+      word-break: break-all;
+    }
+  }
+  .super-label {
+    .ant-form-item-label > label {
+      width: 140px;
+    }
+  }
+  .info-padding {
+    padding-left: 10px;
+  }
+  h3 {
+    font-weight: 900;
+    font-size: 14px;
+  }
+}
+.sku-info {
+  .ant-drawer-header {
+    padding: 6px;
+    color: #000;
+    font-weight: bolder;
+  }
+}
+.inquirySheetInfo .ant-drawer-body {
+  padding: 6px 24px !important;
+}
+.disabled {
+  .ant-form-item {
+    pointer-events: none !important;
+    .ant-select-selection-item,
+    .ant-input,
+    .ant-input-number-input {
+      color: #000 !important;
+    }
+    .ant-select-selector,
+    .ant-input-number-disabled {
+      background: transparent !important;
+      border: none !important;
+    }
+    .ant-select-arrow {
+      display: none !important;
+    }
+    .ant-radio-wrapper-checked.ant-radio-wrapper-disabled {
+      .ant-radio-disabled + span {
+        color: #000 !important;
+      }
+    }
+  }
+  .form-edit {
+    pointer-events: initial !important;
+    .ant-select-selector,
+    .ant-input-number-disabled {
+      background-color: #fff !important;
+      border: 1px solid #d9d9d9 !important;
+    }
+    .ant-select-arrow {
+      display: block !important;
+    }
+  }
+}

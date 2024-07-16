@@ -1,0 +1,8 @@
+#csrSetting .form-content-search .largeLabel .ant-form-item-label > label {
+  width: 150px !important;
+	color: rgba(0, 0, 0, 0.85) !important;
+}
+
+#csrSetting .form-content-search .ant-form-item-label > label {
+  color: rgba(0, 0, 0, 0.85) !important;
+}

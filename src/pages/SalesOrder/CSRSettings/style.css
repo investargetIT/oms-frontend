@@ -1,0 +1,9 @@
+
+.pageTabs { padding-top: 6px}
+.pageTabs .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap, 
+.pageTabs .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap{
+	background: #fff !important;
+}
+.pageTabs .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list,
+.pageTabs .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list{ padding-left:20px}
+.pageTabs .ant-tabs-tab{ padding-left: 10px; padding-right: 10px;}

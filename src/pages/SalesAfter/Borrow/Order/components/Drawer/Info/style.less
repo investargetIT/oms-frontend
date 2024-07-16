@@ -1,0 +1,112 @@
+.salesAfter-borrow-order {
+  .ant-tabs-tab .ant-tabs-tab-btn {
+    margin: 0 auto;
+  }
+  .innerDrawerTabsContent {
+    padding-left: 99px;
+  }
+  .innerDrawerTabsContent::after {
+    width: 0;
+  }
+  .ant-form-item label,
+  .ant-form-item-label > label,
+  .has-gridForm .ant-form-item-label > label {
+    width: 80px !important;
+    color: rgba(9, 9, 9, 0.5);
+    text-align: left;
+  }
+  [data-theme='compact'] .ant-advanced-form .form-span,
+  .ant-advanced-form .form-span {
+    width: auto;
+  }
+  .formTitle {
+    height: 30px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .detail_table_mod {
+    table {
+      // min-width: 70% !important;
+      border-color: #e7e8ee;
+    }
+    // .ant-pagination {
+    //   justify-content: flex-start;
+    // }
+  }
+  .Mytable {
+    display: flex;
+  }
+  table.amountTable {
+    position: relative;
+    width: 100%;
+    font-weight: normal !important;
+    table-layout: fixed;
+  }
+  table.amountTable th,
+  table.amountTable td {
+    width: calc(100% / 8);
+    padding: 0 5px;
+    color: #898b8c;
+    font-weight: normal !important;
+    font-size: 13px;
+    border: 1px solid #efefef;
+  }
+  table.amountTable td {
+    color: #1890ff;
+  }
+  table.amountTable th {
+    padding: 5px 5px;
+    text-align: center;
+    background: #f5f7fa;
+  }
+  table.amountTable tr:nth-of-type(2) th {
+    padding: 7px 5px;
+  }
+  table.amountTable .red {
+    color: #f00 !important;
+  }
+
+  table.amountTable::before {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    color: #898b8c;
+    font-size: 12px;
+    content: attr(data-content);
+  }
+  .five-gridCol.ant-advanced-form {
+    // border: 1px solid #e3e4ea;
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 20px;
+    padding: 0;
+    .ant-row.ant-form-item {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .ant-col.ant-form-item-label {
+      text-align: center;
+      background-color: #f5f7fe;
+      border: 1px solid #e3e4ea;
+    }
+    .ant-col.ant-form-item-control {
+      color: #1890ff;
+      background-color: #fff;
+      border: 1px solid #e3e4ea;
+    }
+  }
+  .sendBtn {
+    margin: 15px 0;
+  }
+  .ant-pro-card-body {
+    padding: 0;
+  }
+  .emptyGrid {
+    .ant-form-item-label > label::after {
+      content: '';
+    }
+  }
+}
+.AnchorWithTopTipDrawer.DrawerWithAnchor .ant-drawer-body {
+  margin-top: 0 !important;
+}

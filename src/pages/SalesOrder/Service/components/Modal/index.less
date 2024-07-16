@@ -1,0 +1,66 @@
+.OderMyModal {
+  z-index: 10001;
+  .Oldertitle {
+    display: inline-block;
+    margin: 10px;
+    &:nth-child(2) {
+      color: #8e8f90;
+    }
+    &:nth-child(1) {
+      margin-left: 18px;
+    }
+  }
+  .ant-modal-body {
+    display: flex;
+    padding: 0 !important;
+  }
+  .ant-card-body {
+    padding: 0 15px !important;
+  }
+  .left {
+    position: relative;
+    width: 67%;
+    .deleteBtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+  }
+  .right {
+    width: 30%;
+    .top {
+      border: 1px solid #f2f4f8;
+      border-top: 0;
+      h1 {
+        height: 50px;
+        margin-bottom: 0;
+        font-size: 20px;
+        line-height: 50px;
+        text-indent: 0.5em;
+        border-bottom: 1px solid #f2f4f8;
+      }
+      .inner {
+        height: 200px;
+      }
+      .bottom {
+        height: 45px;
+        line-height: 45px;
+        text-align: right;
+        background-color: #f5f7fa;
+        .SKUsaveBtn {
+          width: 65px;
+          margin-right: 10px;
+          color: #359eff;
+          background-color: #ecf5ff;
+          border: 1px solid #359eff;
+        }
+      }
+    }
+    .blue {
+      color: #1890ff;
+    }
+  }
+  .lineNum {
+    display: none;
+  }
+}

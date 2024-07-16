@@ -1,0 +1,43 @@
+.OrderDrawer {
+  .replaceBtn {
+    width: 90px;
+    height: 40px;
+    margin-bottom: 20px;
+    color: #fff;
+    background-color: #1890ff;
+  }
+  .show {
+    display: inline-block;
+  }
+  .hide {
+    display: none;
+  }
+  .ant-drawer-footer {
+    text-align: right;
+    .replace {
+      margin-right: 10px;
+      color: #67c23a;
+      background-color: #f0f9eb;
+      border: 1px solid #c2e7b0;
+      &:hover {
+        color: #fff;
+        background-color: #67c23a;
+      }
+    }
+    .save,
+    .saveSub {
+      margin-right: 10px;
+      color: #fff;
+      background-color: #1890ff;
+      &:hover {
+        background-color: #66b1ff;
+      }
+    }
+  }
+  .ant-input-textarea-show-count::after {
+    transform: translate(-10px, -30px);
+  }
+  .ant-drawer-extra {
+    flex: none;
+  }
+}

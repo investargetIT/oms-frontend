@@ -1,0 +1,13 @@
+
+.noLeftButton{
+	background-color: #fff;
+	margin-left: -25px;
+	padding-left: 25px;
+	padding-bottom: 2px;
+	margin-bottom: -2px;
+	z-index: 1000 !important;
+	position: relative;
+}
+td:hover .noLeftButton, tr:hover .noLeftButton{
+	background-color: #e6f7ff;
+}

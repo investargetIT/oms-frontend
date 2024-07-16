@@ -1,0 +1,72 @@
+#WarehouseConfig {
+  .ant-card {
+    height: 80vh;
+    margin: 10px;
+    overflow-y: scroll;
+  }
+  .ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
+    display: none;
+  }
+  #Innertabs .ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
+    display: block;
+  }
+  .ant-tabs.ant-tabs-left {
+    .ant-tabs-nav {
+      position: relative;
+      width: 15%;
+      height: 100%;
+      &::after:nth-child(0) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 80vh;
+        background-color: #eceff5;
+        content: '';
+      }
+    }
+  }
+  #Innertabs {
+    .ant-tabs-nav {
+      width: 100%;
+    }
+  }
+  header {
+    border-bottom: 1px solid #eceff5;
+    .leftPart {
+      display: inline-block;
+      h5 {
+        margin-top: 20px;
+      }
+    }
+    .SwitchBox {
+      display: inline-block;
+      margin-left: 20px;
+      .ant-switch {
+        margin: 10px;
+      }
+    }
+    .storagLa {
+      margin: 10px 0;
+      .ant-input {
+        margin: 0 10px;
+      }
+    }
+  }
+  #addServeBtn {
+    margin: 30px 0 10px 0;
+    color: #fff;
+    background-color: #1890ff;
+    &:hover {
+      background-color: #66b1ff;
+    }
+  }
+  .Mytable {
+    // height: ;
+  }
+}
+.wwcWareconfig {
+  .ant-input-affix-wrapper {
+    width: 34% !important;
+  }
+}

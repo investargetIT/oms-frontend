@@ -1,0 +1,129 @@
+{
+  "data": [
+    {
+      "RegionCode": "010",
+      "RegionName": "北京市"
+    },
+    {
+      "RegionCode": "020",
+      "RegionName": "上海市"
+    },
+    {
+      "RegionCode": "030",
+      "RegionName": "天津市"
+    },
+    {
+      "RegionCode": "040",
+      "RegionName": "内蒙古自治区"
+    },
+    {
+      "RegionCode": "050",
+      "RegionName": "山西省"
+    },
+    {
+      "RegionCode": "060",
+      "RegionName": "河北省"
+    },
+    {
+      "RegionCode": "070",
+      "RegionName": "辽宁省"
+    },
+    {
+      "RegionCode": "080",
+      "RegionName": "吉林省"
+    },
+    {
+      "RegionCode": "090",
+      "RegionName": "黑龙江省"
+    },
+    {
+      "RegionCode": "100",
+      "RegionName": "江苏省"
+    },
+    {
+      "RegionCode": "110",
+      "RegionName": "安徽省"
+    },
+    {
+      "RegionCode": "120",
+      "RegionName": "山东省"
+    },
+    {
+      "RegionCode": "130",
+      "RegionName": "浙江省"
+    },
+    {
+      "RegionCode": "140",
+      "RegionName": "江西省"
+    },
+    {
+      "RegionCode": "150",
+      "RegionName": "福建省"
+    },
+    {
+      "RegionCode": "160",
+      "RegionName": "湖南省"
+    },
+    {
+      "RegionCode": "170",
+      "RegionName": "湖北省"
+    },
+    {
+      "RegionCode": "180",
+      "RegionName": "河南省"
+    },
+    {
+      "RegionCode": "190",
+      "RegionName": "广东省"
+    },
+    {
+      "RegionCode": "200",
+      "RegionName": "海南省"
+    },
+    {
+      "RegionCode": "210",
+      "RegionName": "广西壮族自治区"
+    },
+    {
+      "RegionCode": "220",
+      "RegionName": "贵州省"
+    },
+    {
+      "RegionCode": "230",
+      "RegionName": "四川省"
+    },
+    {
+      "RegionCode": "240",
+      "RegionName": "云南省"
+    },
+    {
+      "RegionCode": "250",
+      "RegionName": "陕西省"
+    },
+    {
+      "RegionCode": "260",
+      "RegionName": "甘肃省"
+    },
+    {
+      "RegionCode": "270",
+      "RegionName": "宁夏回族自治区"
+    },
+    {
+      "RegionCode": "280",
+      "RegionName": "青海省"
+    },
+    {
+      "RegionCode": "290",
+      "RegionName": "新疆维吾尔自治区"
+    },
+    {
+      "RegionCode": "300",
+      "RegionName": "西藏自治区"
+    },
+    {
+      "RegionCode": "320",
+      "RegionName": "重庆市"
+    }
+  ],
+  "total": 0
+}

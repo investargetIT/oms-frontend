@@ -1,0 +1,17 @@
+.ReleaseBtn.ant-btn {
+  z-index: 2;
+  width: 100px;
+  height: 39px !important;
+  color: #fff;
+  background-color: #1890ff;
+  transform: translate(24px, 49px);
+}
+#omsAntStyle .ant-pro-card-body {
+  /*  padding-top: 40px !important; */
+}
+.FRAuditStyle .dataPickerCol .ant-form-item-control {
+  width: 250px;
+}
+.FRAuditStyle .paymentMethods .ant-form-item-control {
+  width: 436px;
+}

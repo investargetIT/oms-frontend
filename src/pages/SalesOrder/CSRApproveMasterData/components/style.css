@@ -1,0 +1,41 @@
+.Anchor{
+    position: relative;
+  /* overflow-y: scroll; */
+}
+.Anchor .Anchorbox {
+
+  position: fixed;
+  left: 24px;
+  top: 98px;
+  display: flex;
+  flex-direction: column;
+}
+.Anchor .Anchorbox a {
+  width: 100px;
+  height: 50px;
+  color: #000;
+  line-height: 50px;
+}
+.Anchor .Anchorbox a :active {
+  color: red;
+}
+.Anchor .Anchorbox .active {
+  color: #1890ff;
+  border-right: 2px solid #1890ff;
+}
+.content {
+  height: 100%;
+  border-left: 1px solid #dddddd;
+  margin-left: 100px;
+}
+.title{
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  font-weight: 800;
+  font-size: 20px;
+  border-bottom: 1px solid #dddddd;
+}
+.box{
+  margin-left: 10px;
+}
