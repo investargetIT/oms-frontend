@@ -127,26 +127,26 @@ const Index: React.FC<OfferProps> = () => {
         adjustFreight,
       });
     });
-    const res = await operateAuth({ operateButton, operateSourceChannel: 0, paramReqList });
-    if (res?.errCode === 200) {
-      const { data } = res;
-      return data;
-    } else {
-      message.error(res?.errMsg);
-    }
+    // const res = await operateAuth({ operateButton, operateSourceChannel: 0, paramReqList });
+    // if (res?.errCode === 200) {
+    //   const { data } = res;
+    //   return data;
+    // } else {
+    //   message.error(res?.errMsg);
+    // }
   };
   // 获取分享链接
   const getShareLink = async (data: {}) => {
     setLoad(true);
-    const res = await shareLink(data);
-    if (res.code == 200) {
-      setShareQuoteLink(res.data);
-      setShareLinkModalShow(true);
-      setLoad(false);
-    } else {
-      setLoad(false);
-      message.error(res?.errMsg || '接口出错，暂时无法提供该分享链接');
-    }
+    // const res = await shareLink(data);
+    // if (res.code == 200) {
+    //   setShareQuoteLink(res.data);
+    //   setShareLinkModalShow(true);
+    //   setLoad(false);
+    // } else {
+    //   setLoad(false);
+    //   message.error(res?.errMsg || '接口出错，暂时无法提供该分享链接');
+    // }
   };
   const columns: ProColumns<any>[] = [
     {
@@ -605,66 +605,66 @@ const Index: React.FC<OfferProps> = () => {
       getBtnAuth(1, selectRows).then((res: any) => {
         if (res) {
           const { jumpLinkUrl, operate } = res;
-          if (operate && selectRows[0].channel == 100) {
-            enterpriseSSO({
-              customerCode: selectRows[0].customerCode,
-              contactCode: selectRows[0].contactCodeR3,
-              omsLogin: true,
-            }).then((ssoRes: any) => {
-              if (ssoRes.errCode === 200) {
-                const token = ssoRes.data.token;
-                const url = `${getEnvEnterprise()}/orderConfirmSmart.html?from=oms&type=1&quoteNo=${
-                  selectRows[0]?.quotCode
-                }&token=${token}`;
-                // window.location.href = url;
-                window.open(url, '_blank');
-              } else {
-                message.error(ssoRes.errMsg);
-              }
-            });
-          } else if (jumpLinkUrl) {
-            fetch(`${getEnvGps()}/punchout/oms/setup.html?quotCode=${selectRows[0]?.quotCode}`, {
-              method: 'POST',
-            })
-              .then((ress: any) => {
-                return ress.json();
-              })
-              .then((res1: any) => {
-                const url = `${getEnvGps()}/punchout/oms/forward.html?quotCode=${
-                  selectRows[0]?.quotCode
-                }&token=${res1?.data}`;
-                // window.location.href = url;
-                window.open(url, '_blank');
-              });
-            // window.location.href = `${getEnvGps()}${jumpLinkUrl}`;
-          } else if (operate) {
-            if (pounchoutEnterprise) {
-              // 先获取企业站免登录token
-              enterpriseSSO({
-                customerCode: selectRows[0].customerCode,
-                contactCode: selectRows[0].contactCodeR3,
-                omsLogin: true,
-              }).then((ssoRes: any) => {
-                console.log('ssoRes', ssoRes);
-                if (ssoRes.errCode === 200) {
-                  const token = ssoRes.data.token;
-                  const url = `${getEnvEnterprise()}/orderConfirm.html?from=oms&type=1&quoteNo=${
-                    selectRows[0]?.quotCode
-                  }&token=${token}`;
-                  // window.location.href = url;
-                  window.open(url, '_blank');
-                }
-              });
-              // 跳转企业站转单页,传参为当前报价单号
-            } else {
-              setOnErrorBtn(false);
-              setModalVisible(true);
-              setLineIds([]);
-              setLineIdsData([]);
-            }
-          } else {
-            message.error('没有此操作权限');
-          }
+          // if (operate && selectRows[0].channel == 100) {
+          //   enterpriseSSO({
+          //     customerCode: selectRows[0].customerCode,
+          //     contactCode: selectRows[0].contactCodeR3,
+          //     omsLogin: true,
+          //   }).then((ssoRes: any) => {
+          //     if (ssoRes.errCode === 200) {
+          //       const token = ssoRes.data.token;
+          //       const url = `${getEnvEnterprise()}/orderConfirmSmart.html?from=oms&type=1&quoteNo=${
+          //         selectRows[0]?.quotCode
+          //       }&token=${token}`;
+          //       // window.location.href = url;
+          //       window.open(url, '_blank');
+          //     } else {
+          //       message.error(ssoRes.errMsg);
+          //     }
+          //   });
+          // } else if (jumpLinkUrl) {
+          //   fetch(`${getEnvGps()}/punchout/oms/setup.html?quotCode=${selectRows[0]?.quotCode}`, {
+          //     method: 'POST',
+          //   })
+          //     .then((ress: any) => {
+          //       return ress.json();
+          //     })
+          //     .then((res1: any) => {
+          //       const url = `${getEnvGps()}/punchout/oms/forward.html?quotCode=${
+          //         selectRows[0]?.quotCode
+          //       }&token=${res1?.data}`;
+          //       // window.location.href = url;
+          //       window.open(url, '_blank');
+          //     });
+          //   // window.location.href = `${getEnvGps()}${jumpLinkUrl}`;
+          // } else if (operate) {
+          //   if (pounchoutEnterprise) {
+          //     // 先获取企业站免登录token
+          //     enterpriseSSO({
+          //       customerCode: selectRows[0].customerCode,
+          //       contactCode: selectRows[0].contactCodeR3,
+          //       omsLogin: true,
+          //     }).then((ssoRes: any) => {
+          //       console.log('ssoRes', ssoRes);
+          //       if (ssoRes.errCode === 200) {
+          //         const token = ssoRes.data.token;
+          //         const url = `${getEnvEnterprise()}/orderConfirm.html?from=oms&type=1&quoteNo=${
+          //           selectRows[0]?.quotCode
+          //         }&token=${token}`;
+          //         // window.location.href = url;
+          //         window.open(url, '_blank');
+          //       }
+          //     });
+          //     // 跳转企业站转单页,传参为当前报价单号
+          //   } else {
+          //     setOnErrorBtn(false);
+          //     setModalVisible(true);
+          //     setLineIds([]);
+          //     setLineIdsData([]);
+          //   }
+          // } else {
+          //   message.error('没有此操作权限');
+          // }
         }
       });
     }
@@ -694,26 +694,26 @@ const Index: React.FC<OfferProps> = () => {
         if (resd) {
           const { operate } = resd;
           if (operate) {
-            checkOfferOrder({ quotIdList: ids }).then((res: any) => {
-              // 校验
-              const { errCode, errMsg } = res;
-              if (errCode == 200) {
-                setLoadconcat(true);
-                lineArryByIds(selectRows.map((e) => e.quotCode)).then((res1: any) => {
-                  // 详情行信息数组
-                  if (res1.errCode === 200) {
-                    setLoadconcat(false);
-                    setCombineList(res1.data);
-                    setConcatOrderVisible(true);
-                  } else {
-                    setLoadconcat(false);
-                    message.error(res1.errMsg);
-                  }
-                });
-              } else {
-                message.error(errMsg);
-              }
-            });
+            // checkOfferOrder({ quotIdList: ids }).then((res: any) => {
+            //   // 校验
+            //   const { errCode, errMsg } = res;
+            //   if (errCode == 200) {
+            //     setLoadconcat(true);
+            //     lineArryByIds(selectRows.map((e) => e.quotCode)).then((res1: any) => {
+            //       // 详情行信息数组
+            //       if (res1.errCode === 200) {
+            //         setLoadconcat(false);
+            //         setCombineList(res1.data);
+            //         setConcatOrderVisible(true);
+            //       } else {
+            //         setLoadconcat(false);
+            //         message.error(res1.errMsg);
+            //       }
+            //     });
+            //   } else {
+            //     message.error(errMsg);
+            //   }
+            // });
           } else message.error('没有此操作权限');
         }
       })
@@ -754,28 +754,28 @@ const Index: React.FC<OfferProps> = () => {
         const { operate } = resd;
         if (operate) {
           offerDetailTRans(ids[0]).then(async (res: any) => {
-            const { data, errCode } = res;
-            if (errCode === 200) {
-              setDetail(data);
-              const par = {
-                id: data.sid,
-                adjustFreightAmount: data.adjustFreight,
-                applyReason: '1',
-                freightAdjustQuotationLineReqVoList: data?.quotationLineRespVoList?.map(
-                  (io: any) => ({
-                    id: io.quotLineId,
-                    requestFreight: io.requestFreight,
-                  }),
-                ),
-              };
-              await checkFreight(par).then((res1: any) => {
-                if (res1.errCode === 200) {
-                  setAdjustFreightVisible(true);
-                } else {
-                  message.error(res1.errMsg);
-                }
-              });
-            }
+            // const { data, errCode } = res;
+            // if (errCode === 200) {
+            //   setDetail(data);
+            //   const par = {
+            //     id: data.sid,
+            //     adjustFreightAmount: data.adjustFreight,
+            //     applyReason: '1',
+            //     freightAdjustQuotationLineReqVoList: data?.quotationLineRespVoList?.map(
+            //       (io: any) => ({
+            //         id: io.quotLineId,
+            //         requestFreight: io.requestFreight,
+            //       }),
+            //     ),
+            //   };
+            //   await checkFreight(par).then((res1: any) => {
+            //     if (res1.errCode === 200) {
+            //       setAdjustFreightVisible(true);
+            //     } else {
+            //       message.error(res1.errMsg);
+            //     }
+            //   });
+            // }
           });
         } else message.error('没有此操作权限');
       }
@@ -900,20 +900,20 @@ const Index: React.FC<OfferProps> = () => {
     const pushPriceStatus = selectRows.every((ic: any) => [10, 80].includes(ic.status));
     if (pushPriceStatus) {
       getBtnAuth(6, selectRows).then((resd: any) => {
-        if (resd) {
-          const { operate } = resd;
-          if (operate) {
-            const quotCodeArry = selectRows?.map((io: any) => io.quotCode);
-            priceSync({ quotCodeList: quotCodeArry }).then((res: any) => {
-              if (res.errCode === 200) {
-                message.success('推送成功');
-                setIds([]);
-              } else {
-                message.error(res?.errMsg);
-              }
-            });
-          } else message.error('没有此操作权限');
-        }
+        // if (resd) {
+        //   const { operate } = resd;
+        //   if (operate) {
+        //     const quotCodeArry = selectRows?.map((io: any) => io.quotCode);
+        //     priceSync({ quotCodeList: quotCodeArry }).then((res: any) => {
+        //       if (res.errCode === 200) {
+        //         message.success('推送成功');
+        //         setIds([]);
+        //       } else {
+        //         message.error(res?.errMsg);
+        //       }
+        //     });
+        //   } else message.error('没有此操作权限');
+        // }
       });
     } else {
       message.error('可转订单、部分已清支持推送价格，请重新选择');
@@ -999,59 +999,59 @@ const Index: React.FC<OfferProps> = () => {
             const { operate } = resd;
             if (operate) {
               // 校验取消tip
-              cancleOfferCheck({ quotIds: ids.join(',') }).then(async (res: any) => {
-                if (res?.errCode === 200) {
-                  if (res?.errMsg) {
-                    Modal.confirm({
-                      title: `${res?.errMsg}`,
-                      content: '',
-                      okText: '确认',
-                      cancelText: '取消',
-                      onOk: async () => {
-                        const { errMsg, errCode } = await cancleOffer({ quotIds: ids.join(',') });
-                        toast(errMsg, errCode);
-                        setIds([]);
-                        ref.current?.reload();
-                      },
-                    });
-                  } else {
-                    Modal.confirm({
-                      title: '是否确认取消报价',
-                      content: (
-                        <Form form={forms}>
-                          <Form.Item
-                            name="followLostStatus"
-                            label="未转单原因"
-                            rules={[{ required: true, message: '此项必填' }]}
-                          >
-                            <Select
-                              options={followList}
-                              fieldNames={{
-                                label: 'name',
-                                value: 'code',
-                              }}
-                            />
-                          </Form.Item>
-                        </Form>
-                      ),
-                      okText: '确认',
-                      cancelText: '取消',
-                      onOk: async () => {
-                        const resForm = await forms.validateFields();
-                        const { errMsg, errCode } = await cancleOffer({
-                          quotIds: ids.join(','),
-                          followLostStatus: resForm.followLostStatus,
-                        });
-                        toast(errMsg, errCode);
-                        setIds([]);
-                        ref.current?.reload();
-                      },
-                    });
-                  }
-                } else {
-                  message.error(res?.errMsg);
-                }
-              });
+              // cancleOfferCheck({ quotIds: ids.join(',') }).then(async (res: any) => {
+              //   if (res?.errCode === 200) {
+              //     if (res?.errMsg) {
+              //       Modal.confirm({
+              //         title: `${res?.errMsg}`,
+              //         content: '',
+              //         okText: '确认',
+              //         cancelText: '取消',
+              //         onOk: async () => {
+              //           const { errMsg, errCode } = await cancleOffer({ quotIds: ids.join(',') });
+              //           toast(errMsg, errCode);
+              //           setIds([]);
+              //           ref.current?.reload();
+              //         },
+              //       });
+              //     } else {
+              //       Modal.confirm({
+              //         title: '是否确认取消报价',
+              //         content: (
+              //           <Form form={forms}>
+              //             <Form.Item
+              //               name="followLostStatus"
+              //               label="未转单原因"
+              //               rules={[{ required: true, message: '此项必填' }]}
+              //             >
+              //               <Select
+              //                 options={followList}
+              //                 fieldNames={{
+              //                   label: 'name',
+              //                   value: 'code',
+              //                 }}
+              //               />
+              //             </Form.Item>
+              //           </Form>
+              //         ),
+              //         okText: '确认',
+              //         cancelText: '取消',
+              //         onOk: async () => {
+              //           const resForm = await forms.validateFields();
+              //           const { errMsg, errCode } = await cancleOffer({
+              //             quotIds: ids.join(','),
+              //             followLostStatus: resForm.followLostStatus,
+              //           });
+              //           toast(errMsg, errCode);
+              //           setIds([]);
+              //           ref.current?.reload();
+              //         },
+              //       });
+              //     }
+              //   } else {
+              //     message.error(res?.errMsg);
+              //   }
+              // });
             } else message.error('没有此操作权限');
           }
         });
@@ -1071,95 +1071,95 @@ const Index: React.FC<OfferProps> = () => {
   };
 
   const companyList = async () => {
-    await getCompanyList().then((res: any) => {
-      if (res?.errCode === 200) {
-        res?.data?.dataList?.unshift({
-          key: '',
-          value: '全部',
-        });
-        setCpList(
-          res?.data?.dataList?.map((io: any) => ({
-            ...io,
-            value: io.key,
-            label: io.value,
-          })),
-        );
-      }
-    });
+    // await getCompanyList().then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     res?.data?.dataList?.unshift({
+    //       key: '',
+    //       value: '全部',
+    //     });
+    //     setCpList(
+    //       res?.data?.dataList?.map((io: any) => ({
+    //         ...io,
+    //         value: io.key,
+    //         label: io.value,
+    //       })),
+    //     );
+    //   }
+    // });
   };
 
   const offerType = async () => {
-    await searchOfferType().then((res: any) => {
-      const {
-        data: { dropRespVoList },
-      } = res;
-      dropRespVoList?.unshift({
-        code: 0,
-        name: '全部',
-      });
-      setOfferTypeList(
-        dropRespVoList?.map((io: any) => ({
-          ...io,
-          label: io.name,
-          value: io.code,
-        })),
-      );
-    });
+    // await searchOfferType().then((res: any) => {
+    //   const {
+    //     data: { dropRespVoList },
+    //   } = res;
+    //   dropRespVoList?.unshift({
+    //     code: 0,
+    //     name: '全部',
+    //   });
+    //   setOfferTypeList(
+    //     dropRespVoList?.map((io: any) => ({
+    //       ...io,
+    //       label: io.name,
+    //       value: io.code,
+    //     })),
+    //   );
+    // });
   };
 
   const getChannel = async () => {
-    queryChannel({}).then((res: any) => {
-      if (res?.errCode === 200) {
-        res?.data?.unshift({
-          channel: '',
-          channelName: '全部',
-        });
-        setAllChannel(
-          res?.data?.map((io: any) => ({
-            value: io.channel,
-            label: io.channelName,
-          })),
-        );
-      }
-    });
+    // queryChannel({}).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     res?.data?.unshift({
+    //       channel: '',
+    //       channelName: '全部',
+    //     });
+    //     setAllChannel(
+    //       res?.data?.map((io: any) => ({
+    //         value: io.channel,
+    //         label: io.channelName,
+    //       })),
+    //     );
+    //   }
+    // });
   };
 
   const queryListsData = async () => {
-    await getSelectList({ type: 'quotationStatus' }).then((res: any) => {
-      if (res?.errCode === 200) {
-        res?.data?.dataList?.unshift({
-          key: '',
-          value: '全部',
-        });
-        setQuotationList(
-          res?.data?.dataList?.map((io: any) => ({
-            ...io,
-            label: io.value,
-            value: io.key,
-          })),
-        );
-      }
-    });
-    await getSelectList({ type: 'helpStatus' }).then((res: any) => {
-      if (res?.errCode === 200) {
-        res?.data?.dataList?.unshift({
-          key: '',
-          value: '全部',
-        });
-        setHelpList(
-          res?.data?.dataList?.map((io: any) => ({
-            ...io,
-            label: io.value,
-            value: io.key,
-          })),
-        );
-      }
-    });
-    await getByKeys({ list: ['quotationFollowLostEnum'] }).then((res: any) => {
-      if (res?.errCode === 200) {
-        setFollowList(res?.data[0]?.enums);
-      }
-    });
+    // await getSelectList({ type: 'quotationStatus' }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     res?.data?.dataList?.unshift({
+    //       key: '',
+    //       value: '全部',
+    //     });
+    //     setQuotationList(
+    //       res?.data?.dataList?.map((io: any) => ({
+    //         ...io,
+    //         label: io.value,
+    //         value: io.key,
+    //       })),
+    //     );
+    //   }
+    // });
+    // await getSelectList({ type: 'helpStatus' }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     res?.data?.dataList?.unshift({
+    //       key: '',
+    //       value: '全部',
+    //     });
+    //     setHelpList(
+    //       res?.data?.dataList?.map((io: any) => ({
+    //         ...io,
+    //         label: io.value,
+    //         value: io.key,
+    //       })),
+    //     );
+    //   }
+    // });
+    // await getByKeys({ list: ['quotationFollowLostEnum'] }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     setFollowList(res?.data[0]?.enums);
+    //   }
+    // });
   };
 
   useEffect(() => {
@@ -1289,14 +1289,14 @@ const Index: React.FC<OfferProps> = () => {
                   request={async (val) => {
                     let list = [] as any;
                     if (val?.keyWords?.trim()) {
-                      await queryBySaffName({ staffName: val.keyWords }).then((res: any) => {
-                        if (res.errCode === 200) {
-                          list = res?.data?.dataList;
-                          if (list.length == 0) {
-                            list = [{ staffName: val.keyWords, staffCode: val.keyWords }];
-                          }
-                        }
-                      });
+                      // await queryBySaffName({ staffName: val.keyWords }).then((res: any) => {
+                      //   if (res.errCode === 200) {
+                      //     list = res?.data?.dataList;
+                      //     if (list.length == 0) {
+                      //       list = [{ staffName: val.keyWords, staffCode: val.keyWords }];
+                      //     }
+                      //   }
+                      // });
                     }
                     return list;
                   }}
@@ -1309,10 +1309,10 @@ const Index: React.FC<OfferProps> = () => {
                     fieldNames: { label: 'name', value: 'code' },
                   }}
                   placeholder="请输入"
-                  request={async () => {
-                    const res = await getByKeys({ list: ['quotationFollowStatusEnum'] });
-                    return res?.data[0]?.enums;
-                  }}
+                  // request={async () => {
+                  //   const res = await getByKeys({ list: ['quotationFollowStatusEnum'] });
+                  //   return res?.data[0]?.enums;
+                  // }}
                 />
                 <div className="startCreateTime">
                   <ProFormDateRangePicker name="createTime" label="创建时间" allowClear={false} />
@@ -1388,21 +1388,21 @@ const Index: React.FC<OfferProps> = () => {
                 pageSize: params.pageSize,
               };
               setPageParams(params);
-              const {
-                data: { list, total },
-                errCode,
-                errMsg,
-              } = await searchOffer(paramsCust);
-              if (errCode === 200) {
-                return Promise.resolve({
-                  data: list,
-                  total: total,
-                  success: true,
-                });
-              } else {
-                Modal.error(errMsg);
-                return Promise.resolve([]);
-              }
+              // const {
+              //   data: { list, total },
+              //   errCode,
+              //   errMsg,
+              // } = await searchOffer(paramsCust);
+              // if (errCode === 200) {
+              //   return Promise.resolve({
+              //     data: list,
+              //     total: total,
+              //     success: true,
+              //   });
+              // } else {
+              //   Modal.error(errMsg);
+              //   return Promise.resolve([]);
+              // }
             }}
             rowSelection={{
               type: 'checkbox',
@@ -1534,18 +1534,18 @@ const Index: React.FC<OfferProps> = () => {
               quotLineIdList: lineIds,
               // quotIdList: ids
             };
-            const { errCode, errMsg } = await transferSecondOrder(par);
-            if (errCode === 200) {
-              setIds([]);
-              history.push({
-                state: JSON.stringify(par),
-                pathname: '/inquiry/offer/order',
-              });
-              return true;
-            } else {
-              message.error(errMsg);
-              return false;
-            }
+            // const { errCode, errMsg } = await transferSecondOrder(par);
+            // if (errCode === 200) {
+            //   setIds([]);
+            //   history.push({
+            //     state: JSON.stringify(par),
+            //     pathname: '/inquiry/offer/order',
+            //   });
+            //   return true;
+            // } else {
+            //   message.error(errMsg);
+            //   return false;
+            // }
           } else {
             message.error(
               'SKU业务状态不匹配(11:正常销售，21:限量销售，31：尾货待售，60：单笔询价)',
@@ -1585,19 +1585,19 @@ const Index: React.FC<OfferProps> = () => {
                 quotLineIdList: lineIds,
                 quotIdList: ids,
               };
-              const { errCode, errMsg } = await transferSecondOrder(par);
-              if (errCode === 200) {
-                setModalVisible(false);
-                setTimeout(() => {
-                  history.push({
-                    state: JSON.stringify(par),
-                    pathname: '/inquiry/offer/order',
-                  });
-                }, 1000);
-              } else {
-                message.error(errMsg);
-                return false;
-              }
+              // const { errCode, errMsg } = await transferSecondOrder(par);
+              // if (errCode === 200) {
+              //   setModalVisible(false);
+              //   setTimeout(() => {
+              //     history.push({
+              //       state: JSON.stringify(par),
+              //       pathname: '/inquiry/offer/order',
+              //     });
+              //   }, 1000);
+              // } else {
+              //   message.error(errMsg);
+              //   return false;
+              // }
             } else {
               message.error(
                 'SKU业务状态不匹配(11:正常销售，21:限量销售，31：尾货待售， 60：单笔询价)',
@@ -1737,17 +1737,17 @@ const Index: React.FC<OfferProps> = () => {
               }),
             ),
           };
-          await applyFreight(par).then((res: any) => {
-            const { errCode, errMsg } = res;
-            if (errCode === 200) {
-              message.success('提交成功');
-              setIds([]);
-              sessionStorage.removeItem('fileListApplyAdjust');
-              ref.current?.reload();
-            } else {
-              message.error(errMsg);
-            }
-          });
+          // await applyFreight(par).then((res: any) => {
+          //   const { errCode, errMsg } = res;
+          //   if (errCode === 200) {
+          //     message.success('提交成功');
+          //     setIds([]);
+          //     sessionStorage.removeItem('fileListApplyAdjust');
+          //     ref.current?.reload();
+          //   } else {
+          //     message.error(errMsg);
+          //   }
+          // });
           return true;
         }}
         layout={'horizontal'}
@@ -1794,13 +1794,13 @@ const Index: React.FC<OfferProps> = () => {
                 }))
                 .filter((ic: any) => ic.salesExpectPrice > 0 && ic.salesExpectPriceNet > 0),
             };
-            const { errCode, errMsg } = await secondInquiry(par);
-            if (errCode === 200) {
-              message.success('提交成功');
-              setAskPriceVisible(false);
-            } else {
-              message.error(errMsg);
-            }
+            // const { errCode, errMsg } = await secondInquiry(par);
+            // if (errCode === 200) {
+            //   message.success('提交成功');
+            //   setAskPriceVisible(false);
+            // } else {
+            //   message.error(errMsg);
+            // }
           }
         }}
         layout={'horizontal'}

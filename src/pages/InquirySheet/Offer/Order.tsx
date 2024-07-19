@@ -299,40 +299,40 @@ const Order: React.FC<any> = () => {
         totalDiscount: record?.totalDiscount, //?行里面的申请折扣
       },
     };
-    const res = await calculationAmount(params); //?联动接口
-    // console.log(res, 'res');
-    if (res.errCode === 200) {
-      // 找到要联动的三项（成交价含税成交价未税小计含税）并修改自己（小计未税）
-      const linesArray = info.lines.map((item: any) => {
-        if (item.quotationLineId === record.quotationLineId) {
-          return {
-            ...item,
-            salesPrice: res?.data?.lines?.amountVO?.salesPrice, //?成交价含税
-            salesPriceNet: res?.data?.lines?.amountVO?.salesPriceNet, //?成交价未税
-            totalAmount: res?.data?.lines?.amountVO?.totalAmount, //?小计含税
-            totalAmountNet: res?.data?.lines?.amountVO?.totalAmountNet, //?小计未税
-            totalDiscount: res?.data?.lines?.amountVO?.totalDiscount, //?小计折扣
-          };
-        } else {
-          return item;
-        }
-      });
-      setTotal({
-        ...total,
-        goodsAmount: res?.data?.goodsAmount, //?联动货品金额合计含税   123
-        amountNet: res?.data?.amountNet, //?联动总计金额未税
-        calcFreightRespVo: res?.data?.calcFreightRespVo, //?头运费,国际运费,关税,运费总计
-        amount: res?.data?.amount, //?联动总计金额含税
-        totalDiscount: res?.data?.discountAmount, //?联动折扣总计
-      });
-      setInfo({
-        ...info,
-        lines: linesArray,
-      });
-      // actionRef?.current?.reload();
-    } else {
-      message.error(res.errMsg);
-    }
+    // const res = await calculationAmount(params); //?联动接口
+    // // console.log(res, 'res');
+    // if (res.errCode === 200) {
+    //   // 找到要联动的三项（成交价含税成交价未税小计含税）并修改自己（小计未税）
+    //   const linesArray = info.lines.map((item: any) => {
+    //     if (item.quotationLineId === record.quotationLineId) {
+    //       return {
+    //         ...item,
+    //         salesPrice: res?.data?.lines?.amountVO?.salesPrice, //?成交价含税
+    //         salesPriceNet: res?.data?.lines?.amountVO?.salesPriceNet, //?成交价未税
+    //         totalAmount: res?.data?.lines?.amountVO?.totalAmount, //?小计含税
+    //         totalAmountNet: res?.data?.lines?.amountVO?.totalAmountNet, //?小计未税
+    //         totalDiscount: res?.data?.lines?.amountVO?.totalDiscount, //?小计折扣
+    //       };
+    //     } else {
+    //       return item;
+    //     }
+    //   });
+    //   setTotal({
+    //     ...total,
+    //     goodsAmount: res?.data?.goodsAmount, //?联动货品金额合计含税   123
+    //     amountNet: res?.data?.amountNet, //?联动总计金额未税
+    //     calcFreightRespVo: res?.data?.calcFreightRespVo, //?头运费,国际运费,关税,运费总计
+    //     amount: res?.data?.amount, //?联动总计金额含税
+    //     totalDiscount: res?.data?.discountAmount, //?联动折扣总计
+    //   });
+    //   setInfo({
+    //     ...info,
+    //     lines: linesArray,
+    //   });
+    //   // actionRef?.current?.reload();
+    // } else {
+    //   message.error(res.errMsg);
+    // }
   };
   const columns: ProColumns<any>[] = [
     {
@@ -930,178 +930,178 @@ const Order: React.FC<any> = () => {
     transferSecondOrder(quotIdList.length > 0 ? parAll : par)
       .then(async (res) => {
         const { data, errCode } = res;
-        if (errCode === 200) {
-          setSapcode(res?.data?.receiverInfo?.shipRegionSapCode);
-          let toBond = false;
-          await checkBond({ customerCode: data?.customerCode }).then((res1: any) => {
-            if (res1?.errCode === 200) {
-              toBond = res1?.data?.toBond;
-            }
-          });
-          // 默认 queryPayInfo
-          let defaultPay = {} as any;
-          await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
-            if (respay.data) {
-              defaultPay = {
-                payTypeCust: respay?.data?.type,
-              };
-            }
-          });
-          // 强刷
-          const parCalc = {
-            customerCode: data?.customerCode || '',
-            shipRegionCode1: data?.receiverInfo?.provinceCode || '',
-            shipRegionCode2: data?.receiverInfo?.cityCode || '',
-            sid: data?.sid,
-            freight: data?.freight || 0,
-            interFreight: data?.interFreight || 0,
-            tariff: data?.tariff || 0,
-            quotType: data?.quotType,
-            calSubTotalLineReqVoList: data?.lines?.map((io: any) => ({
-              ...io,
-              sid: io.quotationLineId,
-              salesPrice: io.salesPrice || 0,
-              salesPriceNet: io.salesPriceNet || 0,
-              freight: io.freight || 0,
-              interFreight: io.interFreight || 0,
-              tariff: io.tariff || 0,
-              dropShipFlag: io?.dropShipFlag == true ? 1 : 0,
-            })),
-          };
-          let lines = [] as any;
-          let totalSrc = {} as any;
-          await calSubQuotationTotal(parCalc).then((resCalc: any) => {
-            if (resCalc?.errCode === 200) {
-              if (data?.adjustFreight != 0) {
-                totalSrc = {
-                  goodsAmount: data?.goodsAmount || 0,
-                  amount: data?.amount || 0,
-                  amountNet: data?.netPrice || 0,
-                  totalDiscount: data?.discountAmount || 0,
-                  calcFreightRespVo: {
-                    headFreight: data?.freight || 0,
-                    totalFreight: data?.totalFreight || 0,
-                    interFreight: data?.interFreight || 0,
-                    tariff: data?.tariff || 0,
-                  },
-                };
-                lines = data?.lines;
-              } else {
-                totalSrc = {
-                  goodsAmount: resCalc?.data?.goodsAmount || 0,
-                  amount: resCalc?.data?.amount || 0,
-                  amountNet: resCalc?.data?.amountNet || 0,
-                  totalDiscount: resCalc?.data?.totalDiscount || 0,
-                  calcFreightRespVo: {
-                    headFreight: resCalc?.data?.calcFreightRespVo?.headFreight || 0,
-                    totalFreight: resCalc?.data?.calcFreightRespVo?.totalFreight || 0,
-                    interFreight: resCalc?.data?.calcFreightRespVo?.interFreight || 0,
-                    tariff: resCalc?.data?.calcFreightRespVo?.tariff || 0,
-                  },
-                };
-                if (data?.lines?.length > 0) {
-                  const linesArray = data.lines as any;
-                  for (let i = 0; i < linesArray.length; i++) {
-                    linesArray[i].totalAmount =
-                      resCalc?.data?.calSubTotalLineRespVoList[i]?.totalAmount ||
-                      linesArray[i].totalAmount;
-                    linesArray[i].totalAmountNet =
-                      resCalc?.data?.calSubTotalLineRespVoList[i]?.totalAmountNet ||
-                      linesArray[i].totalAmountNet;
-                    linesArray[i].totalDiscount =
-                      resCalc?.data?.calSubTotalLineRespVoList[i]?.totalDiscount ||
-                      linesArray[i].totalDiscount;
-                    linesArray[i].freight =
-                      resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
-                      linesArray[i].freight;
-                    linesArray[i].interFreight =
-                      resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
-                        ?.interFreight || linesArray[i].interFreight;
-                    linesArray[i].tariff =
-                      resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
-                      linesArray[i].tariff;
-                    linesArray[i].totalFreight =
-                      resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
-                        ?.totalFreight || linesArray[i].totalFreight;
-                  }
-                  lines = linesArray;
-                }
-              }
-            }
-          });
-          // 三个后端三种省市区字段
-          setTimeout(async () => {
-            setLoad(false);
-            setTotal(totalSrc);
-            // 新加两个接口 增加两个字段  获取小计含税最大最小值,,,,
-            // const amountList = lines.map((io: any) => ({
-            //   qty: io.qty,
-            //   quotationLineId: io.quotationLineId,
-            //   quotationNo: io.quotationNo,
-            // }));
-            // await queryAmountRang({ amountList }).then((resamount: any) => {
-            //   if (res?.errCode == 200) {
-            //     const mList = lines?.map((io: any) => {
-            //       for (let i = 0; i < resamount?.data?.dataList.length; i++) {
-            //         if (io.quotationLineId == resamount?.data?.dataList[i].quotationLineId) {
-            //           io.totalAmountMin = resamount?.data?.dataList[i].totalAmountMin;
-            //           io.totalAmountMax = resamount?.data?.dataList[i].totalAmountMax;
-            //           return io;
-            //         }
-            //       }
-            //     });
-            //     return mList;
-            //   } else {
-            //     message.error(resamount?.errMsg);
-            //   }
-            // });
+        // if (errCode === 200) {
+        //   setSapcode(res?.data?.receiverInfo?.shipRegionSapCode);
+        //   let toBond = false;
+        //   await checkBond({ customerCode: data?.customerCode }).then((res1: any) => {
+        //     if (res1?.errCode === 200) {
+        //       toBond = res1?.data?.toBond;
+        //     }
+        //   });
+        //   // 默认 queryPayInfo
+        //   let defaultPay = {} as any;
+        //   await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
+        //     if (respay.data) {
+        //       defaultPay = {
+        //         payTypeCust: respay?.data?.type,
+        //       };
+        //     }
+        //   });
+        //   // 强刷
+        //   const parCalc = {
+        //     customerCode: data?.customerCode || '',
+        //     shipRegionCode1: data?.receiverInfo?.provinceCode || '',
+        //     shipRegionCode2: data?.receiverInfo?.cityCode || '',
+        //     sid: data?.sid,
+        //     freight: data?.freight || 0,
+        //     interFreight: data?.interFreight || 0,
+        //     tariff: data?.tariff || 0,
+        //     quotType: data?.quotType,
+        //     calSubTotalLineReqVoList: data?.lines?.map((io: any) => ({
+        //       ...io,
+        //       sid: io.quotationLineId,
+        //       salesPrice: io.salesPrice || 0,
+        //       salesPriceNet: io.salesPriceNet || 0,
+        //       freight: io.freight || 0,
+        //       interFreight: io.interFreight || 0,
+        //       tariff: io.tariff || 0,
+        //       dropShipFlag: io?.dropShipFlag == true ? 1 : 0,
+        //     })),
+        //   };
+        //   let lines = [] as any;
+        //   let totalSrc = {} as any;
+        //   await calSubQuotationTotal(parCalc).then((resCalc: any) => {
+        //     if (resCalc?.errCode === 200) {
+        //       if (data?.adjustFreight != 0) {
+        //         totalSrc = {
+        //           goodsAmount: data?.goodsAmount || 0,
+        //           amount: data?.amount || 0,
+        //           amountNet: data?.netPrice || 0,
+        //           totalDiscount: data?.discountAmount || 0,
+        //           calcFreightRespVo: {
+        //             headFreight: data?.freight || 0,
+        //             totalFreight: data?.totalFreight || 0,
+        //             interFreight: data?.interFreight || 0,
+        //             tariff: data?.tariff || 0,
+        //           },
+        //         };
+        //         lines = data?.lines;
+        //       } else {
+        //         totalSrc = {
+        //           goodsAmount: resCalc?.data?.goodsAmount || 0,
+        //           amount: resCalc?.data?.amount || 0,
+        //           amountNet: resCalc?.data?.amountNet || 0,
+        //           totalDiscount: resCalc?.data?.totalDiscount || 0,
+        //           calcFreightRespVo: {
+        //             headFreight: resCalc?.data?.calcFreightRespVo?.headFreight || 0,
+        //             totalFreight: resCalc?.data?.calcFreightRespVo?.totalFreight || 0,
+        //             interFreight: resCalc?.data?.calcFreightRespVo?.interFreight || 0,
+        //             tariff: resCalc?.data?.calcFreightRespVo?.tariff || 0,
+        //           },
+        //         };
+        //         if (data?.lines?.length > 0) {
+        //           const linesArray = data.lines as any;
+        //           for (let i = 0; i < linesArray.length; i++) {
+        //             linesArray[i].totalAmount =
+        //               resCalc?.data?.calSubTotalLineRespVoList[i]?.totalAmount ||
+        //               linesArray[i].totalAmount;
+        //             linesArray[i].totalAmountNet =
+        //               resCalc?.data?.calSubTotalLineRespVoList[i]?.totalAmountNet ||
+        //               linesArray[i].totalAmountNet;
+        //             linesArray[i].totalDiscount =
+        //               resCalc?.data?.calSubTotalLineRespVoList[i]?.totalDiscount ||
+        //               linesArray[i].totalDiscount;
+        //             linesArray[i].freight =
+        //               resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
+        //               linesArray[i].freight;
+        //             linesArray[i].interFreight =
+        //               resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
+        //                 ?.interFreight || linesArray[i].interFreight;
+        //             linesArray[i].tariff =
+        //               resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
+        //               linesArray[i].tariff;
+        //             linesArray[i].totalFreight =
+        //               resCalc?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
+        //                 ?.totalFreight || linesArray[i].totalFreight;
+        //           }
+        //           lines = linesArray;
+        //         }
+        //       }
+        //     }
+        //   });
+        //   // 三个后端三种省市区字段
+        //   setTimeout(async () => {
+        //     setLoad(false);
+        //     setTotal(totalSrc);
+        //     // 新加两个接口 增加两个字段  获取小计含税最大最小值,,,,
+        //     // const amountList = lines.map((io: any) => ({
+        //     //   qty: io.qty,
+        //     //   quotationLineId: io.quotationLineId,
+        //     //   quotationNo: io.quotationNo,
+        //     // }));
+        //     // await queryAmountRang({ amountList }).then((resamount: any) => {
+        //     //   if (res?.errCode == 200) {
+        //     //     const mList = lines?.map((io: any) => {
+        //     //       for (let i = 0; i < resamount?.data?.dataList.length; i++) {
+        //     //         if (io.quotationLineId == resamount?.data?.dataList[i].quotationLineId) {
+        //     //           io.totalAmountMin = resamount?.data?.dataList[i].totalAmountMin;
+        //     //           io.totalAmountMax = resamount?.data?.dataList[i].totalAmountMax;
+        //     //           return io;
+        //     //         }
+        //     //       }
+        //     //     });
+        //     //     return mList;
+        //     //   } else {
+        //     //     message.error(resamount?.errMsg);
+        //     //   }
+        //     // });
 
-            // 重新渲染含税等行信息接口数据
-            // const calcUpdateParams =  {
-            //   goodsAmount: totalSrc?.goodsAmount,
-            //   amount:totalSrc?.amount,
-            //   amountNet: totalSrc?.amountNet,
-            //   totalDiscount: totalSrc?.totalDiscount,
-            //   freight:totalSrc?.calcFreightRespVo?.headFreight,
-            //   interFreight:totalSrc?.calcFreightRespVo?.interFreight,
-            //   totalFreight:totalSrc?.calcFreightRespVo?.totalFreight,
-            //   tariff:totalSrc?.calcFreightRespVo?.tariff,
-            //   // gpRate: 暂无
-            //   lines
-            // }
-            // await calculationUpdate(calcUpdateParams).then((rescalc: any)=>{
-            //   if(rescalc?.errCode ==200){
+        //     // 重新渲染含税等行信息接口数据
+        //     // const calcUpdateParams =  {
+        //     //   goodsAmount: totalSrc?.goodsAmount,
+        //     //   amount:totalSrc?.amount,
+        //     //   amountNet: totalSrc?.amountNet,
+        //     //   totalDiscount: totalSrc?.totalDiscount,
+        //     //   freight:totalSrc?.calcFreightRespVo?.headFreight,
+        //     //   interFreight:totalSrc?.calcFreightRespVo?.interFreight,
+        //     //   totalFreight:totalSrc?.calcFreightRespVo?.totalFreight,
+        //     //   tariff:totalSrc?.calcFreightRespVo?.tariff,
+        //     //   // gpRate: 暂无
+        //     //   lines
+        //     // }
+        //     // await calculationUpdate(calcUpdateParams).then((rescalc: any)=>{
+        //     //   if(rescalc?.errCode ==200){
 
-            //   }else {message.error(rescalc?.errMsg)}
-            // })
+        //     //   }else {message.error(rescalc?.errMsg)}
+        //     // })
 
-            // data.invoiceInfo.invoiceMobile = '1';
-            // data.invoiceInfo.invoiceTel = '2';
-            setInfo({
-              ...defaultPay,
-              ...data,
-              // 区别字段
-              r3: {
-                contactsName: data.contactsName,
-                contactsCode: data.contactsCode,
-              },
-              paymentTerm: data.paymentTerms,
-              receiverInfo: {
-                ...data.receiverInfo,
-                provinceName: data.receiverInfo.province,
-                cityName: data.receiverInfo.city,
-                districtName: data.receiverInfo.district,
-                toBond,
-              },
-              lines: lines?.map((io: any) => ({
-                ...io,
-                ...io.produceInfo,
-                expectedDate: ""
-              })),
-            });
-            console.log(lines, 'lines');
-          }, 100);
-        }
+        //     // data.invoiceInfo.invoiceMobile = '1';
+        //     // data.invoiceInfo.invoiceTel = '2';
+        //     setInfo({
+        //       ...defaultPay,
+        //       ...data,
+        //       // 区别字段
+        //       r3: {
+        //         contactsName: data.contactsName,
+        //         contactsCode: data.contactsCode,
+        //       },
+        //       paymentTerm: data.paymentTerms,
+        //       receiverInfo: {
+        //         ...data.receiverInfo,
+        //         provinceName: data.receiverInfo.province,
+        //         cityName: data.receiverInfo.city,
+        //         districtName: data.receiverInfo.district,
+        //         toBond,
+        //       },
+        //       lines: lines?.map((io: any) => ({
+        //         ...io,
+        //         ...io.produceInfo,
+        //         expectedDate: ""
+        //       })),
+        //     });
+        //     console.log(lines, 'lines');
+        //   }, 100);
+        // }
       })
       .catch((e: any) => {
         setLoad(false);
@@ -1115,43 +1115,43 @@ const Order: React.FC<any> = () => {
   }
   const refresh = async () => {
     const res = await queryRecAddress({ customerCode: info.customerCode });
-    if (res.errCode == 200) {
-      // console.log(res, 'res');
-      const val = res?.data?.dataList?.find((item: any) => {
-        return item.sapCode === sapcode;
-      });
-      // console.log(val, 'val');
-      const address = {
-        provinceCode: val.province,
-        cityCode: val.city,
-        districtCode: val.district,
-        provinceName: val.provinceName,
-        cityName: val.cityName,
-        districtName: val.districtName,
-        region: `${val.provinceName}${val.cityName}${val.districtName}`,
-        receiverAddress: val.receiptAddress,
-        shipZip: val.receiptZipCode,
-        receiverName: val.recipientName,
-        receiverMobile: val.receiptMobilePhone,
-        receiverPhone: val.receiptFixPhone,
-        consigneeEmail: val.receiptEmail,
-        extensionNumber: '021', // 其实已经去掉了
-        shipRegionSapCode: val?.sapCode,
-      };
-      setInfo({
-        ...info,
-        receiverInfo: {
-          ...info.invoiceInfo,
-          ...address,
-        },
-      });
-      form.setFieldsValue({
-        ...address,
-      });
-      modalRef?.current?.close();
-    } else {
-      message.error('失败' + res.errMsg);
-    }
+    // if (res.errCode == 200) {
+    //   // console.log(res, 'res');
+    //   const val = res?.data?.dataList?.find((item: any) => {
+    //     return item.sapCode === sapcode;
+    //   });
+    //   // console.log(val, 'val');
+    //   const address = {
+    //     provinceCode: val.province,
+    //     cityCode: val.city,
+    //     districtCode: val.district,
+    //     provinceName: val.provinceName,
+    //     cityName: val.cityName,
+    //     districtName: val.districtName,
+    //     region: `${val.provinceName}${val.cityName}${val.districtName}`,
+    //     receiverAddress: val.receiptAddress,
+    //     shipZip: val.receiptZipCode,
+    //     receiverName: val.recipientName,
+    //     receiverMobile: val.receiptMobilePhone,
+    //     receiverPhone: val.receiptFixPhone,
+    //     consigneeEmail: val.receiptEmail,
+    //     extensionNumber: '021', // 其实已经去掉了
+    //     shipRegionSapCode: val?.sapCode,
+    //   };
+    //   setInfo({
+    //     ...info,
+    //     receiverInfo: {
+    //       ...info.invoiceInfo,
+    //       ...address,
+    //     },
+    //   });
+    //   form.setFieldsValue({
+    //     ...address,
+    //   });
+    //   modalRef?.current?.close();
+    // } else {
+    //   message.error('失败' + res.errMsg);
+    // }
   };
   const reBack = () => {
     destroyCom('/inquiry/offer', location.pathname);
@@ -1184,27 +1184,27 @@ const Order: React.FC<any> = () => {
     let condationList = [] as any;
     let methodList = [] as any;
     await getSelectList({ type: 'paymentTerm' }).then((res: any) => {
-      if (res?.errCode === 200) {
-        condationList = res?.data?.dataList?.map((io: any) => ({
-          ...io,
-          label: io.value,
-          value: io.key,
-        }));
-      } else {
-        setLoadding(false);
-      }
+      // if (res?.errCode === 200) {
+      //   condationList = res?.data?.dataList?.map((io: any) => ({
+      //     ...io,
+      //     label: io.value,
+      //     value: io.key,
+      //   }));
+      // } else {
+      //   setLoadding(false);
+      // }
     });
     await getSelectList({ type: 'paymentTerm', code: values.paymentTerm || info.paymentTerm }).then(
       (res: any) => {
-        if (res?.errCode === 200) {
-          methodList = res?.data?.dataList[0]?.children?.map((io: any) => ({
-            ...io,
-            label: io.value,
-            value: io.key,
-          }));
-        } else {
-          setLoadding(false);
-        }
+        // if (res?.errCode === 200) {
+        //   methodList = res?.data?.dataList[0]?.children?.map((io: any) => ({
+        //     ...io,
+        //     label: io.value,
+        //     value: io.key,
+        //   }));
+        // } else {
+        //   setLoadding(false);
+        // }
       },
     );
 
@@ -1308,14 +1308,14 @@ const Order: React.FC<any> = () => {
       amount: total?.amount || info?.amount || 0,
     };
     let checkFlag = '';
-    const { data, errCode, errMsg } = await checkDuplicatePo(parCheck);
-    if (errCode == 200) {
-      checkFlag = data;
-    } else {
-      message.error(errMsg);
-      setLoadding(false);
-      return false;
-    }
+    // const { data, errCode, errMsg } = await checkDuplicatePo(parCheck);
+    // if (errCode == 200) {
+    //   checkFlag = data;
+    // } else {
+    //   message.error(errMsg);
+    //   setLoadding(false);
+    //   return false;
+    // }
     // go on
     if (total?.calcFreightRespVo?.totalFreight != 0) {
       Modal.confirm({
@@ -1334,30 +1334,30 @@ const Order: React.FC<any> = () => {
               onOk: async () => {
                 const res = await createTransferOrder(par);
                 // console.log(res, 'res');
-                if (res?.errCode === 200) {
-                  message.success('订单创建成功');
-                  setTimeout(() => {
-                    setLoadding(false);
-                    reBack();
-                  }, 500);
-                } else if (res?.errCode === 672) {
-                  // modalRef?.current?.open();
-                  setCodeErrorMsg(res?.errMsg);
-                  Modal.warning({
-                    title: '地址信息已经失效',
-                    content: res?.errMsg || '请刷新并重新选择地址',
-                    okText: '知道了',
-                    onOk() {
-                      setLoadding(false);
-                    },
-                    onCancel() {
-                      setLoadding(false);
-                    },
-                  });
-                } else {
-                  setLoadding(false);
-                  message.error(res?.errMsg);
-                }
+                // if (res?.errCode === 200) {
+                //   message.success('订单创建成功');
+                //   setTimeout(() => {
+                //     setLoadding(false);
+                //     reBack();
+                //   }, 500);
+                // } else if (res?.errCode === 672) {
+                //   // modalRef?.current?.open();
+                //   setCodeErrorMsg(res?.errMsg);
+                //   Modal.warning({
+                //     title: '地址信息已经失效',
+                //     content: res?.errMsg || '请刷新并重新选择地址',
+                //     okText: '知道了',
+                //     onOk() {
+                //       setLoadding(false);
+                //     },
+                //     onCancel() {
+                //       setLoadding(false);
+                //     },
+                //   });
+                // } else {
+                //   setLoadding(false);
+                //   message.error(res?.errMsg);
+                // }
               },
               onCancel: async () => {
                 setLoadding(false);
@@ -1367,30 +1367,30 @@ const Order: React.FC<any> = () => {
           } else {
             const res = await createTransferOrder(par);
             // console.log(res, 'res');
-            if (res?.errCode === 200) {
-              message.success('订单创建成功');
-              setTimeout(() => {
-                setLoadding(false);
-                reBack();
-              }, 500);
-            } else if (res?.errCode === 672) {
-              // modalRef?.current?.open();
-              setCodeErrorMsg(res?.errMsg);
-              Modal.warning({
-                title: '地址信息已经失效',
-                content: res?.errMsg || '请刷新并重新选择地址',
-                okText: '知道了',
-                onOk() {
-                  setLoadding(false);
-                },
-                onCancel() {
-                  setLoadding(false);
-                },
-              });
-            } else {
-              setLoadding(false);
-              message.error(res?.errMsg);
-            }
+            // if (res?.errCode === 200) {
+            //   message.success('订单创建成功');
+            //   setTimeout(() => {
+            //     setLoadding(false);
+            //     reBack();
+            //   }, 500);
+            // } else if (res?.errCode === 672) {
+            //   // modalRef?.current?.open();
+            //   setCodeErrorMsg(res?.errMsg);
+            //   Modal.warning({
+            //     title: '地址信息已经失效',
+            //     content: res?.errMsg || '请刷新并重新选择地址',
+            //     okText: '知道了',
+            //     onOk() {
+            //       setLoadding(false);
+            //     },
+            //     onCancel() {
+            //       setLoadding(false);
+            //     },
+            //   });
+            // } else {
+            //   setLoadding(false);
+            //   message.error(res?.errMsg);
+            // }
           }
         },
         onCancel: async () => {
@@ -1409,30 +1409,30 @@ const Order: React.FC<any> = () => {
         onOk: async () => {
           const res = await createTransferOrder(par);
           // console.log(res, 'res');
-          if (res?.errCode === 200) {
-            message.success('订单创建成功');
-            setTimeout(() => {
-              setLoadding(false);
-              reBack();
-            }, 500);
-          } else if (res?.errCode === 672) {
-            // modalRef?.current?.open();
-            setCodeErrorMsg(res?.errMsg);
-            Modal.warning({
-              title: '地址信息已经失效',
-              content: res?.errMsg || '请刷新并重新选择地址',
-              okText: '知道了',
-              onOk() {
-                setLoadding(false);
-              },
-              onCancel() {
-                setLoadding(false);
-              },
-            });
-          } else {
-            setLoadding(false);
-            message.error(res?.errMsg);
-          }
+          // if (res?.errCode === 200) {
+          //   message.success('订单创建成功');
+          //   setTimeout(() => {
+          //     setLoadding(false);
+          //     reBack();
+          //   }, 500);
+          // } else if (res?.errCode === 672) {
+          //   // modalRef?.current?.open();
+          //   setCodeErrorMsg(res?.errMsg);
+          //   Modal.warning({
+          //     title: '地址信息已经失效',
+          //     content: res?.errMsg || '请刷新并重新选择地址',
+          //     okText: '知道了',
+          //     onOk() {
+          //       setLoadding(false);
+          //     },
+          //     onCancel() {
+          //       setLoadding(false);
+          //     },
+          //   });
+          // } else {
+          //   setLoadding(false);
+          //   message.error(res?.errMsg);
+          // }
         },
         onCancel: async () => {
           setLoadding(false);
@@ -1442,30 +1442,30 @@ const Order: React.FC<any> = () => {
     } else {
       const res = await createTransferOrder(par);
       // console.log(res, 'res');
-      if (res?.errCode === 200) {
-        message.success('订单创建成功');
-        setTimeout(() => {
-          setLoadding(false);
-          reBack();
-        }, 500);
-      } else if (res?.errCode === 672) {
-        // modalRef?.current?.open();
-        setCodeErrorMsg(res?.errMsg);
-        Modal.warning({
-          title: '地址信息已经失效',
-          content: res?.errMsg || '请刷新并重新选择地址',
-          okText: '知道了',
-          onOk() {
-            setLoadding(false);
-          },
-          onCancel() {
-            setLoadding(false);
-          },
-        });
-      } else {
-        setLoadding(false);
-        message.error(res?.errMsg);
-      }
+      // if (res?.errCode === 200) {
+      //   message.success('订单创建成功');
+      //   setTimeout(() => {
+      //     setLoadding(false);
+      //     reBack();
+      //   }, 500);
+      // } else if (res?.errCode === 672) {
+      //   // modalRef?.current?.open();
+      //   setCodeErrorMsg(res?.errMsg);
+      //   Modal.warning({
+      //     title: '地址信息已经失效',
+      //     content: res?.errMsg || '请刷新并重新选择地址',
+      //     okText: '知道了',
+      //     onOk() {
+      //       setLoadding(false);
+      //     },
+      //     onCancel() {
+      //       setLoadding(false);
+      //     },
+      //   });
+      // } else {
+      //   setLoadding(false);
+      //   message.error(res?.errMsg);
+      // }
     }
   };
 

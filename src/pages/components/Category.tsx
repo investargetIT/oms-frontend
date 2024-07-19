@@ -11,20 +11,20 @@ const Category: React.FC<{ isEdit?: any; onChange?: any; parentId: any; onType?:
   const [list, setList] = useState([]);
   useEffect(() => {
     if (parentId) {
-      getChildrenCategory(parentId).then((res: any) => {
-        if (res.errCode === 200) {
-          setList(res.data.dataList);
-          if (value) {
-            const index = res?.data?.dataList?.map((item: any) => item.categoryCode).indexOf(value);
-            onType(
-              res?.data?.dataList[index]?.categoryName,
-              res?.data?.dataList[index]?.sourcingGpRate,
-            );
-          } else {
-            onType(res?.data?.dataList[0]?.categoryName, res?.data?.dataList[0]?.sourcingGpRate);
-          }
-        }
-      });
+      // getChildrenCategory(parentId).then((res: any) => {
+      //   if (res.errCode === 200) {
+      //     setList(res.data.dataList);
+      //     if (value) {
+      //       const index = res?.data?.dataList?.map((item: any) => item.categoryCode).indexOf(value);
+      //       onType(
+      //         res?.data?.dataList[index]?.categoryName,
+      //         res?.data?.dataList[index]?.sourcingGpRate,
+      //       );
+      //     } else {
+      //       onType(res?.data?.dataList[0]?.categoryName, res?.data?.dataList[0]?.sourcingGpRate);
+      //     }
+      //   }
+      // });
     }
   }, [parentId]);
   const valChange = (val: any, option: any) => {

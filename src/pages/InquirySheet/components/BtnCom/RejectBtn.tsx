@@ -88,19 +88,21 @@ const RejectBtn: React.FC<{
         returnReason: res.returnReason,
         returnReasonDesc: res.returnReasonDesc_PCM || res.returnReasonDesc,
       };
-      inqBack(path, toLineStatus, params).then((resd: any) => {
-        if (resd.errCode === 200) {
-          setIsModalVisible(false);
-          message.success(resd.errMsg);
-          if (props.recall) {
-            props.recall();
-          } else {
-            history.go(-1);
-          }
-        } else {
-          message.error(resd.errMsg);
-        }
-      });
+      // inqBack(path, toLineStatus, params).then((resd: any) => {
+      //   if (resd.errCode === 200) {
+      //     setIsModalVisible(false);
+      //     message.success(resd.errMsg);
+      //     if (props.recall) {
+      //       props.recall();
+      //     } else {
+      //       history.go(-1);
+      //     }
+      //   } else {
+      //     message.error(resd.errMsg);
+      //   }
+      // });
+      
+      //以下是原来就屏蔽的
       // Modal.confirm({
       //   title: '确定进行审核退回处理?',
       //   okText: '确认',

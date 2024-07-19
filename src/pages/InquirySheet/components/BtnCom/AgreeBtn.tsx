@@ -47,51 +47,51 @@ const AgreeBtn: React.FC<{ selectedRow: any; inquiryId?: any; recall?: any; chec
           } else if (path == 'tepcm') {
             temp.button = 'tepcm-shenhetongguo';
           }
-          await searchFaTransAstSku(path, temp).then(async (res: any) => {
-            if (res?.errCode == 200) {
-              if (res?.data?.dataList?.length > 0) {
-                setRepalceList(res?.data?.dataList);
-                rebackModalRef?.current?.open();
-                //接下来做是否替换操作
-              } else {
-                //原来逻辑
-                resd = await pcmApprove(path, temp);
-              }
-            } else {
-              message.error(res?.errMsg);
-            }
-          });
+          // await searchFaTransAstSku(path, temp).then(async (res: any) => {
+          //   if (res?.errCode == 200) {
+          //     if (res?.data?.dataList?.length > 0) {
+          //       setRepalceList(res?.data?.dataList);
+          //       rebackModalRef?.current?.open();
+          //       //接下来做是否替换操作
+          //     } else {
+          //       //原来逻辑
+          //       resd = await pcmApprove(path, temp);
+          //     }
+          //   } else {
+          //     message.error(res?.errMsg);
+          //   }
+          // });
         } else if (path === 'sourcing-pcm') {
           // 判断接口 一下类似
           temp.button = 'sourcingpcm-shenhetongguo';
-          await searchFaTransAstSku(path, temp).then(async (res: any) => {
-            if (res?.errCode == 200) {
-              if (res?.data?.dataList?.length > 0) {
-                setRepalceList(res?.data?.dataList);
-                rebackModalRef?.current?.open();
-                //接下来做是否替换操作
-              } else {
-                //原来逻辑
-                resd = await sourcingPcmApprove(temp);
-              }
-            } else {
-              message.error(res?.errMsg);
-            }
-          });
+          // await searchFaTransAstSku(path, temp).then(async (res: any) => {
+          //   if (res?.errCode == 200) {
+          //     if (res?.data?.dataList?.length > 0) {
+          //       setRepalceList(res?.data?.dataList);
+          //       rebackModalRef?.current?.open();
+          //       //接下来做是否替换操作
+          //     } else {
+          //       //原来逻辑
+          //       resd = await sourcingPcmApprove(temp);
+          //     }
+          //   } else {
+          //     message.error(res?.errMsg);
+          //   }
+          // });
         } else if (path === 'sourcing-pcd') {
           resd = await pcdApprove(temp);
         }
-        if (resd && resd.errCode === 200) {
-          message.success('操作成功!');
-          if (props.recall) {
-            props.recall();
-          } else {
-            history.go(-1);
-          }
-        } else {
-          // 修改记录：需求单FA已转目录品时询报价提醒限定：该条修改注释掉提醒信息，但是不知道原因，暂时将注释掉的提示信息解开，提供给是否成品油判断逻辑
-          message.error(resd.errMsg);
-        }
+        // if (resd && resd.errCode === 200) {
+        //   message.success('操作成功!');
+        //   if (props.recall) {
+        //     props.recall();
+        //   } else {
+        //     history.go(-1);
+        //   }
+        // } else {
+        //   // 修改记录：需求单FA已转目录品时询报价提醒限定：该条修改注释掉提醒信息，但是不知道原因，暂时将注释掉的提示信息解开，提供给是否成品油判断逻辑
+        //   message.error(resd.errMsg);
+        // }
       },
     });
     return true;

@@ -29,14 +29,14 @@ const BrandCom: React.FC<{ isEdit?: any; isHidden?: boolean; onType?: any; name?
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          createBrand(params.brandName).then((res: any) => {
-            if (res.errCode === 200) {
-              message.success('操作成功!');
-              setIsModalVisible(false);
-            } else {
-              Modal.error({ title: res.errMsg });
-            }
-          });
+          // createBrand(params.brandName).then((res: any) => {
+          //   if (res.errCode === 200) {
+          //     message.success('操作成功!');
+          //     setIsModalVisible(false);
+          //   } else {
+          //     Modal.error({ title: res.errMsg });
+          //   }
+          // });
         },
       });
     });
@@ -51,13 +51,13 @@ const BrandCom: React.FC<{ isEdit?: any; isHidden?: boolean; onType?: any; name?
         clearTimeout(timeout);
         timeout = null;
       }
-      setTimeout(() => {
-        productBrand(val).then((res: any) => {
-          if (res.errCode === 200) {
-            setList(res.data);
-          }
-        });
-      }, 1000);
+      // setTimeout(() => {
+      //   productBrand(val).then((res: any) => {
+      //     if (res.errCode === 200) {
+      //       setList(res.data);
+      //     }
+      //   });
+      // }, 1000);
     }
   };
   useEffect(() => {

@@ -33,48 +33,48 @@ const PayInfo: React.FC<PayInfoProps> = ({
   const [methodList, setMethodList] = useState<any>([]);
 
   useEffect(() => {
-    getSelectList({ type: 'ship' }).then((res: any) => {
-      const { errCode, data } = res;
-      if (errCode === 200) {
-        let newList = [] as any;
-        newList = data?.dataList
-          ?.map((io: any) => ({
-            ...io,
-            label: io.value,
-            value: io.key,
-            disabled: ['addOrder', 'offerOrder'].includes(type) && io.key == 20 ? true : false,
-          }))
-          ?.filter((ic: any) => ic.key != '30');
-        setShipList(newList);
-      }
-    });
-    getSelectList({ type: 'paymentTerm' }).then((res: any) => {
-      const { errCode, data } = res;
-      if (errCode === 200) {
-        setCondationList(
-          data?.dataList?.map((io: any) => ({
-            // ...io,
-            label: io.value,
-            value: io.key,
-            disabled: payTypeCust == 1 && io.key == 2 ? true : false, // 1預付款 2信用支付（目前兩個...） 判斷條件一句crm客戶主數據上的支付條件進行判斷 涉及到頁面：報價單管理 轉訂單 合并報價單 編輯報價單 報廢申請
-          })),
-        );
-      }
-    });
+    // getSelectList({ type: 'ship' }).then((res: any) => {
+    //   const { errCode, data } = res;
+    //   if (errCode === 200) {
+    //     let newList = [] as any;
+    //     newList = data?.dataList
+    //       ?.map((io: any) => ({
+    //         ...io,
+    //         label: io.value,
+    //         value: io.key,
+    //         disabled: ['addOrder', 'offerOrder'].includes(type) && io.key == 20 ? true : false,
+    //       }))
+    //       ?.filter((ic: any) => ic.key != '30');
+    //     setShipList(newList);
+    //   }
+    // });
+    // getSelectList({ type: 'paymentTerm' }).then((res: any) => {
+    //   const { errCode, data } = res;
+    //   if (errCode === 200) {
+    //     setCondationList(
+    //       data?.dataList?.map((io: any) => ({
+    //         // ...io,
+    //         label: io.value,
+    //         value: io.key,
+    //         disabled: payTypeCust == 1 && io.key == 2 ? true : false, // 1預付款 2信用支付（目前兩個...） 判斷條件一句crm客戶主數據上的支付條件進行判斷 涉及到頁面：報價單管理 轉訂單 合并報價單 編輯報價單 報廢申請
+    //       })),
+    //     );
+    //   }
+    // });
   }, [info.paymentTerm]);
 
   useEffect(() => {
-    getSelectList({ type: 'paymentTerm', code: info.paymentTerm || info.paymentTerms }).then(
-      (res: any) => {
-        setMethodList(
-          res?.data?.dataList[0]?.children?.map((io: any) => ({
-            ...io,
-            label: io.value,
-            value: io.key,
-          })),
-        );
-      },
-    );
+    // getSelectList({ type: 'paymentTerm', code: info.paymentTerm || info.paymentTerms }).then(
+    //   (res: any) => {
+    //     setMethodList(
+    //       res?.data?.dataList[0]?.children?.map((io: any) => ({
+    //         ...io,
+    //         label: io.value,
+    //         value: io.key,
+    //       })),
+    //     );
+    //   },
+    // );
   }, [info.paymentTerm, info.paymentTerms]);
 
   return (

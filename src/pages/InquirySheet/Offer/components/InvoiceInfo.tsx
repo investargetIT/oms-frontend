@@ -40,21 +40,21 @@ const InvoiceInfo: React.FC<InvoiceInfoProps> = ({
   const [invoiceList, setInvoiceList] = useState<any>([]);
 
   useEffect(() => {
-    getSelectList({ type: 'invoice' }).then((res: any) => {
-      const {
-        errCode,
-        data: { dataList },
-      } = res;
-      if (errCode === 200) {
-        setInvoiceList(
-          dataList?.map((io: any) => ({
-            ...io,
-            label: io.value,
-            value: io.key,
-          })),
-        );
-      }
-    });
+    // getSelectList({ type: 'invoice' }).then((res: any) => {
+    //   const {
+    //     errCode,
+    //     data: { dataList },
+    //   } = res;
+    //   if (errCode === 200) {
+    //     setInvoiceList(
+    //       dataList?.map((io: any) => ({
+    //         ...io,
+    //         label: io.value,
+    //         value: io.key,
+    //       })),
+    //     );
+    //   }
+    // });
   }, []);
 
   return (

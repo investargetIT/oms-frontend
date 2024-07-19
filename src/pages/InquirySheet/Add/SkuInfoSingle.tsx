@@ -16,7 +16,7 @@ const SkuInfoSingle: React.FC<{
   visible?: boolean;
   skuInitial?: any;
 }> = (props: any, ref: AsyncGeneratorFunction) => {
-  const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
+  // const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
   const [visible, setVisible]: any = useState(false);
   const [isCg, setIsCg]: any = useState(false);
   const [isSku, setIsSku]: any = useState(false);
@@ -35,19 +35,20 @@ const SkuInfoSingle: React.FC<{
   const productChange = (val: any, options?: any, type: any) => {
     // const res = formRef.current?.getFieldValue('sku');
     // if (!res) formRef.current?.setFieldsValue({ reqSegmentCode: '', reqSegmentName: '' });
-    if (options?.children) {
-      formRef.current?.setFieldsValue({ reqProductLineName: options.children });
-    }
-    if (val) {
-      getChildrenCategory(val).then((resd: any) => {
-        if (resd.errCode === 200) {
-          setSementList(resd.data.dataList);
-          !type && form.setFieldsValue({ reqSegmentCode: '', reqSegmentName: '' });
-        }
-      });
-    } else {
-      setSementList([]);
-    }
+    //以上是以前屏蔽的
+    // if (options?.children) {
+    //   formRef.current?.setFieldsValue({ reqProductLineName: options.children });
+    // }
+    // if (val) {
+    //   getChildrenCategory(val).then((resd: any) => {
+    //     if (resd.errCode === 200) {
+    //       setSementList(resd.data.dataList);
+    //       !type && form.setFieldsValue({ reqSegmentCode: '', reqSegmentName: '' });
+    //     }
+    //   });
+    // } else {
+    //   setSementList([]);
+    // }
   };
 
   const onChildrenDrawerClose = () => {
@@ -76,22 +77,22 @@ const SkuInfoSingle: React.FC<{
   ];
   // 暴露组件的方法
   useImperativeHandle(ref, () => ({
-    setForm: async (res: any) => {
-      formRef.current?.setFieldsValue(res);
-      setReqBrandName(res.reqBrandName);
-      if (res.sku) setIsSku(true);
-      if (res.reqSegmentCode) {
-        productChange(res.reqProductLineCode, null, true);
-      }
-      if (res.reqIsLongRequest) setIsCg(true);
-      // 初始化需求segementlist
-      if (res?.reqProductLineCode)
-        getChildrenCategory(res.reqProductLineCode).then((resd: any) => {
-          if (resd.errCode === 200) {
-            setSementList(resd.data.dataList);
-          }
-        });
-    },
+    // setForm: async (res: any) => {
+    //   formRef.current?.setFieldsValue(res);
+    //   setReqBrandName(res.reqBrandName);
+    //   if (res.sku) setIsSku(true);
+    //   if (res.reqSegmentCode) {
+    //     productChange(res.reqProductLineCode, null, true);
+    //   }
+    //   if (res.reqIsLongRequest) setIsCg(true);
+    //   // 初始化需求segementlist
+    //   if (res?.reqProductLineCode)
+    //     getChildrenCategory(res.reqProductLineCode).then((resd: any) => {
+    //       if (resd.errCode === 200) {
+    //         setSementList(resd.data.dataList);
+    //       }
+    //     });
+    // },
     resetForm: async () => {
       formRef.current?.resetFields();
       setIsCg(false);
@@ -99,17 +100,17 @@ const SkuInfoSingle: React.FC<{
     },
   }));
   useEffect(() => {
-    getChildrenCategory(0).then((res: any) => {
-      if (res.errCode === 200) {
-        setLineList(res.data.dataList);
-      }
-    });
-    getKeys(['inqReqReplaceableEnum', 'whetherEnum']).then((res: any) => {
-      if (res) {
-        setReplaceList(res.inqReqReplaceableEnum);
-        setCqcgList(res.whetherEnum);
-      }
-    });
+    // getChildrenCategory(0).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setLineList(res.data.dataList);
+    //   }
+    // });
+    // getKeys(['inqReqReplaceableEnum', 'whetherEnum']).then((res: any) => {
+    //   if (res) {
+    //     setReplaceList(res.inqReqReplaceableEnum);
+    //     setCqcgList(res.whetherEnum);
+    //   }
+    // });
   }, []);
   useEffect(() => {
     setVisible(props.visible);
@@ -163,33 +164,33 @@ const SkuInfoSingle: React.FC<{
     }
     if (res) {
       setIsSku(true);
-      lineAndSegment(res).then(async (resd: any) => {
-        if (resd.errCode === 200 && resd.data?.reqProductLineCode) {
+      // lineAndSegment(res).then(async (resd: any) => {
+      //   if (resd.errCode === 200 && resd.data?.reqProductLineCode) {
           
-          refMtg?.setFieldsValue(resd.data);
-          refMtg?.setFieldsValue({
-            reqUom: resd.data.reqUomCode + '_' + resd.data.reqUom,
-          });
-          setReqBrandName(resd.data?.reqBrandName);
-          productChange(resd.data.reqProductLineCode, resd.data, true);
-          if (flg !== false) {
-            const resNo = await getCustomerltemCodeBySku({sku:res, customerCode:props.customerCode})
-            if (resNo.data) {
-              refMtg?.setFieldsValue({
-                reqCustomerSku: resNo.data
-              });
-            }
-          }
-        } else {
-          setIsSku(false);
-          refMtg?.setFieldsValue({
-            reqSegmentName: '',
-            reqProductLineName: '',
-            reqProductLineCode: '',
-            reqSegmentCode: '',
-          });
-        }
-      });
+      //     refMtg?.setFieldsValue(resd.data);
+      //     refMtg?.setFieldsValue({
+      //       reqUom: resd.data.reqUomCode + '_' + resd.data.reqUom,
+      //     });
+      //     setReqBrandName(resd.data?.reqBrandName);
+      //     productChange(resd.data.reqProductLineCode, resd.data, true);
+      //     if (flg !== false) {
+      //       const resNo = await getCustomerltemCodeBySku({sku:res, customerCode:props.customerCode})
+      //       if (resNo.data) {
+      //         refMtg?.setFieldsValue({
+      //           reqCustomerSku: resNo.data
+      //         });
+      //       }
+      //     }
+      //   } else {
+      //     setIsSku(false);
+      //     refMtg?.setFieldsValue({
+      //       reqSegmentName: '',
+      //       reqProductLineName: '',
+      //       reqProductLineCode: '',
+      //       reqSegmentCode: '',
+      //     });
+      //   }
+      // });
 
     } else {
       setIsSku(false);
@@ -336,17 +337,17 @@ const SkuInfoSingle: React.FC<{
               onBlur={async () => {
                 const value = formRef.current?.getFieldValue('reqCustomerSku');
                 if (value && props.customerCode) {
-                  const res = await customerMatchSku({
-                    customerCode: props.customerCode,
-                    customerSku: value,
-                  });
-                  if (res?.data?.dataList) {
-                    setDataSource(res.data.dataList);
-                    setChildrenDrawer(true);
-                    setErrMsg('');
-                  } else {
-                    setErrMsg(res.errMsg);
-                  }
+                  // const res = await customerMatchSku({
+                  //   customerCode: props.customerCode,
+                  //   customerSku: value,
+                  // });
+                  // if (res?.data?.dataList) {
+                  //   setDataSource(res.data.dataList);
+                  //   setChildrenDrawer(true);
+                  //   setErrMsg('');
+                  // } else {
+                  //   setErrMsg(res.errMsg);
+                  // }
                 }
               }}
             />

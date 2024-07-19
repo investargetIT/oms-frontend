@@ -1,0 +1,1097 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import Dtitle from '@/pages/components/Dtitle';
+import ProForm, { ModalForm } from '@ant-design/pro-form';
+// import { PageContainer } from '@ant-design/pro-layout';
+import type { ProColumns } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
+import { Button, Card, Col, Form, message, Modal, Row, Space, Upload } from 'antd';
+import { useEffect, useState } from 'react';
+import { useModel, useLocation, history } from 'umi';
+import InvoiceDeliverInfo from '../../../InquirySheet/Offer/components/InvoiceDeliverInfo';
+import InvoiceInfo from '../../../InquirySheet/Offer/components/InvoiceInfo';
+import PayInfo from '../../../InquirySheet/Offer/components/PayInfo';
+import ReceiverInfo from '../../../InquirySheet/Offer/components/ReceiverInfo';
+import './index.less';
+import BasicApply from './BasicApply';
+import Cookies from 'js-cookie';
+import {
+  // exportError,
+  eandoApplyExport,
+  saveEandoApply,
+  queryeandoApplyDetail,
+} from '@/services/afterSales';
+import { getR3ConList } from '@/services/SalesOrder';
+import SearchAddress from '@/pages/InquirySheet/Offer/components/SearchAddress';
+import SearchAddressInvoice from '@/pages/InquirySheet/Offer/components/SearchAddressInvoice';
+import SearchInvoice from '@/pages/InquirySheet/Offer/components/SearchInvoice';
+import {
+  checkBond,
+  getSelectList,
+  queryBillingInfo,
+  queryInvoiceAddress,
+  queryPayInfo,
+  queryRecAddress,
+} from '@/services/InquirySheet/utils';
+import { getEnv } from '@/services/utils';
+
+interface AddProps {
+  id?: string;
+}
+const Add: React.FC<AddProps> = () => {
+  const location = useLocation() as any;
+  const { query } = location;
+  const isRead = location.query.isRead;
+  const [info, setInfo] = useState<any>({});
+  const [form] = Form.useForm();
+  const [uploadVisible, setUploadVisible] = useState<any>(false);
+  const [modalVisibleAddress, setModalVisibleAddress] = useState<boolean>(false);
+  const [modalVisibleInvice, setModalVisibleInvice] = useState<boolean>(false);
+  const [modalVisibleAddressInvoice, setModalVisibleAddressInvoice] = useState<any>(false);
+  const [invoiceList, setInvoiceList] = useState<any>({});
+  const [addressList, setAddressList] = useState<any>({});
+  const [delIds, setDelIds] = useState<any>([]);
+  const [errModal, setErrModal] = useState<any>(false);
+  const [errorList, setErrorList] = useState<any>([]);
+  // const { destroyCom } = useModel('tabSelect');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageSize, setCurrentPageSize] = useState(20);
+  const [total, setTotal] = useState();
+  const calcTotal = async (arrData: any) => {
+    // if (arrData?.length == 0) {
+    //   form?.setFieldsValue({
+    //     costTotalPrice: 0,
+    //     applySalesPriceNetTotal: 0,
+    //   });
+    //   return;
+    // }
+    // form?.setFieldsValue({
+    //   costTotalPrice: arrData
+    //     ?.map((io: any) => io.stockCostPrice * io.eandoQty)
+    //     ?.reduce((cur: any, net: any) => cur + net)
+    //     ?.toFixed(2),
+    //   applySalesPriceNetTotal: arrData
+    //     ?.map((io: any) => io.applySalesPriceNet * io.eandoQty)
+    //     ?.reduce((cur: any, net: any) => cur + net)
+    //     .toFixed(2),
+    // });
+  };
+
+  const columns: ProColumns<any>[] = [
+    {
+      title: '序号',
+      dataIndex: 'index',
+      valueType: 'index',
+      width: 50,
+      fixed: 'left',
+      render(text, record, index) {
+        // return index + 1;
+        return <span>{(currentPage - 1) * currentPageSize + index + 1}</span>;
+      },
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
+      valueType: 'option',
+      fixed: 'left',
+      // hideInTable: isRead ? true : false,
+      width: 150,
+      render: (_, record: any) => {
+        return (
+          <Button
+            size="small"
+            key={'删除'}
+            type="link"
+            onClick={() => {
+              Modal.confirm({
+                title: '是否确认删除该明细？',
+                okText: '确认',
+                cancelText: '取消',
+                onOk: async () => {
+                  setDelIds(delIds.concat(record?.sid)); //TODO:  ids集合 唯一标识暂时是sku 删除放前台 备edit
+                  const delData = info?.lineList?.filter((io: any) => io.index !== record.index);
+                  setInfo({
+                    ...info,
+                    lineList: delData,
+                  });
+                  calcTotal(delData);
+                },
+              });
+            }}
+          >
+            删除
+          </Button>
+        );
+      },
+    },
+    { title: 'SKU号', width: 120, dataIndex: 'sku', fixed: 'left' },
+    { title: '物料码', dataIndex: 'stockSkuCode', width: 100 },
+    { title: '销售包装单位数量', dataIndex: 'unitQuantity', width: 150 },
+    { title: '申请销售数量', width: 120, dataIndex: 'eandoQty' },
+    { title: 'E&O类别', width: 120, dataIndex: 'eandoType' },
+    { title: '销售单位', width: 120, dataIndex: 'salesUomCode' },
+    { title: '面价含税', width: 120, dataIndex: 'listPrice' },
+    { title: '库存成本（未税）', width: 120, dataIndex: 'stockCostPrice' },
+    { title: '申请成交价未税', width: 120, dataIndex: 'applySalesPriceNet' },
+    { title: '申请折扣率', width: 120, dataIndex: 'applyDiscountPerc' },
+    { title: '申请成交价含税', width: 120, dataIndex: 'applySalesPrice' },
+    { title: '小计含税', width: 120, dataIndex: 'applySalesPriceLnTotal' },
+    { title: '小计折扣含税', width: 120, dataIndex: 'applyDiscountLnTotal' },
+    { title: '备注', width: 120, dataIndex: 'remarks' },
+    { title: '发货仓库', width: 120, dataIndex: 'wareCode' },
+  ];
+  columns.forEach((item: any) => {
+    item.ellipsis = true;
+  });
+  // useEffect(() => {
+  //   if (isRead) {
+  //     queryeandoApplyDetail({ eandoApplyNo: query?.eandoApplyNo }).then((res: any) => {
+  //       if (res?.errCode === 200) {
+  //         const newData = {
+  //           ...res.data,
+  //           receiverInfo: {
+  //             ...res?.data?.receiverInfo,
+  //             provinceName: res?.data?.receiverInfo.provinceName,
+  //             cityName: res?.data?.receiverInfo?.cityName,
+  //             districtName: res?.data?.receiverInfo?.districtName,
+  //           },
+  //           invoiceInfo: {
+  //             ...res?.data?.invoiceInfo,
+  //           },
+  //           lineList: res?.data?.pageList?.list?.map((item: any, index: any) => {
+  //             return {
+  //               ...item,
+  //               index,
+  //             };
+  //           }),
+  //         };
+  //         setTotal(res?.data?.pageList?.total);
+  //         setInfo(newData);
+  //         form?.setFieldsValue({
+  //           ...res?.data?.eandoApplyVo,
+  //           ...res?.data?.invoiceInfo,
+  //           ...res?.data?.receiverInfo,
+  //           contactName: res?.data?.eandoApplyVo?.contactNameR3,
+  //           region: `${res?.data?.receiverInfo?.province}${res?.data?.receiverInfo?.city}${res?.data?.receiverInfo?.district}`,
+  //           consigneeEmail: res?.data?.receiverInfo?.receiverEmail,
+  //           paymentTerm: res?.data?.receiverInfo?.paymentTerms,
+  //           vatPhone: res?.data?.invoiceInfo?.vatPhone,
+  //           invoiceReceiveRegion: res?.data?.invoiceInfo?.invoiceRegion,
+  //         });
+  //       }
+  //     });
+  //   } else {
+  //     form.resetFields();
+  //   }
+  // }, [query?.sid]);
+  // function onShowSizeChange(current: any, pageSize: any) {
+  //   queryeandoApplyDetail({
+  //     eandoApplyNo: query?.eandoApplyNo,
+  //     pageNumber: current,
+  //     pageSize: pageSize,
+  //   }).then((res: any) => {
+  //     if (res?.errCode === 200) {
+  //       setInfo({
+  //         ...res?.data,
+  //         lineList: res?.data?.pageList?.list,
+  //       });
+  //       setTotal(res?.data?.pageList?.total);
+  //     } else {
+  //       message.error(res.errMsg);
+  //     }
+  //   });
+  //   setCurrentPage(current);
+  //   setCurrentPageSize(pageSize);
+  // }
+  const submit = async (params: any) => {
+    let values: any = {};
+    // if (!params) {
+    //   values = form.getFieldsValue();
+    // } else {
+    //   values = params;
+    // }
+    // if (!info?.lineList || info?.lineList?.length == 0) {
+    //   return message.error('明细条数不可小于一条');
+    // }
+    // if (!values.receiverMobile.trim() && !values.receiverPhone.trim()) {
+    //   return message.error('请完善收货信息中的收货人手机，或收货人固话');
+    // }
+    // if (values.invoiceType == '1' && !values.invoiceMobile.trim() && !values.invoiceTel.trim()) {
+    //   return message.error('请完善发票寄送信息中的收货人手机，或收货人固话');
+    // }
+    // return;
+    // 、、设计的时候不要，现在要
+    let condationList = [] as any;
+    let methodList = [] as any;
+    // await getSelectList({ type: 'paymentTerm' }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     condationList = res?.data?.dataList?.map((io: any) => ({
+    //       ...io,
+    //       label: io.value,
+    //       value: io.key,
+    //     }));
+    //   }
+    // });
+    // await getSelectList({ type: 'paymentTerm', code: values.paymentTerm || info.paymentTerm }).then(
+    //   (res: any) => {
+    //     if (res?.errCode === 200) {
+    //       methodList = res?.data?.dataList[0]?.children?.map((io: any) => ({
+    //         ...io,
+    //         label: io.value,
+    //         value: io.key,
+    //       }));
+    //     }
+    //   },
+    // );
+
+    const paymentMethodName = methodList?.filter((io: any) => io.key == values?.paymentMethod)[0]
+      ?.label;
+    const paymentTermsName = condationList?.filter((io: any) => io.key == values?.paymentTerm)[0]
+      ?.label;
+
+    if (!paymentTermsName) {
+      message.error('请选择正确的支付条件');
+      return false;
+    }
+    if (!paymentMethodName) {
+      message.error('请选择正确的支付方式');
+      return false;
+    }
+
+    if (!values.contactName) {
+      message.error('请选择R3联系人');
+      return false;
+    }
+    // console.log(values, 'values');
+    const par: any = {
+      eandoApplyVo: {
+        applyTitle: values.applyTitle,
+        customerCode: values.customerCode,
+        customerName: values.customerName,
+        contactNameR3: values.contactName,
+        contactCodeR3: values.contactCodeR3,
+        salesId: info?.eandoApplyVo?.salesId,
+        salesName: values.salesName,
+        companyCode: info?.eandoApplyVo?.companyCode,
+        companyName: values.companyName,
+        applyReason: values.applyReason,
+      },
+      receiverInfo: {
+        ...info.receiverInfo,
+        toBond: values.toBond,
+        specialCode: values.specialCode,
+        shipType: values.shipType,
+        paymentMethod: values.paymentMethod,
+        paymentTerms: values.paymentTerm,
+        province: info?.receiverInfo?.provinceName,
+        city: info?.receiverInfo?.cityName,
+        district: info.receiverInfo?.districtName,
+        paymentTermsName,
+        paymentMethodName,
+        shipRegionSapCode: info?.receiverInfo?.shipRegionSapCode,
+      },
+      invoiceInfo: {
+        ...info.invoiceInfo,
+        invoiceType: values.invoiceType,
+        invoiceTitleType: 2, //发票抬头类型，1：个人，2：单位   暂无
+        vatCompanyName: values.invoiceTitle, //vatCompanyName 单位后端备用 前端暂无对应
+        followMerchandise: values.followMerchandise,
+        invoiceRegion: values.invoiceReceiveRegion,
+        payerCustomerAccount: info?.invoiceInfo?.payerCustomerAccount,
+        invoiceSapCode: info?.invoiceInfo?.invoiceSapCode,
+      },
+      lnList: info?.lineList,
+      delLnIds: delIds,
+    };
+
+    if (!params) {
+      //?保存逻辑
+      par.onlySave = true;
+    } else {
+      //?提交逻辑
+      par.onlySave = false;
+    }
+    // console.log(query,'query');
+    if (query.eandoApplyNo) {
+      par.eandoApplyVo.eandoApplyNo = query.eandoApplyNo;
+      par.eandoApplyVo.sid = query.sid;
+    }
+    const { errCode, errMsg } = await saveEandoApply(par);
+    // if (errCode === 200) {
+    //   message.success('申请提交成功');
+    //   history.push({
+    //     pathname: '/scrap/sales/apply',
+    //     state: {
+    //       reload: '1',
+    //     },
+    //   });
+    //   // destroyCom('/scrap/sales/apply', location.pathname);
+    // } else {
+    //   message.error(errMsg);
+    // }
+  };
+
+  const uploadProps = {
+    name: 'file',
+    maxCount: 1,
+    accept: '.xls,.xlsx',
+    action: `${getEnv()}/omsapi/eandoApply/import/detail`,
+    headers: {
+      token: Cookies.get('ssoToken'),
+    },
+    onChange(msg: any) {
+      if (msg.file.status !== 'uploading') {
+      }
+      if (msg.file.status === 'done') {
+        // console.log(msg, 'msg');
+        // if (msg?.file?.response?.errCode === 200) {
+        //   message.success(`导入${msg.file.name} ${msg?.file?.response?.errMsg}`);
+        //   // setErrModal(true);
+        //   // setUploadLoading(false);
+        // } else {
+        //   return setTimeout(() => {
+        //     message.error(msg?.file?.response?.errMsg);
+        //   }, 10);
+        // }
+        const dataList = msg?.file?.response?.data?.dataList;
+        const successList = dataList;
+        // ?.filter((io: any) => io.success === true)
+        // .map((io: any) => ({
+        //   ...io,
+        //   sysAdjustDate: moment(io.sysAdjustDate).format('YYYY-MM-DD'),
+        // }));
+        const erList = dataList?.filter((io: any) => io.success === false);
+        setErrorList(erList);
+        let arr: any = [];
+        // if (info?.lineList?.length > 0) {
+        //   arr = [...successList, ...info?.lineList];
+        //   for (let i = 0; i < arr?.length; i++) {
+        //     const element = arr[i];
+        //     element.index = i;
+        //   }
+        //   setInfo({
+        //     ...info,
+        //     lineList: arr,
+        //   });
+        // } else {
+        //   arr = successList;
+        //   for (let i = 0; i < arr?.length; i++) {
+        //     const element = arr[i];
+        //     element.index = i;
+        //   }
+        //   setInfo({
+        //     ...info,
+        //     lineList: arr,
+        //   });
+        // }
+        calcTotal(arr);
+        setUploadVisible(false);
+        // 导入失败 然后下载失败数据
+      } else if (msg.file.status === 'error') {
+        // message.error(`${msg.file.name} file upload failed.`);
+      }
+    },
+  };
+
+  const onChangeBasic = async (values: any) => {
+    //  以下默认 crm的数据   小心字段，，不一样
+    // 默认收货信息
+    let defaultRecive = {} as any;
+    // await queryRecAddress({ customerCode: values?.customerCode }).then((resrecive: any) => {
+    //   if (resrecive?.errCode === 200) {
+    //     if (resrecive?.data?.dataList.length > 0) {
+    //       defaultRecive = {
+    //         region: `${resrecive?.data?.dataList[0]?.provinceName}${resrecive?.data?.dataList[0]?.cityName}${resrecive?.data?.dataList[0]?.districtName}`,
+    //         provinceCode: resrecive?.data?.dataList[0]?.province,
+    //         cityCode: resrecive?.data?.dataList[0]?.city,
+    //         districtCode: resrecive?.data?.dataList[0]?.district,
+    //         provinceName: resrecive?.data?.dataList[0]?.provinceName,
+    //         cityName: resrecive?.data?.dataList[0]?.cityName,
+    //         districtName: resrecive?.data?.dataList[0]?.districtName,
+    //         receiverAddress: resrecive?.data?.dataList[0]?.receiptAddress,
+    //         shipZip: resrecive?.data?.dataList[0]?.receiptZipCode,
+    //         receiverName: resrecive?.data?.dataList[0]?.recipientName,
+    //         receiverMobile: resrecive?.data?.dataList[0]?.receiptMobilePhone,
+    //         receiverPhone: resrecive?.data?.dataList[0]?.receiptFixPhone,
+    //         consigneeEmail: resrecive?.data?.dataList[0]?.receiptEmail,
+    //         shipRegionSapCode: resrecive?.data?.dataList[0]?.sapCode,
+    //       };
+    //     }
+    //   }
+    // });
+    // 默认 queryPayInfo
+    let defaultPay = {} as any;
+    // await queryPayInfo({ customerCode: values?.customerCode }).then((respay: any) => {
+    //   if (respay.data) {
+    //     defaultPay = {
+    //       paymentTerm: (respay?.data?.type && respay?.data?.type?.toString()) || '',
+    //       paymentMethod: respay?.data?.code || '',
+    //     };
+    //   }
+    // });
+    // 获取默认开票信息接口
+    let ppinvoice = {} as any;
+    // await queryBillingInfo({ customerCode: values?.customerCode }).then((res1: any) => {
+    //   if (res1.errCode === 200) {
+    //     if (res1?.data?.dataList?.length > 0) {
+    //       let getInvoiceType: any = '3';
+    //       if (res1?.data?.dataList[0]?.invoiceType == '') {
+    //         getInvoiceType = '3';
+    //       } else {
+    //         const invoiceTypeStr = res1?.data?.dataList[0]?.invoiceType.split(',').sort();
+    //         if (invoiceTypeStr.length <= 1) getInvoiceType = res1?.data?.dataList[0]?.invoiceType;
+    //         else getInvoiceType = invoiceTypeStr[0];
+    //       }
+    //       ppinvoice = {
+    //         invoiceType: getInvoiceType,
+    //         invoiceTitle: res1?.data?.dataList[0].customerName,
+    //         vatTaxNo: res1?.data?.dataList[0].taxNumber,
+    //         vatBankName: res1?.data?.dataList[0].bankName,
+    //         vatBankNo: res1?.data?.dataList[0].bankAccount,
+    //         vatAddress: res1?.data?.dataList[0].registerAddress,
+    //         vatPhone: res1?.data?.dataList[0].registerTelephone,
+    //         payerCustomerAccount: res1?.data?.dataList[0].payerCustomerAccount,
+    //       };
+    //     } else {
+    //       ppinvoice = {
+    //         invoiceType: '3',
+    //       };
+    //     }
+    //   }
+    // });
+    // 默认发票寄送信息
+    let defaultVatAddress = {} as any;
+    // await queryInvoiceAddress({ customerCode: values?.customerCode }).then((resvat: any) => {
+    //   if (resvat.errCode === 200) {
+    //     if (resvat?.data?.dataList?.length > 0) {
+    //       defaultVatAddress = {
+    //         invoiceReceiver: resvat?.data?.dataList[0].recipientName,
+    //         invoiceAddress: resvat?.data?.dataList[0].receiptAddress,
+    //         invoiceZip: resvat?.data?.dataList[0].receiptZipCode,
+    //         invoiceTel: resvat?.data?.dataList[0].receiptFixPhone,
+    //         invoiceMobile: resvat?.data?.dataList[0].receiptMobilePhone,
+    //         invoiceEmail: resvat?.data?.dataList[0].receiptEmail,
+    //         invoiceReceiveRegion: `${resvat?.data?.dataList[0].provinceName}${resvat?.data?.dataList[0].cityName}${resvat?.data?.dataList[0].districtName}`,
+    //         followMerchandise: resvat?.data?.dataList[0].followMerchandise == false ? 0 : 1,
+    //         invoiceSapCode: resvat?.data?.dataList[0]?.sapCode,
+    //       };
+    //     }
+    //   }
+    // });
+
+    let toBond = false;
+    await checkBond({ customerCode: values?.customerCode }).then((resbond: any) => {
+      // if (resbond?.errCode === 200) {
+      //   toBond = resbond?.data?.toBond;
+      // }
+    });
+    let defaultR3: any = {};
+    if (!values?.contactName) {
+      const result = await getR3ConList({
+        customerCode: values?.customerCode,
+        pageSize: 10,
+        pageNumber: 1,
+      });
+      defaultR3 = result?.data?.dataList[0];
+    } else {
+      defaultR3.contactCodeR3 = values?.contactCodeR3;
+      defaultR3.contactName = values?.contactName;
+    }
+    const newData = {
+      ...info,
+      eandoApplyVo: {
+        ...info?.eandoApplyVo,
+        ...defaultR3,
+        companyName: values?.officeName,
+        companyCode: values?.ownerCompany,
+        salesName: values?.mainSalesName,
+        salesId: values?.mainSalesId,
+        customerCode: values?.customerCode,
+      },
+      receiverInfo: {
+        ...info?.receiverInfo,
+        ...defaultPay,
+        ...defaultRecive,
+        customerCode: values?.customerCode,
+        toBond,
+      },
+      invoiceInfo: {
+        ...info?.invoiceInfo,
+        ...ppinvoice, // 默认开票获取
+        ...defaultVatAddress,
+      },
+    };
+    form.setFieldsValue({
+      ...info.scrapApply,
+      afterSales: {
+        label: values?.customerName,
+        value: values?.customerCode,
+      },
+      customerName: values?.customerName,
+      companyCode: values?.ownerCompany,
+      companyName: values?.officeName,
+      salesName: values?.mainSalesName,
+      customerCode: values?.customerCode,
+      contactName: values?.contactName,
+      contactCodeR3: values?.contactCode,
+      ...ppinvoice,
+      ...defaultPay,
+      ...defaultRecive,
+      ...defaultVatAddress,
+    });
+    setInfo(newData);
+  };
+  // const downErrorData = async () => {
+  //   await exportError(errorList).then((res) => {
+  //     const blob = new Blob([res], {
+  //       type: 'application/vnd.ms-xls',
+  //     });
+  //     let link = document.createElement('a') as any;
+  //     link.href = URL.createObjectURL(blob);
+  //     link.setAttribute('download', '失败数据.xlsx');
+  //     link.click();
+  //     link = null;
+  //     message.success('导出成功');
+  //     setErrModal(false);
+  //   });
+  // };
+
+  const onMethodChange = (val: any) => {
+    // setInfo({
+    //   ...info,
+    //   receiverInfo: {
+    //     ...info.receiverInfo,
+    //     paymentMethod: val[0].value || ''
+    //   }
+    // })
+    form.setFieldsValue({
+      paymentMethod: val[0].value || '',
+    });
+  };
+
+  const dbSaveAddress = async (val: any) => {
+    if (Object.values(val).length === 0) {
+      message.error('请选择信息');
+      return false;
+    }
+    const address = {
+      ...addressList,
+      provinceCode: val.province,
+      cityCode: val.city,
+      districtCode: val.district,
+      provinceName: val.provinceName,
+      cityName: val.cityName,
+      districtName: val.districtName,
+      region: `${val.provinceName}${val.cityName}${val.districtName}`,
+      receiverAddress: val.receiptAddress,
+      shipZip: val.receiptZipCode,
+      receiverName: val.recipientName,
+      receiverMobile: val.receiptMobilePhone,
+      receiverPhone: val.receiptFixPhone,
+      consigneeEmail: val.receiptEmail,
+      extensionNumber: '021', // 其实已经去掉了
+      shipRegionSapCode: val?.shipRegionSapCode,
+    };
+    setInfo({
+      ...info,
+      receiverInfo: {
+        ...info.invoiceInfo,
+        ...address,
+      },
+    });
+    form.setFieldsValue({
+      ...address,
+    });
+    setModalVisibleAddress(false);
+  };
+
+  const dbSaveVatAddress = async (val: any) => {
+    if (Object.values(val).length === 0) {
+      message.error('请选择信息');
+      return false;
+    }
+    const invoiceAdd = {
+      invoiceReceiver: val.recipientName,
+      invoiceAddress: val.receiptAddress,
+      invoiceZip: val.receiptZipCode,
+      invoiceTel: val.receiptFixPhone,
+      invoiceMobile: val.receiptMobilePhone,
+      invoiceEmail: val.receiptEmail,
+      invoiceReceiveRegion: `${val.provinceName}${val.cityName}${val.districtName}`,
+      followMerchandise: val.followMerchandise == true ? 1 : 0,
+      invoiceSapCode: val?.invoiceSapCode,
+    };
+    setInfo({
+      ...info,
+      invoiceInfo: {
+        ...info.invoiceInfo,
+        ...invoiceAdd,
+      },
+    });
+    form.setFieldsValue({
+      ...invoiceAdd,
+    });
+    setModalVisibleAddressInvoice(false);
+  };
+
+  const dbSaveVat = async (val: any) => {
+    if (Object.values(val).length === 0) {
+      message.error('请选择信息');
+      return false;
+    }
+    const tInvoice = {
+      ...val,
+      vatPhone: val.vatPhone,
+      vatBankNo: val.vatBankNo,
+    };
+    setInfo({
+      ...info,
+      invoiceInfo: {
+        ...info.invoiceInfo,
+        ...tInvoice,
+      },
+    });
+    form.setFieldsValue({
+      ...tInvoice,
+    });
+    setModalVisibleInvice(false);
+  };
+  const handleOk = () => {
+    // console.log(addressList, 'address');
+    // jinbao
+    if (Object.values(addressList).length === 0) {
+      message.error('请选择信息');
+      return false;
+    }
+    const address = {
+      ...addressList,
+      provinceCode: addressList.province,
+      cityCode: addressList.city,
+      districtCode: addressList.district,
+      provinceName: addressList.provinceName,
+      cityName: addressList.cityName,
+      districtName: addressList.districtName,
+      region: `${addressList.provinceName}${addressList.cityName}${addressList.districtName}`,
+      receiverAddress: addressList.receiptAddress,
+      shipZip: addressList.receiptZipCode,
+      receiverName: addressList.recipientName,
+      receiverMobile: addressList.receiptMobilePhone,
+      receiverPhone: addressList.receiptFixPhone,
+      consigneeEmail: addressList.receiptEmail,
+      extensionNumber: '021', // 其实已经去掉了
+      shipRegionSapCode: addressList?.shipRegionSapCode,
+    };
+    setInfo({
+      ...info,
+      receiverInfo: {
+        ...info.invoiceInfo,
+        ...address,
+      },
+    });
+    form.setFieldsValue({
+      ...address,
+    });
+    setModalVisibleAddress(false);
+    return true;
+  };
+  return (
+    <div className="form-content-search createForm" id="salesAfterApplyEdit">
+      <ProForm
+        layout="horizontal"
+        onFinish={(values) => submit(values)}
+        className="fix_lable_large has-gridForm"
+        form={form}
+        onFinishFailed={() => {
+          message.warning('您有未完善的信息，请填写正确的信息');
+        }}
+        onValuesChange={(values) => {
+          if (values?.invoiceType) {
+            setInfo({
+              ...info,
+              invoiceInfo: {
+                ...info.invoiceInfo,
+                invoiceType: values?.invoiceType == 3 ? '3' : values?.invoiceType,
+              },
+            });
+          }
+        }}
+        submitter={{
+          render: () => {
+            return (
+              <div
+                style={{
+                  position: 'fixed',
+                  zIndex: 100,
+                  bottom: '10px',
+                  right: '10px',
+                  height: '30px',
+                  textAlign: 'end',
+                  backgroundColor: '#fff',
+                  paddingRight: '10px',
+                }}
+              >
+                <Space>
+                  <Button type="primary" onClick={() => submit('')}>
+                    仅保存
+                  </Button>
+                  <Button type="primary" htmlType="submit">
+                    提交审批
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      destroyCom('/scrap/sales/apply', location.pathname);
+                    }}
+                  >
+                    取消
+                  </Button>
+                </Space>
+              </div>
+            );
+          },
+        }}
+      >
+        <Card className="head-title-wrap">
+          <Row gutter={24}>
+            <Col span={5} className="title">
+              新增E&O销售申请
+            </Col>
+          </Row>
+        </Card>
+        <div className="editContentCol minHeight">
+          <Card title="申请内容" bordered={false} id="basic">
+            {/* <BasicApply
+              type="scrapApply"
+              info={info?.eandoApplyVo}
+              readonly={false}
+              onChangeBasic={(values: any) => onChangeBasic(values)}
+            /> */}
+          </Card>
+          <Card title="收货信息" bordered={false} id="receiver">
+            {/* <ReceiverInfo
+              info={info?.receiverInfo}
+              type="scrapApply"
+              onModal={() => {
+                setModalVisibleAddress(true);
+                setAddressList([]);
+              }}
+            /> */}
+          </Card>
+          <Card title="配送及支付信息" bordered={false} id="pay">
+            {/* <PayInfo
+              type="scrapApply"
+              info={info?.receiverInfo}
+              onMethodChange={(newArrayValue: any) => onMethodChange(newArrayValue)}
+            /> */}
+          </Card>
+          <Card title="开票信息" bordered={false} id="invoice">
+            {/* <InvoiceInfo
+              type="scrapApply"
+              info={info?.invoiceInfo}
+              onModal={() => {
+                setModalVisibleInvice(true);
+                setInvoiceList([]);
+              }}
+            /> */}
+          </Card>
+          <Card title="发票寄送信息" bordered={false} id="invoiceDeliver">
+            {/* <InvoiceDeliverInfo
+              type="scrapApply"
+              info={info?.invoiceInfo}
+              onModal={() => {
+                setModalVisibleAddressInvoice(true);
+                setAddressList([]);
+              }}
+            /> */}
+          </Card>
+          <Card title="申请明细" bordered={false} className="order-msg" id="shopDetail">
+            <div className="cust-table">
+              <ProTable<ProColumns>
+                columns={columns}
+                scroll={{ x: 200, y: 500 }}
+                size="small"
+                rowKey="index"
+                bordered
+                options={false}
+                search={false}
+                pagination={{
+                  showSizeChanger: true,
+                  pageSizeOptions: ['10', '20', '50', '100'],
+                  // showTotal: total => `共有 ${total} 条数据`,
+                  total: total,
+                  showTotal: (_, range) =>
+                    `共有 ${total} 条数据, 本页显示 ${range[0]}-${range[1]}条`,
+                  showQuickJumper: true,
+                  onShowSizeChange: (current, pageSize) => onShowSizeChange(current, pageSize),
+                }}
+                dateFormatter="string"
+                dataSource={info?.lineList?.map((io: any, index: any) => ({
+                  ...io,
+                  index,
+                }))}
+                headerTitle={
+                  <Space style={{ marginBottom: '6px' }}>
+                    <Button
+                      type="primary"
+                      key={'import'}
+                      onClick={() => {
+                        if (info?.lineList?.length > 0) {
+                          Modal.confirm({
+                            title:
+                              '当前已有明细数据，导入会追加内容，可能产生重复数据；如需替换原数据，请先手动清空明细!',
+                            okText: '确认',
+                            cancelText: '取消',
+                            onOk: () => {
+                              setUploadVisible(true);
+                            },
+                          });
+                        } else {
+                          setUploadVisible(true);
+                        }
+                      }}
+                    >
+                      导入
+                    </Button>
+                    <Button
+                      key={'clear'}
+                      onClick={() => {
+                        if (!info?.lineList?.length) {
+                          message.error('您还没有明细，无法清空，请导入明细');
+                          return;
+                        }
+                        Modal.confirm({
+                          title: '确认清空明细吗？',
+                          content: '',
+                          okText: '确认',
+                          cancelText: '取消',
+                          onOk: async () => {
+                            setDelIds(info.lineList.map((io: any) => io.sid));
+                            setInfo({
+                              ...info,
+                              lineList: [],
+                            });
+                          },
+                        });
+                      }}
+                    >
+                      清空明细
+                    </Button>
+                    <Button
+                      type="primary"
+                      key={'export'}
+                      onClick={() => {
+                        if (!info?.lineList?.length) {
+                          message.error('您还没有明细，无法导出，请导入明细');
+                          return;
+                        }
+                        if (info?.lineList?.length > 0) {
+                          eandoApplyExport(info?.lineList).then((res: any) => {
+                            // console.log(res, 'res');
+                            const blob = new Blob([res], {
+                              type: 'application/vnd.ms-xls',
+                            });
+                            let link = document.createElement('a') as any;
+                            link.href = URL.createObjectURL(blob);
+                            link.setAttribute('download', '明细.xls');
+                            link.click();
+                            link = null;
+                            message.success('导出成功');
+                          });
+                        } else {
+                          setUploadVisible(true);
+                        }
+                      }}
+                    >
+                      导出明细
+                    </Button>
+                  </Space>
+                }
+              />
+            </div>
+          </Card>
+        </div>
+      </ProForm>
+      {/* 上传 */}
+      <ModalForm
+        title={<Dtitle title="导入申请明细" subTitle="" />}
+        visible={uploadVisible}
+        onVisibleChange={setUploadVisible}
+        modalProps={{ destroyOnClose: true }}
+        submitter={
+          {
+            // searchConfig: {
+            //   submitText: '确定',
+            //   resetText: '取消',
+            // },
+          }
+        }
+        onFinish={async () => {
+          setUploadVisible(false);
+          return true;
+        }}
+      >
+        <Space style={{ marginBottom: '10px' }}>
+          <Upload {...uploadProps} accept=".xls, .xlsx" maxCount={1}>
+            <Button type="primary">选择文件</Button>
+          </Upload>
+          <Button
+            type="link"
+            href={`${getEnv()}/omsapi/download/eandoApply.xlsx?token=${Cookies.get('ssoToken')}`}
+          >
+            下载模板
+          </Button>
+        </Space>
+        <div style={{ margin: '10px', color: '#c0c0c0' }}>
+          <div>导入说明</div>
+          <div>· 仅支持xls.xlsx文件；</div>
+          <div>· 追加制导入，每次上限5000行，超过请分多次导入</div>
+          <div>· 如需重新导入，请先清空明细</div>
+        </div>
+      </ModalForm>
+      {/* 地址选择 带合并 */}
+      <Modal
+        title="地址选择"
+        width={1500}
+        destroyOnClose={true}
+        visible={modalVisibleAddress}
+        onCancel={() => setModalVisibleAddress(false)}
+        footer={[
+          <Button key="back" onClick={() => setModalVisibleAddress(false)}>
+            取消
+          </Button>,
+          <Button key="submit" type="primary" onClick={handleOk}>
+            选择
+          </Button>,
+        ]}
+      >
+        <SearchAddress
+          customerCode={info?.eandoApplyVo?.customerCode}
+          onDbSave={(record) => dbSaveAddress(record)}
+          onSelect={(record) => setAddressList(record)}
+        />
+      </Modal>
+      {/* 开票地址选择  */}
+      <ModalForm
+        title="地址选择"
+        layout="horizontal"
+        width={1100}
+        modalProps={{ destroyOnClose: true }}
+        visible={modalVisibleAddressInvoice}
+        onVisibleChange={setModalVisibleAddressInvoice}
+        submitter={{
+          searchConfig: {
+            submitText: '选择',
+            resetText: '取消',
+          },
+        }}
+        onFinish={async () => {
+          if (Object.values(addressList).length === 0) {
+            message.error('请选择信息');
+            return false;
+          }
+          const invoiceAdd = {
+            invoiceReceiver: addressList.recipientName,
+            invoiceAddress: addressList.receiptAddress,
+            invoiceZip: addressList.receiptZipCode,
+            invoiceTel: addressList.receiptFixPhone,
+            invoiceMobile: addressList.receiptMobilePhone,
+            invoiceEmail: addressList.receiptEmail,
+            invoiceReceiveRegion: `${addressList.provinceName}${addressList.cityName}${addressList.districtName}`,
+            followMerchandise: addressList.followMerchandise == true ? 1 : 0,
+            invoiceSapCode: addressList?.invoiceSapCode,
+          };
+          console.log(invoiceAdd);
+
+          setInfo({
+            ...info,
+            invoiceInfo: {
+              ...info.invoiceInfo,
+              ...invoiceAdd,
+            },
+          });
+          form.setFieldsValue({
+            ...invoiceAdd,
+          });
+          return true;
+        }}
+      >
+        <SearchAddressInvoice
+          customerCode={info?.eandoApplyVo?.customerCode}
+          onDbSave={(record) => dbSaveVatAddress(record)}
+          onSelect={(record) => setAddressList(record)}
+        />
+      </ModalForm>
+      {/* 选择开票信息 */}
+      <ModalForm
+        title="选择开票信息"
+        layout="horizontal"
+        width={1100}
+        modalProps={{ destroyOnClose: true }}
+        visible={modalVisibleInvice}
+        onVisibleChange={setModalVisibleInvice}
+        submitter={{
+          searchConfig: {
+            submitText: '选择',
+            resetText: '取消',
+          },
+        }}
+        onFinish={async () => {
+          const tInvoice = {
+            ...invoiceList,
+            vatPhone: invoiceList.vatPhone,
+            vatBankNo: invoiceList.vatBankNo,
+          };
+
+          setInfo({
+            ...info,
+            invoiceInfo: {
+              ...info.invoiceInfo,
+              ...tInvoice,
+            },
+          });
+          form.setFieldsValue({
+            ...invoiceList,
+          });
+          return true;
+        }}
+      >
+        <SearchInvoice
+          customerCode={info?.eandoApplyVo?.customerCode}
+          onDbSave={(record) => dbSaveVat(record)}
+          onSelect={(record) => setInvoiceList(record)}
+        />
+      </ModalForm>
+      {/* 失败显示 */}
+      <Modal
+        title="导入结果提示"
+        visible={errModal}
+        destroyOnClose={true}
+        onOk={() => {
+          calcTotal(info?.lineList);
+          setErrModal(false);
+        }}
+        onCancel={() => {
+          setErrModal(false);
+        }}
+        okText="确认"
+        cancelText=""
+      >
+        <p style={{ paddingLeft: '18px' }}>
+          {' '}
+          {`成功导入${info?.lineList ? info?.lineList?.length : 0}条，失败${
+            errorList ? errorList?.length : 0
+          }条，可修改后重新导入`}
+        </p>
+        {/* <Button type="link" key="down" onClick={downErrorData}>
+          下载失败数据{' '}
+        </Button> */}
+      </Modal>
+    </div>
+  );
+};
+export default Add;
+// export default Index;
+// import { KeepAlive } from 'react-activation';
+// export default () => (
+//   <KeepAlive name={history.location.pathname} saveScrollPosition="screen">
+//     <Add />
+//   </KeepAlive>
+// );

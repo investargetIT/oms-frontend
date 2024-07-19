@@ -28,13 +28,13 @@ const ApplyDate: React.FC<ApplyDateProps> = ({ info, onClose }) => {
       sid: info.sid,
       ...values,
     };
-    const { errCode, errMsg } = await delayDate(par);
-    if (errCode === 200) {
-      message.success('申请成功');
-      onClose && onClose(false);
-    } else {
-      message.error(errMsg);
-    }
+    // const { errCode, errMsg } = await delayDate(par);
+    // if (errCode === 200) {
+    //   message.success('申请成功');
+    //   onClose && onClose(false);
+    // } else {
+    //   message.error(errMsg);
+    // }
   };
 
   return (

@@ -26,24 +26,24 @@ const Index: React.FC = () => {
   const [deptCode, setDeptCode]: any = useState('');
   const [treeSelKey, setTreeSelKey]: any = useState('');
   const getDeptList = () => {
-    deptList().then((res: any) => {
-      if (res.errCode === 200) {
-        setTreeData(res.data.dataList);
-      }
-    });
+    // deptList().then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setTreeData(res.data.dataList);
+    //   }
+    // });
   };
   useEffect(() => {
     getDeptList();
   }, []);
-  const getMemberList = (id: any) => {
-    memberDept(id).then((res: any) => {
-      if (res.errCode === 200) {
-        setDataSource(res.data.dataList);
-      } else {
-        setDataSource([]);
-      }
-    });
-  };
+  // const getMemberList = (id: any) => {
+  //   memberDept(id).then((res: any) => {
+  //     if (res.errCode === 200) {
+  //       setDataSource(res.data.dataList);
+  //     } else {
+  //       setDataSource([]);
+  //     }
+  //   });
+  // };
   const editMember = (record: any) => {
     setIsModalVisible1(true);
     formRef1.current?.setFieldsValue(record);
@@ -54,14 +54,14 @@ const Index: React.FC = () => {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        delMember(text).then((resd: any) => {
-          if (resd.errCode === 200) {
-            message.success('删除成功!');
-            getMemberList(treeSel.sid);
-          } else {
-            message.error(resd.errMsg);
-          }
-        });
+        // delMember(text).then((resd: any) => {
+        //   if (resd.errCode === 200) {
+        //     message.success('删除成功!');
+        //     getMemberList(treeSel.sid);
+        //   } else {
+        //     message.error(resd.errMsg);
+        //   }
+        // });
       },
     });
   };
@@ -123,20 +123,20 @@ const Index: React.FC = () => {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          createDept({
-            parentDeptName: treeSel.deptName,
-            parentDeptId: treeSel.sid,
-            deptName: res.deptName,
-            deptCode,
-          }).then((resd: any) => {
-            if (resd.errCode === 200) {
-              message.success('添加成功!');
-              getDeptList();
-              setIsModalVisible(false);
-            } else {
-              message.error(resd.errMsg);
-            }
-          });
+          // createDept({
+          //   parentDeptName: treeSel.deptName,
+          //   parentDeptId: treeSel.sid,
+          //   deptName: res.deptName,
+          //   deptCode,
+          // }).then((resd: any) => {
+          //   if (resd.errCode === 200) {
+          //     message.success('添加成功!');
+          //     getDeptList();
+          //     setIsModalVisible(false);
+          //   } else {
+          //     message.error(resd.errMsg);
+          //   }
+          // });
         },
       });
     });
@@ -153,21 +153,21 @@ const Index: React.FC = () => {
         cancelText: '取消',
         onOk: async () => {
           let resd = null;
-          if (res.bizDeptId) {
-            resd = await updateMember(res);
-          } else {
-            res.bizDeptId = treeSel.sid;
-            resd = await createMember(res);
-          }
-          if (resd.errCode === 200) {
-            formRef1.current?.resetFields();
-            message.success('添加成功!');
-            setIsModalVisible1(false);
-            getMemberList(treeSel.sid);
-            formRef1.current?.resetFields();
-          } else {
-            message.error(resd.errMsg);
-          }
+          // if (res.bizDeptId) {
+          //   resd = await updateMember(res);
+          // } else {
+          //   res.bizDeptId = treeSel.sid;
+          //   resd = await createMember(res);
+          // }
+          // if (resd.errCode === 200) {
+          //   formRef1.current?.resetFields();
+          //   message.success('添加成功!');
+          //   setIsModalVisible1(false);
+          //   getMemberList(treeSel.sid);
+          //   formRef1.current?.resetFields();
+          // } else {
+          //   message.error(resd.errMsg);
+          // }
         },
       });
     });
@@ -188,13 +188,13 @@ const Index: React.FC = () => {
     setIsModalVisible1(true);
     formRef1.current?.resetFields();
     const deptName = treeSel.deptNameStr.split('/')[0];
-    roleDeptName(deptName).then((res: any) => {
-      if (res.errCode === 200 && res.data) {
-        setRoleList(res.data);
-      } else {
-        setRoleList([]);
-      }
-    });
+    // roleDeptName(deptName).then((res: any) => {
+    //   if (res.errCode === 200 && res.data) {
+    //     setRoleList(res.data);
+    //   } else {
+    //     setRoleList([]);
+    //   }
+    // });
   };
   const onDeleteDept = (): boolean => {
     if (!treeSel?.sid) {
@@ -206,16 +206,16 @@ const Index: React.FC = () => {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        deleteDept(treeSel.sid).then((resd: any) => {
-          if (resd.errCode === 200) {
-            message.success('删除成功!');
-            getDeptList();
-            setTreeSelKey([]);
-            setTreeSel('');
-          } else {
-            message.error(resd.errMsg);
-          }
-        });
+        // deleteDept(treeSel.sid).then((resd: any) => {
+        //   if (resd.errCode === 200) {
+        //     message.success('删除成功!');
+        //     getDeptList();
+        //     setTreeSelKey([]);
+        //     setTreeSel('');
+        //   } else {
+        //     message.error(resd.errMsg);
+        //   }
+        // });
       },
     });
     return true;
@@ -231,11 +231,11 @@ const Index: React.FC = () => {
     }
     setIsModalVisible(true);
     setDeptList([]);
-    queryDeptListByType({ deptAgency: treeSel?.deptName }).then((res: any) => {
-      if (res.errCode === 200 && res.data?.dataList) {
-        setDeptList(res.data?.dataList);
-      }
-    });
+    // queryDeptListByType({ deptAgency: treeSel?.deptName }).then((res: any) => {
+    //   if (res.errCode === 200 && res.data?.dataList) {
+    //     setDeptList(res.data?.dataList);
+    //   }
+    // });
   };
   const deptChage = (val: any, option: any) => {
     setDeptCode(option.code);

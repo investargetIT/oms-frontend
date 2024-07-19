@@ -72,58 +72,58 @@ const SearchAddressInvoice: React.FC<SearchAddressInvoiceProps> = (props) => {
   // };
 
   useEffect(() => {
-    queryInvoiceAddress({ customerCode: customerCode }).then((res) => {
-      const { data, errCode, errMsg } = res;
-      console.log(data);
-      if (errCode === 200) {
-        //mock
-        // const data1 = [
-        //   {
-        //     customerCode: '0600300021',
-        //     customerName: '鲜花',
-        //     province: '1451',
-        //     city: '1502',
-        //     district: '0',
-        //     provinceName: '上海市',
-        //     cityName: '宝山',
-        //     districtName: '',
-        //     recipientName: '哈哈invoice132',
-        //     receiptAddress: '淞南镇',
-        //     receiptZipCode: '356821',
-        //     receiptFixPhone: '021-9284378',
-        //     receiptMobilePhone: '13209873456',
-        //     receiptEmail: '4567@qq.com',
-        //     followMerchandise: 1,
-        //   },
-        //   {
-        //     customerCode: '0600300021',
-        //     customerName: '鲜花',
-        //     province: '1451',
-        //     city: '1502',
-        //     district: '0',
-        //     provinceName: '上海市',
-        //     cityName: '松江',
-        //     districtName: '',
-        //     recipientName: '哈哈invoice000',
-        //     receiptAddress: '广富林路',
-        //     receiptZipCode: '356821',
-        //     receiptFixPhone: '021-9284378',
-        //     receiptMobilePhone: '13209873456',
-        //     receiptEmail: '1212@qq.com',
-        //     followMerchandise: 0,
-        //   },
-        // ];
-        setTableListDataSource(
-          data?.dataList?.map((io: any, index: any) => ({
-            ...io,
-            index,
-            invoiceSapCode: io.sapCode,
-          })),
-        );
-      } else {
-        message.error(errMsg);
-      }
-    });
+    // queryInvoiceAddress({ customerCode: customerCode }).then((res) => {
+    //   const { data, errCode, errMsg } = res;
+    //   console.log(data);
+    //   if (errCode === 200) {
+    //     //mock
+    //     // const data1 = [
+    //     //   {
+    //     //     customerCode: '0600300021',
+    //     //     customerName: '鲜花',
+    //     //     province: '1451',
+    //     //     city: '1502',
+    //     //     district: '0',
+    //     //     provinceName: '上海市',
+    //     //     cityName: '宝山',
+    //     //     districtName: '',
+    //     //     recipientName: '哈哈invoice132',
+    //     //     receiptAddress: '淞南镇',
+    //     //     receiptZipCode: '356821',
+    //     //     receiptFixPhone: '021-9284378',
+    //     //     receiptMobilePhone: '13209873456',
+    //     //     receiptEmail: '4567@qq.com',
+    //     //     followMerchandise: 1,
+    //     //   },
+    //     //   {
+    //     //     customerCode: '0600300021',
+    //     //     customerName: '鲜花',
+    //     //     province: '1451',
+    //     //     city: '1502',
+    //     //     district: '0',
+    //     //     provinceName: '上海市',
+    //     //     cityName: '松江',
+    //     //     districtName: '',
+    //     //     recipientName: '哈哈invoice000',
+    //     //     receiptAddress: '广富林路',
+    //     //     receiptZipCode: '356821',
+    //     //     receiptFixPhone: '021-9284378',
+    //     //     receiptMobilePhone: '13209873456',
+    //     //     receiptEmail: '1212@qq.com',
+    //     //     followMerchandise: 0,
+    //     //   },
+    //     // ];
+    //     setTableListDataSource(
+    //       data?.dataList?.map((io: any, index: any) => ({
+    //         ...io,
+    //         index,
+    //         invoiceSapCode: io.sapCode,
+    //       })),
+    //     );
+    //   } else {
+    //     message.error(errMsg);
+    //   }
+    // });
   }, []);
 
   return (

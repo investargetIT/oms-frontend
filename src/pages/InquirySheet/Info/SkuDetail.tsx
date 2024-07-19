@@ -26,12 +26,12 @@ const SkuDetail: React.FC<{
     const newPath: any = history.location.pathname.split('/').pop();
     setLastPath(newPath);
     if (props.id) {
-      inqLnInfo(props.id).then((res: any) => {
-        if (res.errCode === 200) {
-          setParams(res.data);
-          setRemarkDesc(res.data.skuVo?.matchRemark);
-        }
-      });
+      // inqLnInfo(props.id).then((res: any) => {
+      //   if (res.errCode === 200) {
+      //     setParams(res.data);
+      //     setRemarkDesc(res.data.skuVo?.matchRemark);
+      //   }
+      // });
     }
   }, [props.id]);
   const onLog = () => {
@@ -48,21 +48,21 @@ const SkuDetail: React.FC<{
         cancelText: '取消',
         onOk: () => {
           setLoad(true);
-          updateSkuImg({
-            ...imgParams,
-            sid: params.sid,
-            inqLineId: params.sid,
-            inquiryId: params.inquiryId,
-          }).then((imgRes: any) => {
-            if (imgRes.errCode === 200) {
-              message.success('保存成功!');
-              rebackMtd();
-              setLoad(false);
-            } else {
-              message.error(imgRes.errMsg);
-              setLoad(false);
-            }
-          });
+          // updateSkuImg({
+          //   ...imgParams,
+          //   sid: params.sid,
+          //   inqLineId: params.sid,
+          //   inquiryId: params.inquiryId,
+          // }).then((imgRes: any) => {
+          //   if (imgRes.errCode === 200) {
+          //     message.success('保存成功!');
+          //     rebackMtd();
+          //     setLoad(false);
+          //   } else {
+          //     message.error(imgRes.errMsg);
+          //     setLoad(false);
+          //   }
+          // });
         },
       });
     },
@@ -74,20 +74,20 @@ const SkuDetail: React.FC<{
         cancelText: '取消',
         onOk: () => {
           setLoad(true);
-          editMatchRemark(path, {
-            matchRemark: RemarkDesc,
-            inqLnId: params.sid,
-            inquiryId: params.inquiryId,
-          }).then((res: any) => {
-            if (res.errCode === 200) {
-              message.success('保存成功!');
-              rebackMtd();
-              setLoad(false);
-            } else {
-              message.error(res.errMsg);
-              setLoad(false);
-            }
-          });
+          // editMatchRemark(path, {
+          //   matchRemark: RemarkDesc,
+          //   inqLnId: params.sid,
+          //   inquiryId: params.inquiryId,
+          // }).then((res: any) => {
+            // if (res.errCode === 200) {
+            //   message.success('保存成功!');
+            //   rebackMtd();
+            //   setLoad(false);
+            // } else {
+            //   message.error(res.errMsg);
+            //   setLoad(false);
+            // }
+          // });
         },
       });
     },

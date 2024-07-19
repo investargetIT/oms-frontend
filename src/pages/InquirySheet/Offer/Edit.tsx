@@ -67,13 +67,13 @@ const Edit: React.FC<EditProps> = () => {
       customerCode,
       adjustFreight,
     });
-    const res = await operateAuth({ operateButton, operateSourceChannel: 0, paramReqList });
-    if (res?.errCode === 200) {
-      const { data } = res;
-      return data;
-    } else {
-      message.error(res?.errMsg);
-    }
+    // const res = await operateAuth({ operateButton, operateSourceChannel: 0, paramReqList });
+    // if (res?.errCode === 200) {
+    //   const { data } = res;
+    //   return data;
+    // } else {
+    //   message.error(res?.errMsg);
+    // }
   };
   const getTotal = async (address: any) => {
     console.log(111111);
@@ -105,12 +105,12 @@ const Edit: React.FC<EditProps> = () => {
       })),
     };
     if (info.sid && info?.quotationLineRespVoPage?.list?.length > 0) {
-      calSubTotalEdit(par).then((res: any) => {
-        const { data, errCode } = res;
-        if (errCode === 200) {
-          setTotal(data);
-        }
-      });
+      // calSubTotalEdit(par).then((res: any) => {
+      //   const { data, errCode } = res;
+      //   if (errCode === 200) {
+      //     setTotal(data);
+      //   }
+      // });
     }
   };
   const columns: ProColumns<any>[] = [
@@ -460,13 +460,13 @@ const Edit: React.FC<EditProps> = () => {
       })),
     };
 
-    const { errCode, errMsg } = await editOffer(par);
-    if (errCode === 200) {
-      message.success('提交成功');
-      destroyCom('/inquiry/offer', location.pathname);
-    } else {
-      message.error(errMsg);
-    }
+    // const { errCode, errMsg } = await editOffer(par);
+    // if (errCode === 200) {
+    //   message.success('提交成功');
+    //   destroyCom('/inquiry/offer', location.pathname);
+    // } else {
+    //   message.error(errMsg);
+    // }
   };
 
   const onMethodChange = (val: any) => {
@@ -743,61 +743,61 @@ const Edit: React.FC<EditProps> = () => {
                     pageSize: par?.pageSize,
                   });
 
-                  if (errCode === 200) {
-                    // 默认 queryPayInfo
-                    let defaultPay = {} as any;
-                    await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
-                      if (respay.data) {
-                        defaultPay = {
-                          payTypeCust: respay?.data?.type,
-                        };
-                      }
-                    });
-                    setInfo({
-                      ...defaultPay,
-                      ...data,
-                      shipType: data?.shipType,
-                      invoiceCode: {
-                        provinceCode: data.invoiceInfoRespVo?.province,
-                        cityCode: data.invoiceInfoRespVo?.city,
-                        districtCode: data.invoiceInfoRespVo?.district,
-                      },
-                      company: { label: data?.branchCompanyName, value: data?.branchCode } as any,
-                      quotationLineRespVoPage: {
-                        ...data.quotationLineRespVoPage,
-                        list: data?.quotationLineRespVoPage?.list?.map((io: any, index: any) => ({
-                          ...io,
-                          index: index,
-                        })),
-                      },
-                    });
-                    const infoTotal = {
-                      amount: data?.amount,
-                      amountNet: data?.amountNet,
-                      goodsAmount: data?.goodsAmount,
-                      goodsAmountNet: data?.goodsAmountNet,
-                      totalDiscount: data?.totalDiscount,
-                      calcFreightRespVo: {
-                        headFreight: data?.freight,
-                        interFreight: data?.interFreight,
-                        tariff: data?.tariff,
-                        totalFreight: data?.totalFreight,
-                      },
-                    };
-                    setTotal(infoTotal);
+                  // if (errCode === 200) {
+                  //   // 默认 queryPayInfo
+                  //   let defaultPay = {} as any;
+                  //   await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
+                  //     if (respay.data) {
+                  //       defaultPay = {
+                  //         payTypeCust: respay?.data?.type,
+                  //       };
+                  //     }
+                  //   });
+                  //   setInfo({
+                  //     ...defaultPay,
+                  //     ...data,
+                  //     shipType: data?.shipType,
+                  //     invoiceCode: {
+                  //       provinceCode: data.invoiceInfoRespVo?.province,
+                  //       cityCode: data.invoiceInfoRespVo?.city,
+                  //       districtCode: data.invoiceInfoRespVo?.district,
+                  //     },
+                  //     company: { label: data?.branchCompanyName, value: data?.branchCode } as any,
+                  //     quotationLineRespVoPage: {
+                  //       ...data.quotationLineRespVoPage,
+                  //       list: data?.quotationLineRespVoPage?.list?.map((io: any, index: any) => ({
+                  //         ...io,
+                  //         index: index,
+                  //       })),
+                  //     },
+                  //   });
+                  //   const infoTotal = {
+                  //     amount: data?.amount,
+                  //     amountNet: data?.amountNet,
+                  //     goodsAmount: data?.goodsAmount,
+                  //     goodsAmountNet: data?.goodsAmountNet,
+                  //     totalDiscount: data?.totalDiscount,
+                  //     calcFreightRespVo: {
+                  //       headFreight: data?.freight,
+                  //       interFreight: data?.interFreight,
+                  //       tariff: data?.tariff,
+                  //       totalFreight: data?.totalFreight,
+                  //     },
+                  //   };
+                  //   setTotal(infoTotal);
 
-                    return Promise.resolve({
-                      data: data?.quotationLineRespVoPage?.list?.map((io: any) => ({
-                        ...io,
-                        canTransforQuotQty: io.qty,
-                        // canTransforQuotQty: io.reqQty - io.totalCloseQty,
-                      })),
-                      total: data?.quotationLineRespVoPage?.total,
-                      success: true,
-                    });
-                  } else {
-                    return toast(`${errMsg}`, `${errCode}`);
-                  }
+                  //   return Promise.resolve({
+                  //     data: data?.quotationLineRespVoPage?.list?.map((io: any) => ({
+                  //       ...io,
+                  //       canTransforQuotQty: io.qty,
+                  //       // canTransforQuotQty: io.reqQty - io.totalCloseQty,
+                  //     })),
+                  //     total: data?.quotationLineRespVoPage?.total,
+                  //     success: true,
+                  //   });
+                  // } else {
+                  //   return toast(`${errMsg}`, `${errCode}`);
+                  // }
                 }}
               />
             </div>
@@ -990,14 +990,14 @@ const Edit: React.FC<EditProps> = () => {
             quotId: info.sid,
             quotLineIdList: values?.method == 0 ? [0] : [ppr],
           };
-          const { errCode, errMsg } = await freightAvg(par);
-          if (errCode === 200) {
-            actRef?.current?.reload();
-            message.success('提交成功');
-          } else {
-            message.error(errMsg);
-            return false;
-          }
+          // const { errCode, errMsg } = await freightAvg(par);
+          // if (errCode === 200) {
+          //   actRef?.current?.reload();
+          //   message.success('提交成功');
+          // } else {
+          //   message.error(errMsg);
+          //   return false;
+          // }
           return true;
         }}
       >

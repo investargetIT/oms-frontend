@@ -20,13 +20,13 @@ const SupplierSelectCom: React.FC<{ isEdit?: any; getName?: any; filterName?: an
         clearTimeout(timeout);
         timeout = null;
       }
-      setTimeout(() => {
-        getSupplierList(val).then((res: any) => {
-          if (res.errCode === 200) {
-            setList(res.data.dataList);
-          }
-        });
-      }, 1000);
+      // setTimeout(() => {
+      //   getSupplierList(val).then((res: any) => {
+      //     if (res.errCode === 200) {
+      //       setList(res.data.dataList);
+      //     }
+      //   });
+      // }, 1000);
     }
   };
   useEffect(() => {

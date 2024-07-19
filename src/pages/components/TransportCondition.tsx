@@ -4,11 +4,11 @@ import { queryListDataMap } from '@/services';
 const TransportCondition: React.FC = ({ onChange, value }: any) => {
   const [list, setList] = useState([]);
   useEffect(() => {
-    queryListDataMap(['transportCondition']).then((res: any) => {
-      if (res.errCode === 200) {
-        setList(res.data.transportCondition);
-      }
-    });
+    // queryListDataMap(['transportCondition']).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setList(res.data.transportCondition);
+    //   }
+    // });
   }, []);
   const valChange = (val: any) => {
     onChange(val.target.value);

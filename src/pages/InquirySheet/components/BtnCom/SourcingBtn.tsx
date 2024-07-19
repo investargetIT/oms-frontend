@@ -49,18 +49,18 @@ const SourcingBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) =
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          toSourcing(temp, path).then((resd: any) => {
-            if (resd.errCode === 200) {
-              message.success('操作成功!');
-              if (props.recall) {
-                props.recall();
-              } else {
-                history.go(-1);
-              }
-            } else {
-              Modal.error({ title: resd.errMsg });
-            }
-          });
+          // toSourcing(temp, path).then((resd: any) => {
+          //   if (resd.errCode === 200) {
+          //     message.success('操作成功!');
+          //     if (props.recall) {
+          //       props.recall();
+          //     } else {
+          //       history.go(-1);
+          //     }
+          //   } else {
+          //     Modal.error({ title: resd.errMsg });
+          //   }
+          // });
         },
       });
     }
@@ -78,19 +78,19 @@ const SourcingBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) =
         cancelText: '取消',
         onOk: () => {
           const path: any = pathParams?.sorurceType || history.location.pathname.split('/').pop();
-          changeSegment2Src({ ...temp, ...res }, path).then((resd: any) => {
-            if (resd.errCode === 200) {
-              message.success('操作成功!');
-              if (props.recall) {
-                props.recall();
-              } else {
-                history.go(-1);
-              }
-              setIsModalVisible(false);
-            } else {
-              Modal.error({ title: resd.errMsg });
-            }
-          });
+          // changeSegment2Src({ ...temp, ...res }, path).then((resd: any) => {
+          //   if (resd.errCode === 200) {
+          //     message.success('操作成功!');
+          //     if (props.recall) {
+          //       props.recall();
+          //     } else {
+          //       history.go(-1);
+          //     }
+          //     setIsModalVisible(false);
+          //   } else {
+          //     Modal.error({ title: resd.errMsg });
+          //   }
+          // });
         },
       });
     });

@@ -9,11 +9,11 @@ const TereplaceBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) 
   const [list, setList] = useState([]);
   const formRef = React.createRef<FormInstance>();
   useEffect(() => {
-    getTe().then((res: any) => {
-      if (res.errCode === 200) {
-        setList(res.data.dataList);
-      }
-    });
+    // getTe().then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setList(res.data.dataList);
+    //   }
+    // });
   }, []);
   const getParams = (): any => {
     const temp: any = {};
@@ -36,13 +36,13 @@ const TereplaceBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) 
       Modal.warning({ title: '请选择需要操作的数据!' });
       return false;
     }
-    aeTote(getParams()).then((res: any) => {
-      if (res.errCode === 200) {
-        setIsModalVisible(true);
-      } else {
-        Modal.error({ title: res.errMsg });
-      }
-    });
+    // aeTote(getParams()).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setIsModalVisible(true);
+    //   } else {
+    //     Modal.error({ title: res.errMsg });
+    //   }
+    // });
     return true;
   };
   const handleOk = () => {
@@ -53,19 +53,19 @@ const TereplaceBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) 
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          aeTote({ ...params, ...res }).then((resd: any) => {
-            if (resd.errCode === 200) {
-              message.success('操作成功!');
-              setIsModalVisible(false);
-              if (props.recall) {
-                props.recall();
-              } else {
-                history.go(-1);
-              }
-            } else {
-              Modal.error({ title: resd.errMsg });
-            }
-          });
+          // aeTote({ ...params, ...res }).then((resd: any) => {
+          //   if (resd.errCode === 200) {
+          //     message.success('操作成功!');
+          //     setIsModalVisible(false);
+          //     if (props.recall) {
+          //       props.recall();
+          //     } else {
+          //       history.go(-1);
+          //     }
+          //   } else {
+          //     Modal.error({ title: resd.errMsg });
+          //   }
+          // });
         },
       });
     });

@@ -122,31 +122,31 @@ const SearchAddress: React.FC<SearchAddressProps> = (props) => {
           const res = await queryRecAddress({ customerCode: customerCode });
           const { data, errCode, errMsg } = res;
 
-          if (errCode === 200) {
-            const newList = data?.dataList?.map((io: any, index: any) => ({
-              ...io,
-              index,
-              shipRegionSapCode: io.sapCode,
-            })) as any;
-            newList?.forEach((element: any) => {
-              delete element?.followMerchandise;
-            });
-            const arr = newList?.filter((item: any) => {
-              return (
-                (!params.receiptAddress || item.receiptAddress?.includes(params.receiptAddress)) &&
-                (!params.recipientName || item.recipientName?.includes(params.recipientName)) &&
-                (!params.receiptMobilePhone ||
-                  item.receiptMobilePhone === params.receiptMobilePhone)
-              );
-            });
-            return Promise.resolve({
-              data: arr,
-              success: true,
-            });
-          } else {
-            message.error(errMsg);
-            return Promise.resolve([]);
-          }
+          // if (errCode === 200) {
+          //   const newList = data?.dataList?.map((io: any, index: any) => ({
+          //     ...io,
+          //     index,
+          //     shipRegionSapCode: io.sapCode,
+          //   })) as any;
+          //   newList?.forEach((element: any) => {
+          //     delete element?.followMerchandise;
+          //   });
+          //   const arr = newList?.filter((item: any) => {
+          //     return (
+          //       (!params.receiptAddress || item.receiptAddress?.includes(params.receiptAddress)) &&
+          //       (!params.recipientName || item.recipientName?.includes(params.recipientName)) &&
+          //       (!params.receiptMobilePhone ||
+          //         item.receiptMobilePhone === params.receiptMobilePhone)
+          //     );
+          //   });
+          //   return Promise.resolve({
+          //     data: arr,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(errMsg);
+          //   return Promise.resolve([]);
+          // }
         }}
         rowSelection={{
           onSelect: (record) => {

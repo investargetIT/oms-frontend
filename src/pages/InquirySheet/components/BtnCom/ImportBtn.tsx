@@ -46,29 +46,29 @@ const ImportBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) => 
           setTimeout(hide, 100);
         }
         const res: any = info.file.response;
-        if (res.errCode === 200) {
-          if (res.data?.length) {
-            setIsModalVisible(true);
-            setList(res.data);
-          } else {
-            Modal.success({
-              title: '导入成功!',
-            });
-            if (props.recall) props.recall();
-          }
-        } else {
-          if (res.data) {
-            Modal.warning({
-              title: '导入结果提示',
-              content: uploadMsg(res.data?.successNum, res.data?.errorNum, res.data?.url),
-            });
-          } else {
-            Modal.warning({
-              title: '导入结果提示',
-              content: res.errMsg,
-            });
-          }
-        }
+        // if (res.errCode === 200) {
+        //   if (res.data?.length) {
+        //     setIsModalVisible(true);
+        //     setList(res.data);
+        //   } else {
+        //     Modal.success({
+        //       title: '导入成功!',
+        //     });
+        //     if (props.recall) props.recall();
+        //   }
+        // } else {
+        //   if (res.data) {
+        //     Modal.warning({
+        //       title: '导入结果提示',
+        //       content: uploadMsg(res.data?.successNum, res.data?.errorNum, res.data?.url),
+        //     });
+        //   } else {
+        //     Modal.warning({
+        //       title: '导入结果提示',
+        //       content: res.errMsg,
+        //     });
+        //   }
+        // }
       } else if (info.file.status === 'error') {
         if (hide) {
           setTimeout(hide, 100);
@@ -95,19 +95,19 @@ const ImportBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) => 
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        cascadeSave({ list }).then((resd: any) => {
-          if (resd.errCode === 200) {
-            message.success('操作成功!');
-            setIsModalVisible(false);
-            if (props.recall) {
-              props.recall();
-            } else {
-              history.go(-1);
-            }
-          } else {
-            message.error(resd.errMsg);
-          }
-        });
+        // cascadeSave({ list }).then((resd: any) => {
+        //   if (resd.errCode === 200) {
+        //     message.success('操作成功!');
+        //     setIsModalVisible(false);
+        //     if (props.recall) {
+        //       props.recall();
+        //     } else {
+        //       history.go(-1);
+        //     }
+        //   } else {
+        //     message.error(resd.errMsg);
+        //   }
+        // });
       },
     });
   };

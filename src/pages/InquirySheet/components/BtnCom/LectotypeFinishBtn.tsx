@@ -28,16 +28,16 @@ const LectotypeFinishBtn: React.FC<{ selectedRow: any; recall?: any }> = (props:
         if (inqLineIdList?.length) {
           temp.inqLineIdList = inqLineIdList;
         }
-        completeLetcy(path, temp).then((resd: any) => {
-          if (resd.errCode === 200) {
-            message.success(resd.errMsg);
-            if (props.recall) {
-              props.recall();
-            }
-          } else {
-            message.error(resd.errMsg);
-          }
-        });
+        // completeLetcy(path, temp).then((resd: any) => {
+        //   if (resd.errCode === 200) {
+        //     message.success(resd.errMsg);
+        //     if (props.recall) {
+        //       props.recall();
+        //     }
+        //   } else {
+        //     message.error(resd.errMsg);
+        //   }
+        // });
       },
     });
     return true;

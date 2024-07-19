@@ -31,30 +31,30 @@ const ToauditBtn: React.FC<{
       cancelText: '取消',
       onOk: async () => {
         // 判断接口
-        await searchFaTransAstSku(path, {
-          inquiryId: inquiryId,
-          inqLineIdList,
-          button: 'xuanpei-tijiaoshenhe',
-        }).then(async (res: any) => {
-          if (res?.errCode == 200) {
-            if (res?.data?.dataList?.length > 0) {
-              //接下来做是否替换操作
-              setRepalceList(res?.data?.dataList);
-              replaceModalRef?.current?.open();
-            } else {
-              //原来逻辑
-              const resd = await submitCheck(path, { inquiryId: inquiryId, inqLineIdList });
-              if (resd.errCode === 200) {
-                message.success(resd.data);
-                if (props?.recall) props?.recall();
-              } else {
-                message.error(resd.errMsg);
-              }
-            }
-          } else {
-            message.error(res?.errMsg);
-          }
-        });
+        // await searchFaTransAstSku(path, {
+        //   inquiryId: inquiryId,
+        //   inqLineIdList,
+        //   button: 'xuanpei-tijiaoshenhe',
+        // }).then(async (res: any) => {
+        //   if (res?.errCode == 200) {
+        //     if (res?.data?.dataList?.length > 0) {
+        //       //接下来做是否替换操作
+        //       setRepalceList(res?.data?.dataList);
+        //       replaceModalRef?.current?.open();
+        //     } else {
+        //       //原来逻辑
+        //       const resd = await submitCheck(path, { inquiryId: inquiryId, inqLineIdList });
+        //       if (resd.errCode === 200) {
+        //         message.success(resd.data);
+        //         if (props?.recall) props?.recall();
+        //       } else {
+        //         message.error(resd.errMsg);
+        //       }
+        //     }
+        //   } else {
+        //     message.error(res?.errMsg);
+        //   }
+        // });
       },
     });
   };

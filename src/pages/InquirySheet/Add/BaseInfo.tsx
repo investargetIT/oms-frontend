@@ -11,7 +11,7 @@ import { crmCustomer, getCustomerList, getFreeShipping } from '@/services/Inquir
 import { getR3ConList } from '@/services/SalesOrder';
 const BaseInfo: React.FC<{ params: any; getCustomerCode: Function }> = (props: any, ref: any) => {
   const pathParams: any = useParams();
-  const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
+  // const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
   const { initialState } = useModel('@@initialState');
   const [cosPurList, setCosPurList] = useState([]);
   const [cdygList, setCdygList] = useState([]);
@@ -85,24 +85,24 @@ const BaseInfo: React.FC<{ params: any; getCustomerCode: Function }> = (props: a
         branchCompanyName: val[0].branchCompanyName,
       });
       if (val[0].customerCode) {
-        getFreeShipping(val[0].customerCode).then((freeRes: any) => {
-          if (freeRes.errCode === 200 && freeRes.data) {
-            form?.setFieldsValue(freeRes.data);
-          }
-        });
+        // getFreeShipping(val[0].customerCode).then((freeRes: any) => {
+        //   if (freeRes.errCode === 200 && freeRes.data) {
+        //     form?.setFieldsValue(freeRes.data);
+        //   }
+        // });
       }
       props.getCustomerCode(val[0].customerCode);
-      getR3ConList({ customerCode: val[0].customerCode, pageSize: 10, pageNumber: 1 }).then(
-        (res: any) => {
-          if (res.errCode === 200 && res.data?.total === 1) {
-            const temp = res.data.dataList[0];
-            form?.setFieldsValue({
-              contactName: temp.contactName,
-              contactCodeR3: temp.contactCodeR3,
-            });
-          }
-        },
-      );
+      // getR3ConList({ customerCode: val[0].customerCode, pageSize: 10, pageNumber: 1 }).then(
+      //   (res: any) => {
+      //     if (res.errCode === 200 && res.data?.total === 1) {
+      //       const temp = res.data.dataList[0];
+      //       form?.setFieldsValue({
+      //         contactName: temp.contactName,
+      //         contactCodeR3: temp.contactCodeR3,
+      //       });
+      //     }
+      //   },
+      // );
     } else if (modalTitle === '选择联系人') {
       form?.setFieldsValue({
         contactName: val[0].contactName,
@@ -119,30 +119,30 @@ const BaseInfo: React.FC<{ params: any; getCustomerCode: Function }> = (props: a
     setModalVal(val);
   };
   useEffect(() => {
-    getKeys([
-      'custPurposeEnum',
-      'toOrderEstimationEnum',
-      'reqTypeEnum',
-      'inqTypeEnum',
-      'channelEnum',
-    ]).then((res: any) => {
-      if (res) {
-        setReqList(res.reqTypeEnum);
-        const newAl = res.inqTypeEnum;
-        for (const i in newAl) {
-          newAl[0].disabled =
-            form.getFieldValue('channel') == 10 && props.params?.apiMark != 1 ? false : true;
-          newAl[1].disabled =
-            form.getFieldValue('channel') != 10 && props.params?.apiMark != 1 ? false : true;
-        }
-        console.log(newAl);
+    // getKeys([
+    //   'custPurposeEnum',
+    //   'toOrderEstimationEnum',
+    //   'reqTypeEnum',
+    //   'inqTypeEnum',
+    //   'channelEnum',
+    // ]).then((res: any) => {
+    //   if (res) {
+    //     setReqList(res.reqTypeEnum);
+    //     const newAl = res.inqTypeEnum;
+    //     for (const i in newAl) {
+    //       newAl[0].disabled =
+    //         form.getFieldValue('channel') == 10 && props.params?.apiMark != 1 ? false : true;
+    //       newAl[1].disabled =
+    //         form.getFieldValue('channel') != 10 && props.params?.apiMark != 1 ? false : true;
+    //     }
+    //     console.log(newAl);
 
-        setTypeList(res.inqTypeEnum);
-        setCosPurList(res.custPurposeEnum);
-        setCdygList(res.toOrderEstimationEnum);
-        setChannelList(res.channelEnum);
-      }
-    });
+    //     setTypeList(res.inqTypeEnum);
+    //     setCosPurList(res.custPurposeEnum);
+    //     setCdygList(res.toOrderEstimationEnum);
+    //     setChannelList(res.channelEnum);
+    //   }
+    // });
     if (pathParams?.id && !location.state) {
       //?当有链接后面有  id  的时候，就禁用
       setIsIdEdit(true);
@@ -160,34 +160,34 @@ const BaseInfo: React.FC<{ params: any; getCustomerCode: Function }> = (props: a
       if (res.expectedReplyTime) res.expectedReplyTime = moment(res.expectedReplyTime);
       form?.setFieldsValue(res);
       // 判断是否可以店家
-      getKeys(['inqTypeEnum']).then((res1: any) => {
-        if (res1) {
-          setTypeList(
-            res1.inqTypeEnum.map((ic: any) => {
-              if (ic.code == 1) {
-                ic.disabled = props.params.apiMark === 1 ? true : false;
-              }
-              if (ic.code == 2) {
-                ic.disabled = props.params.apiMark != 1 ? true : false;
-              }
-              return ic;
-            }),
-          );
-        }
-      });
+      // getKeys(['inqTypeEnum']).then((res1: any) => {
+      //   if (res1) {
+      //     setTypeList(
+      //       res1.inqTypeEnum.map((ic: any) => {
+      //         if (ic.code == 1) {
+      //           ic.disabled = props.params.apiMark === 1 ? true : false;
+      //         }
+      //         if (ic.code == 2) {
+      //           ic.disabled = props.params.apiMark != 1 ? true : false;
+      //         }
+      //         return ic;
+      //       }),
+      //     );
+      //   }
+      // });
     }
   }, [props.params]);
   const getData = async (params: any) => {
     const customerCode = form?.getFieldValue('customerCode');
     if (modalTitle === '选择客户') {
-      return await crmCustomer(params);
+      // return await crmCustomer(params);
     } else if (modalTitle === '选择联系人') {
       params.customerCode = customerCode;
       // return await getConList1(params);
       return await getR3ConList(params);
     } else if (modalTitle === '选择商机') {
       params.customerCode = customerCode;
-      return await getCustomerList(params);
+      // return await getCustomerList(params);
     }
   };
   const modalOK = () => {

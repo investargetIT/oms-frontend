@@ -12,11 +12,11 @@ const LogInfo: React.FC<{
   const [data, setData]: any = useState([]);
   useEffect(() => {
     if (props.visible) {
-      logList({ sourceId: props.id, sourceType: props.sourceType }).then((res: any) => {
-        if (res.errCode === 200) {
-          setData(res.data);
-        }
-      });
+      // logList({ sourceId: props.id, sourceType: props.sourceType }).then((res: any) => {
+      //   if (res.errCode === 200) {
+      //     setData(res.data);
+      //   }
+      // });
     }
   }, [props.visible]);
   const columns: any = [

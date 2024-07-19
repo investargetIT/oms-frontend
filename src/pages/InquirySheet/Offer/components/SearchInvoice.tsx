@@ -60,37 +60,37 @@ const SearchInvoice: React.FC<SearchInvoiceProps> = (props) => {
   ];
 
   useEffect(() => {
-    queryBillingInfo({ customerCode: customerCode }).then((res) => {
-      const { data, errCode, errMsg } = res as any;
-      console.log(data);
-      if (errCode === 200) {
-        //mock
-        // const data1 = [
-        //   {
-        //     invoiceTitle: '开票台头',
-        //     vatTaxNo: '1122222',
-        //     vatBankName: '工商银行',
-        //     vatBankNo: '71731987363171975',
-        //     vatAddress: '上海市宝山区淞南',
-        //     vatTel: '13721317855',
-        //   },
-        // ];
-        // 映射字段
-        const newList = data?.dataList?.map((io: any, index: any) => ({
-          invoiceTitle: io.customerName,
-          vatTaxNo: io.taxNumber,
-          vatBankName: io.bankName,
-          vatBankNo: io.bankAccount,
-          vatAddress: io.registerAddress,
-          vatPhone: io.registerTelephone,
-          index,
-          payerCustomerAccount: io.payerCustomerAccount,
-        }));
-        setTableListDataSource(newList);
-      } else {
-        message.error(errMsg);
-      }
-    });
+    // queryBillingInfo({ customerCode: customerCode }).then((res) => {
+    //   const { data, errCode, errMsg } = res as any;
+    //   console.log(data);
+      // if (errCode === 200) {
+      //   //mock
+      //   // const data1 = [
+      //   //   {
+      //   //     invoiceTitle: '开票台头',
+      //   //     vatTaxNo: '1122222',
+      //   //     vatBankName: '工商银行',
+      //   //     vatBankNo: '71731987363171975',
+      //   //     vatAddress: '上海市宝山区淞南',
+      //   //     vatTel: '13721317855',
+      //   //   },
+      //   // ];
+      //   // 映射字段
+      //   const newList = data?.dataList?.map((io: any, index: any) => ({
+      //     invoiceTitle: io.customerName,
+      //     vatTaxNo: io.taxNumber,
+      //     vatBankName: io.bankName,
+      //     vatBankNo: io.bankAccount,
+      //     vatAddress: io.registerAddress,
+      //     vatPhone: io.registerTelephone,
+      //     index,
+      //     payerCustomerAccount: io.payerCustomerAccount,
+      //   }));
+      //   setTableListDataSource(newList);
+      // } else {
+      //   message.error(errMsg);
+      // }
+    // });
   }, []);
   // console.log(tableListDataSource);
 

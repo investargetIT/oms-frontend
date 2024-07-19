@@ -9,11 +9,11 @@ const ProductLine: React.FC<{ isEdit?: any; onChange: any; onType?: any }> = ({
 }: any) => {
   const [list, setList] = useState([]);
   useEffect(() => {
-    getChildrenCategory(0).then((res: any) => {
-      if (res.errCode === 200) {
-        setList(res.data.dataList);
-      }
-    });
+    // getChildrenCategory(0).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setList(res.data.dataList);
+    //   }
+    // });
   }, []);
   const valChange = (val: any, option: any) => {
     if (onChange) {

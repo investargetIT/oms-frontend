@@ -40,7 +40,7 @@ const Index: React.FC = () => {
   const [pageParams, setPageParams] = useState({});
   const [inqLnTypeList, setInqLnTypeList] = useState([]);
   const { initialState } = useModel('@@initialState');
-  const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
+  // const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
   const { RangePicker }: any = DatePicker;
   const ref = useRef<ActionType>();
   const [form] = Form.useForm();
@@ -408,22 +408,22 @@ const Index: React.FC = () => {
   useEffect(() => {
     setPathname(history.location.pathname)
     setLastPath(history.location.pathname.split('/').pop());
-    getFieldConfiguration({url: history.location.pathname}).then(res => {
-      let arr  = []
-      if (res.data) {
-        let datas = JSON.parse(res.data)
-        arr = tableList(datas)
-        if (!aePage) {
-          setTableColumns(arr)
-        } else {
-          setTableColumns(columns)
-        }
-        setColumnsStateAll(datas)
-      } else {
-        setColumnsStateAll({})
-      }
+    // getFieldConfiguration({url: history.location.pathname}).then(res => {
+    //   let arr  = []
+    //   if (res.data) {
+    //     let datas = JSON.parse(res.data)
+    //     arr = tableList(datas)
+    //     if (!aePage) {
+    //       setTableColumns(arr)
+    //     } else {
+    //       setTableColumns(columns)
+    //     }
+    //     setColumnsStateAll(datas)
+    //   } else {
+    //     setColumnsStateAll({})
+    //   }
 
-    })
+    // })
   }, [history.location.pathname]);
   const tableList = (datas) => {
     let arr  = []
@@ -449,30 +449,30 @@ const Index: React.FC = () => {
   }
   useEffect(() => {
     
-    getKeys([
-      'inqLnTypeEnum',
-      'branchCompanyEnum',
-      'reqTypeEnum',
-      'custPurposeEnum',
-      'inqLnStat',
-    ]).then((res: any) => {
-      if (res) {
-        setCompanyList(res.branchCompanyEnum);
-        setInqLnTypeList(res.inqLnTypeEnum);
-        setReqList(res.reqTypeEnum);
-        setCosPurList(res.custPurposeEnum);
-        setLineStatus(res.inqLnStat);
-      }
-    });
-    queryAllDeptListByType().then((res: any) => {
-      if (res.errCode === 200 && res?.data) {
-        const list: any = Object.keys(res.data).map((item: any) => {
-          const newCode = res.data[item].map((ite: any) => ite.deptCode);
-          return { deptName: item, deptCode: newCode.join(), children: res.data[item] };
-        });
-        setCascList(list);
-      }
-    });
+    // getKeys([
+    //   'inqLnTypeEnum',
+    //   'branchCompanyEnum',
+    //   'reqTypeEnum',
+    //   'custPurposeEnum',
+    //   'inqLnStat',
+    // ]).then((res: any) => {
+    //   if (res) {
+    //     setCompanyList(res.branchCompanyEnum);
+    //     setInqLnTypeList(res.inqLnTypeEnum);
+    //     setReqList(res.reqTypeEnum);
+    //     setCosPurList(res.custPurposeEnum);
+    //     setLineStatus(res.inqLnStat);
+    //   }
+    // });
+    // queryAllDeptListByType().then((res: any) => {
+    //   if (res.errCode === 200 && res?.data) {
+    //     const list: any = Object.keys(res.data).map((item: any) => {
+    //       const newCode = res.data[item].map((ite: any) => ite.deptCode);
+    //       return { deptName: item, deptCode: newCode.join(), children: res.data[item] };
+    //     });
+    //     setCascList(list);
+    //   }
+    // });
     setLastPath(history.location.pathname.split('/').pop());
     if (history.location.pathname.split('/').pop() == 'sourcing-pcm') {
       setSourcingReqTypeStrHide(false);
@@ -590,14 +590,14 @@ const Index: React.FC = () => {
     });
   };
   useEffect(() => {
-    getChildrenCategory(0).then((res: any) => {
-      if (res.errCode === 200) {
-        setList(res.data.dataList?.map((io: any)=>({
-          label:`${io.categoryCode}:${io.categoryName}`,
-          value: io.categoryCode
-        })));
-      }
-    });
+    // getChildrenCategory(0).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setList(res.data.dataList?.map((io: any)=>({
+    //       label:`${io.categoryCode}:${io.categoryName}`,
+    //       value: io.categoryCode
+    //     })));
+    //   }
+    // });
   }, []);
 
   return (
@@ -792,7 +792,7 @@ const Index: React.FC = () => {
           </Form.Item>
         </Form>
       </div>
-      <VirtualTable
+      {/* <VirtualTable
         columns={tableColumns}
         scroll={{ x: 350, y: yClient }}
         bordered
@@ -897,7 +897,7 @@ const Index: React.FC = () => {
             <BtnCom key={'按钮组件'} selectedRow={selectedRow} recall={recall} />
           </Space>
         }
-      />
+      /> */}
       <Drawer
         title={'行项目详情信息'}
         width={window.innerWidth}

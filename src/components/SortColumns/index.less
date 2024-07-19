@@ -1,0 +1,20 @@
+.commonLineSty {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.treeTitle {
+  display: flex;
+  align-items: center;
+  &:hover .ListItemOption {
+    display: block;
+  }
+  .ListItemTitle {
+    flex: 1 1;
+  }
+  .ListItemOption {
+    display: none;
+    float: right;
+    cursor: pointer;
+  }
+}

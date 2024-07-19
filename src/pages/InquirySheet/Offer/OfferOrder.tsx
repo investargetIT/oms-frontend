@@ -97,44 +97,44 @@ const OfferOrder: React.FC<OfferOrderProps> = () => {
     if (par?.sid)
       await calSubTotal(par).then((res: any) => {
         const { data, errCode, errMsg } = res;
-        if (errCode === 200) {
-          setTotal(data);
-          //setDetails  行信息重新计算赋值   ///后端接口未完成状态带 待测试
-          if (idsData?.length > 0) {
-            const linesArray = idsData as any;
-            for (let i = 0; i < linesArray.length; i++) {
-              linesArray[i].totalAmount =
-                data?.calSubTotalLineRespVoList[i]?.totalAmount || linesArray[i].totalAmount;
-              linesArray[i].totalAmountNet =
-                data?.calSubTotalLineRespVoList[i]?.totalAmountNet || linesArray[i].totalAmountNet;
-              linesArray[i].totalDiscount =
-                data?.calSubTotalLineRespVoList[i]?.totalDiscount || linesArray[i].totalDiscount;
-              linesArray[i].freight =
-                data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
-                linesArray[i].freight;
-              linesArray[i].interFreight =
-                data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.interFreight ||
-                linesArray[i].interFreight;
-              linesArray[i].tariff =
-                data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
-                linesArray[i].tariff;
-              linesArray[i].totalFreight =
-                data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.totalFreight ||
-                linesArray[i].totalFreight;
-            }
-            setIdsData(linesArray.concat());
-            actionRef?.current?.reload();
-          }
-          setCanSubmit(true);
-        } else if (errCode == 100009) {
-          setCanSubmit(false);
-          message.error(errMsg);
-          return false;
-        } else if (errCode == 300169) {
-          setCanSubmit(false);
-          message.error(errMsg);
-          return false;
-        }
+        // if (errCode === 200) {
+        //   setTotal(data);
+        //   //setDetails  行信息重新计算赋值   ///后端接口未完成状态带 待测试
+        //   if (idsData?.length > 0) {
+        //     const linesArray = idsData as any;
+        //     for (let i = 0; i < linesArray.length; i++) {
+        //       linesArray[i].totalAmount =
+        //         data?.calSubTotalLineRespVoList[i]?.totalAmount || linesArray[i].totalAmount;
+        //       linesArray[i].totalAmountNet =
+        //         data?.calSubTotalLineRespVoList[i]?.totalAmountNet || linesArray[i].totalAmountNet;
+        //       linesArray[i].totalDiscount =
+        //         data?.calSubTotalLineRespVoList[i]?.totalDiscount || linesArray[i].totalDiscount;
+        //       linesArray[i].freight =
+        //         data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
+        //         linesArray[i].freight;
+        //       linesArray[i].interFreight =
+        //         data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.interFreight ||
+        //         linesArray[i].interFreight;
+        //       linesArray[i].tariff =
+        //         data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
+        //         linesArray[i].tariff;
+        //       linesArray[i].totalFreight =
+        //         data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.totalFreight ||
+        //         linesArray[i].totalFreight;
+        //     }
+        //     setIdsData(linesArray.concat());
+        //     actionRef?.current?.reload();
+        //   }
+        //   setCanSubmit(true);
+        // } else if (errCode == 100009) {
+        //   setCanSubmit(false);
+        //   message.error(errMsg);
+        //   return false;
+        // } else if (errCode == 300169) {
+        //   setCanSubmit(false);
+        //   message.error(errMsg);
+        //   return false;
+        // }
       });
   };
 
@@ -547,30 +547,30 @@ const OfferOrder: React.FC<OfferOrderProps> = () => {
           branchCode: values?.company?.value || info?.branchCode || '',
         },
       };
-      await checkOfferOrder({ quotIdList, quotLineIdList: quotLineArray }).then(
-        async (res1: any) => {
-          // 校验
-          if (res1.errCode === 200) {
-            await combineOfferOrder(par).then((res: any) => {
-              const { errCode, errMsg } = res;
-              if (errCode === 200) {
-                message.success('合并报价单成功');
-                sessionStorage.removeItem('idsData');
-                setLoadding(false);
-                reBack();
-                return;
-              } else {
-                message.error(errMsg);
-                setLoadding(false);
-                return false;
-              }
-            });
-          } else {
-            setLoadding(false);
-            message.error(res1.errMsg);
-          }
-        },
-      );
+      // await checkOfferOrder({ quotIdList, quotLineIdList: quotLineArray }).then(
+      //   async (res1: any) => {
+      //     // 校验
+      //     if (res1.errCode === 200) {
+      //       await combineOfferOrder(par).then((res: any) => {
+      //         const { errCode, errMsg } = res;
+      //         if (errCode === 200) {
+      //           message.success('合并报价单成功');
+      //           sessionStorage.removeItem('idsData');
+      //           setLoadding(false);
+      //           reBack();
+      //           return;
+      //         } else {
+      //           message.error(errMsg);
+      //           setLoadding(false);
+      //           return false;
+      //         }
+      //       });
+      //     } else {
+      //       setLoadding(false);
+      //       message.error(res1.errMsg);
+      //     }
+      //   },
+      // );
     } else {
       // 询价转报价
       if (!canSubmit) {
@@ -648,30 +648,30 @@ const OfferOrder: React.FC<OfferOrderProps> = () => {
               ...params,
               ...resForm,
             });
-            if (errCode === 200) {
-              message.success('保存成功！');
-              setLoadding(false);
-              reBack();
-              return;
-            } else {
-              setLoadding(false);
-              message.error(`${errMsg}`);
-              return false;
-            }
+            // if (errCode === 200) {
+            //   message.success('保存成功！');
+            //   setLoadding(false);
+            //   reBack();
+            //   return;
+            // } else {
+            //   setLoadding(false);
+            //   message.error(`${errMsg}`);
+            //   return false;
+            // }
           },
         });
       } else {
-        const { errCode, errMsg } = await urlOffer(params);
-        if (errCode === 200) {
-          message.success('保存成功！');
-          setLoadding(false);
-          reBack();
-          return;
-        } else {
-          setLoadding(false);
-          message.error(`${errMsg}`);
-          return false;
-        }
+        // const { errCode, errMsg } = await urlOffer(params);
+        // if (errCode === 200) {
+        //   message.success('保存成功！');
+        //   setLoadding(false);
+        //   reBack();
+        //   return;
+        // } else {
+        //   setLoadding(false);
+        //   message.error(`${errMsg}`);
+        //   return false;
+        // }
       }
     }
   };
@@ -681,324 +681,324 @@ const OfferOrder: React.FC<OfferOrderProps> = () => {
       // 合并报价
       const lineData = sessionStorage.getItem('idsData');
       const lData = lineData && JSON.parse(lineData);
-      offerDetail(quotIdList[0]).then(async (res) => {
-        const { data, errCode } = res;
-        if (errCode === 200) {
-          // 默认 queryPayInfo
-          let defaultPay = {} as any;
-          await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
-            if (respay.data) {
-              defaultPay = {
-                payTypeCust: respay?.data?.type,
-              };
-            }
-          });
-          setInfo({
-            ...defaultPay,
-            ...data,
-            company: { label: data?.branchCompanyName, value: data?.branchCode } as any,
-          });
-          // const lineDataNew = lData.map((io: any) => ({
-          //   ...io,
-          //   sid: io.quotLineId,
-          //   canTransforQuotQty: io.qty - io.closeQty,
-          //   qty: io.qty - io.closeQty,
-          //   tr: io.qty - io.closeQty,
-          // }));
-          // console.log(lineDataNew);
+      // offerDetail(quotIdList[0]).then(async (res) => {
+      //   const { data, errCode } = res;
+      //   if (errCode === 200) {
+      //     // 默认 queryPayInfo
+      //     let defaultPay = {} as any;
+      //     await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
+      //       if (respay.data) {
+      //         defaultPay = {
+      //           payTypeCust: respay?.data?.type,
+      //         };
+      //       }
+      //     });
+      //     setInfo({
+      //       ...defaultPay,
+      //       ...data,
+      //       company: { label: data?.branchCompanyName, value: data?.branchCode } as any,
+      //     });
+      //     // const lineDataNew = lData.map((io: any) => ({
+      //     //   ...io,
+      //     //   sid: io.quotLineId,
+      //     //   canTransforQuotQty: io.qty - io.closeQty,
+      //     //   qty: io.qty - io.closeQty,
+      //     //   tr: io.qty - io.closeQty,
+      //     // }));
+      //     // console.log(lineDataNew);
 
-          lData.forEach((io: any) => {
-            (io.sid = io.quotLineId),
-              (io.canTransforQuotQty = io.qty - io.closeQty),
-              (io.qty = io.qty - io.closeQty),
-              (io.tr = io.qty - io.closeQty);
-          });
-          const par = {
-            customerCode: data?.customerCode || '',
-            shipRegionCode1: data?.shipRegionCode1 || '',
-            shipRegionCode2: data?.shipRegionCode2 || '',
-            sid: data.sid,
-            freight: data.freight || 0,
-            interFreight: data.interFreight || 0,
-            tariff: data.tariff || 0,
-            calSubTotalLineReqVoList: lData,
-            biddingCsp: data?.biddingCsp,
-            custPurpose: data?.custPurpose,
-          };
-          console.log(data, '1111');
-          if (lData.length > 0) {
-            calSubTotal(par).then(async (res1: any) => {
-              if (res1?.errCode === 200) {
-                if (lData?.length > 0) {
-                  const linesArray = lData as any;
-                  for (let i = 0; i < linesArray.length; i++) {
-                    linesArray[i].totalAmount =
-                      res1?.data?.calSubTotalLineRespVoList[i]?.totalAmount ||
-                      linesArray[i].totalAmount;
-                    linesArray[i].totalAmountNet =
-                      res1?.data?.calSubTotalLineRespVoList[i]?.totalAmountNet ||
-                      linesArray[i].totalAmountNet;
-                    linesArray[i].totalDiscount =
-                      res1?.data?.calSubTotalLineRespVoList[i]?.totalDiscount ||
-                      linesArray[i].totalDiscount;
-                    linesArray[i].freight =
-                      res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
-                      linesArray[i].freight;
-                    linesArray[i].interFreight =
-                      res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.interFreight ||
-                      linesArray[i].interFreight;
-                    linesArray[i].tariff =
-                      res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
-                      linesArray[i].tariff;
-                    linesArray[i].totalFreight =
-                      res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.totalFreight ||
-                      linesArray[i].totalFreight;
-                  }
-                  setIdsData(linesArray.concat());
-                }
-                setTotal(res1?.data);
-                setCanSubmit(true);
-              } else if (errCode == 100009) {
-                setCanSubmit(false);
-                message.error(res1?.errMsg);
-                return false;
-              } else if (errCode == 300169) {
-                setCanSubmit(false);
-                message.error(res1?.errMsg);
-                return false;
-              }
-            });
-          }
-        }
-      });
+      //     lData.forEach((io: any) => {
+      //       (io.sid = io.quotLineId),
+      //         (io.canTransforQuotQty = io.qty - io.closeQty),
+      //         (io.qty = io.qty - io.closeQty),
+      //         (io.tr = io.qty - io.closeQty);
+      //     });
+      //     const par = {
+      //       customerCode: data?.customerCode || '',
+      //       shipRegionCode1: data?.shipRegionCode1 || '',
+      //       shipRegionCode2: data?.shipRegionCode2 || '',
+      //       sid: data.sid,
+      //       freight: data.freight || 0,
+      //       interFreight: data.interFreight || 0,
+      //       tariff: data.tariff || 0,
+      //       calSubTotalLineReqVoList: lData,
+      //       biddingCsp: data?.biddingCsp,
+      //       custPurpose: data?.custPurpose,
+      //     };
+      //     console.log(data, '1111');
+      //     if (lData.length > 0) {
+      //       calSubTotal(par).then(async (res1: any) => {
+      //         if (res1?.errCode === 200) {
+      //           if (lData?.length > 0) {
+      //             const linesArray = lData as any;
+      //             for (let i = 0; i < linesArray.length; i++) {
+      //               linesArray[i].totalAmount =
+      //                 res1?.data?.calSubTotalLineRespVoList[i]?.totalAmount ||
+      //                 linesArray[i].totalAmount;
+      //               linesArray[i].totalAmountNet =
+      //                 res1?.data?.calSubTotalLineRespVoList[i]?.totalAmountNet ||
+      //                 linesArray[i].totalAmountNet;
+      //               linesArray[i].totalDiscount =
+      //                 res1?.data?.calSubTotalLineRespVoList[i]?.totalDiscount ||
+      //                 linesArray[i].totalDiscount;
+      //               linesArray[i].freight =
+      //                 res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
+      //                 linesArray[i].freight;
+      //               linesArray[i].interFreight =
+      //                 res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.interFreight ||
+      //                 linesArray[i].interFreight;
+      //               linesArray[i].tariff =
+      //                 res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
+      //                 linesArray[i].tariff;
+      //               linesArray[i].totalFreight =
+      //                 res1?.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.totalFreight ||
+      //                 linesArray[i].totalFreight;
+      //             }
+      //             setIdsData(linesArray.concat());
+      //           }
+      //           setTotal(res1?.data);
+      //           setCanSubmit(true);
+      //         } else if (errCode == 100009) {
+      //           setCanSubmit(false);
+      //           message.error(res1?.errMsg);
+      //           return false;
+      //         } else if (errCode == 300169) {
+      //           setCanSubmit(false);
+      //           message.error(res1?.errMsg);
+      //           return false;
+      //         }
+      //       });
+      //     }
+      //   }
+      // });
     } else if (from === 'need') {
       // 需求单询价转报价
       let newInfo = {} as any;
-      getBasicInformation({ sid: quotIdList[0] }).then(async (res: any) => {
-        const { data, errCode, errMsg } = res;
-        if (errCode === 200) {
-          if (!data.mergePop) {
-            setMergeOrder(false);
-          }
-          newInfo = data;
-          setCustPurpose(newInfo?.custPurpose);
-          //  以下默认 crm的数据
-          // 默认收货信息
-          let defaultRecive = {} as any;
-          queryRecAddress({ customerCode: data?.customerCode }).then((resrecive: any) => {
-            if (resrecive?.errCode === 200) {
-              if (resrecive?.data?.dataList.length > 0) {
-                const defAdr = resrecive?.data?.dataList?.filter((io: any) => io.defaultAddr);
-                let defAdrObj = [] as any;
-                if (defAdr.length > 0) {
-                  defAdrObj = defAdr;
-                } else {
-                  defAdrObj = resrecive?.data?.dataList;
-                }
-                defaultRecive = {
-                  shipRegionCode1: defAdrObj[0]?.province,
-                  shipRegionCode2: defAdrObj[0]?.city,
-                  shipRegionCode3: defAdrObj[0]?.district,
-                  shipRegionName1: defAdrObj[0]?.provinceName,
-                  shipRegionName2: defAdrObj[0]?.cityName,
-                  shipRegionName3: defAdrObj[0]?.districtName,
-                  shipStreet: defAdrObj[0]?.receiptAddress,
-                  shipZip: defAdrObj[0]?.receiptZipCode,
-                  consigneeName: defAdrObj[0]?.recipientName,
-                  consigneeMobile: defAdrObj[0]?.receiptMobilePhone,
-                  consigneeTel: defAdrObj[0]?.receiptFixPhone,
-                  shipEmail: defAdrObj[0]?.receiptEmail,
-                  shipRegionSapCode: defAdrObj[0]?.sapCode,
-                };
-              }
-            }
-          });
-          // 默认 queryPayInfo
-          let defaultPay = {} as any;
-          await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
-            if (respay.data) {
-              defaultPay = {
-                paymentTerm: (respay?.data?.type && respay?.data?.type?.toString()) || '',
-                paymentMethod: respay?.data?.code || '',
-                payTypeCust: respay?.data?.type,
-              };
-            }
-          });
-          // 默认开票盘信息
-          let ppinvoice = {} as any;
-          await queryBillingInfo({ customerCode: data?.customerCode }).then((res1: any) => {
-            if (res1.errCode === 200) {
-              if (res1?.data?.dataList?.length > 0) {
-                let getInvoiceType: any = '3';
-                if (res1?.data?.dataList[0]?.invoiceType == '') {
-                  getInvoiceType = '3';
-                } else {
-                  const invoiceTypeStr = res1?.data?.dataList[0]?.invoiceType.split(',').sort();
-                  if (invoiceTypeStr.length <= 1)
-                    getInvoiceType = res1?.data?.dataList[0]?.invoiceType;
-                  else getInvoiceType = invoiceTypeStr[0];
-                }
-                ppinvoice = {
-                  invoiceType: getInvoiceType,
-                  invoiceTitle: res1?.data?.dataList[0].customerName,
-                  vatTaxNo: res1?.data?.dataList[0].taxNumber,
-                  vatBankName: res1?.data?.dataList[0].bankName,
-                  vatBankNo: res1?.data?.dataList[0].bankAccount,
-                  vatAddress: res1?.data?.dataList[0].registerAddress,
-                  vatPhone: res1?.data?.dataList[0].registerTelephone,
-                  payerCustomerAccount: res1?.data?.dataList[0].payerCustomerAccount,
-                };
-              } else {
-                ppinvoice = {
-                  invoiceType: '3',
-                };
-              }
-            }
-          });
-          // 默认发票寄送信息
-          let defaultVatAddress = {} as any;
-          queryInvoiceAddress({ customerCode: data?.customerCode }).then((resvat: any) => {
-            if (resvat?.errCode === 200) {
-              if (resvat?.data?.dataList?.length > 0) {
-                const defInvoAdr = resvat?.data?.dataList?.filter((io: any) => io.defaultAddr);
-                let defInvoAdrObj = [] as any;
-                if (defInvoAdr.length > 0) {
-                  defInvoAdrObj = defInvoAdr;
-                } else {
-                  defInvoAdrObj = resvat?.data?.dataList;
-                }
-                defaultVatAddress = {
-                  invoiceReceiver: defInvoAdrObj[0].recipientName,
-                  invoiceAddress: defInvoAdrObj[0].receiptAddress,
-                  invoiceZip: defInvoAdrObj[0].receiptZipCode,
-                  invoiceTel: defInvoAdrObj[0].receiptFixPhone,
-                  invoiceMobile: defInvoAdrObj[0].receiptMobilePhone,
-                  invoiceEmail: defInvoAdrObj[0].receiptEmail,
-                  invoiceReceiveRegion: `${defInvoAdrObj[0].provinceName}${defInvoAdrObj[0].cityName}${defInvoAdrObj[0].districtName}`,
-                  followMerchandise: defInvoAdrObj[0].followMerchandise == false ? 0 : 1,
-                  invoiceSapCode: defInvoAdrObj[0]?.sapCode,
-                  cityCode: defInvoAdrObj[0]?.city,
-                  provinceCode: defInvoAdrObj[0]?.province,
-                  districtCode: defInvoAdrObj[0]?.district,
-                };
-              }
-            }
-          });
-          setTimeout(() => {
-            form.setFieldsValue({
-              ...ppinvoice,
-              ...defaultPay,
-              ...defaultRecive,
-              ...defaultVatAddress,
-            });
-            setInfo({
-              ...data,
-              // TODO:  后端无返回值，默认0
-              ...ppinvoice,
-              ...defaultPay,
-              ...defaultRecive,
-              ...defaultVatAddress,
-              channel: 10,
-              freight: 0,
-              interFreight: 0,
-              tariff: 0,
-              company: { label: data?.branchCompanyName, value: data?.branchCode } as any,
-            });
-          }, 200);
+      // getBasicInformation({ sid: quotIdList[0] }).then(async (res: any) => {
+      //   const { data, errCode, errMsg } = res;
+      //   if (errCode === 200) {
+      //     if (!data.mergePop) {
+      //       setMergeOrder(false);
+      //     }
+      //     newInfo = data;
+      //     setCustPurpose(newInfo?.custPurpose);
+      //     //  以下默认 crm的数据
+      //     // 默认收货信息
+      //     let defaultRecive = {} as any;
+      //     queryRecAddress({ customerCode: data?.customerCode }).then((resrecive: any) => {
+      //       if (resrecive?.errCode === 200) {
+      //         if (resrecive?.data?.dataList.length > 0) {
+      //           const defAdr = resrecive?.data?.dataList?.filter((io: any) => io.defaultAddr);
+      //           let defAdrObj = [] as any;
+      //           if (defAdr.length > 0) {
+      //             defAdrObj = defAdr;
+      //           } else {
+      //             defAdrObj = resrecive?.data?.dataList;
+      //           }
+      //           defaultRecive = {
+      //             shipRegionCode1: defAdrObj[0]?.province,
+      //             shipRegionCode2: defAdrObj[0]?.city,
+      //             shipRegionCode3: defAdrObj[0]?.district,
+      //             shipRegionName1: defAdrObj[0]?.provinceName,
+      //             shipRegionName2: defAdrObj[0]?.cityName,
+      //             shipRegionName3: defAdrObj[0]?.districtName,
+      //             shipStreet: defAdrObj[0]?.receiptAddress,
+      //             shipZip: defAdrObj[0]?.receiptZipCode,
+      //             consigneeName: defAdrObj[0]?.recipientName,
+      //             consigneeMobile: defAdrObj[0]?.receiptMobilePhone,
+      //             consigneeTel: defAdrObj[0]?.receiptFixPhone,
+      //             shipEmail: defAdrObj[0]?.receiptEmail,
+      //             shipRegionSapCode: defAdrObj[0]?.sapCode,
+      //           };
+      //         }
+      //       }
+      //     });
+      //     // 默认 queryPayInfo
+      //     let defaultPay = {} as any;
+      //     await queryPayInfo({ customerCode: data?.customerCode }).then((respay: any) => {
+      //       if (respay.data) {
+      //         defaultPay = {
+      //           paymentTerm: (respay?.data?.type && respay?.data?.type?.toString()) || '',
+      //           paymentMethod: respay?.data?.code || '',
+      //           payTypeCust: respay?.data?.type,
+      //         };
+      //       }
+      //     });
+      //     // 默认开票盘信息
+      //     let ppinvoice = {} as any;
+      //     await queryBillingInfo({ customerCode: data?.customerCode }).then((res1: any) => {
+      //       if (res1.errCode === 200) {
+      //         if (res1?.data?.dataList?.length > 0) {
+      //           let getInvoiceType: any = '3';
+      //           if (res1?.data?.dataList[0]?.invoiceType == '') {
+      //             getInvoiceType = '3';
+      //           } else {
+      //             const invoiceTypeStr = res1?.data?.dataList[0]?.invoiceType.split(',').sort();
+      //             if (invoiceTypeStr.length <= 1)
+      //               getInvoiceType = res1?.data?.dataList[0]?.invoiceType;
+      //             else getInvoiceType = invoiceTypeStr[0];
+      //           }
+      //           ppinvoice = {
+      //             invoiceType: getInvoiceType,
+      //             invoiceTitle: res1?.data?.dataList[0].customerName,
+      //             vatTaxNo: res1?.data?.dataList[0].taxNumber,
+      //             vatBankName: res1?.data?.dataList[0].bankName,
+      //             vatBankNo: res1?.data?.dataList[0].bankAccount,
+      //             vatAddress: res1?.data?.dataList[0].registerAddress,
+      //             vatPhone: res1?.data?.dataList[0].registerTelephone,
+      //             payerCustomerAccount: res1?.data?.dataList[0].payerCustomerAccount,
+      //           };
+      //         } else {
+      //           ppinvoice = {
+      //             invoiceType: '3',
+      //           };
+      //         }
+      //       }
+      //     });
+      //     // 默认发票寄送信息
+      //     let defaultVatAddress = {} as any;
+      //     queryInvoiceAddress({ customerCode: data?.customerCode }).then((resvat: any) => {
+      //       if (resvat?.errCode === 200) {
+      //         if (resvat?.data?.dataList?.length > 0) {
+      //           const defInvoAdr = resvat?.data?.dataList?.filter((io: any) => io.defaultAddr);
+      //           let defInvoAdrObj = [] as any;
+      //           if (defInvoAdr.length > 0) {
+      //             defInvoAdrObj = defInvoAdr;
+      //           } else {
+      //             defInvoAdrObj = resvat?.data?.dataList;
+      //           }
+      //           defaultVatAddress = {
+      //             invoiceReceiver: defInvoAdrObj[0].recipientName,
+      //             invoiceAddress: defInvoAdrObj[0].receiptAddress,
+      //             invoiceZip: defInvoAdrObj[0].receiptZipCode,
+      //             invoiceTel: defInvoAdrObj[0].receiptFixPhone,
+      //             invoiceMobile: defInvoAdrObj[0].receiptMobilePhone,
+      //             invoiceEmail: defInvoAdrObj[0].receiptEmail,
+      //             invoiceReceiveRegion: `${defInvoAdrObj[0].provinceName}${defInvoAdrObj[0].cityName}${defInvoAdrObj[0].districtName}`,
+      //             followMerchandise: defInvoAdrObj[0].followMerchandise == false ? 0 : 1,
+      //             invoiceSapCode: defInvoAdrObj[0]?.sapCode,
+      //             cityCode: defInvoAdrObj[0]?.city,
+      //             provinceCode: defInvoAdrObj[0]?.province,
+      //             districtCode: defInvoAdrObj[0]?.district,
+      //           };
+      //         }
+      //       }
+      //     });
+      //     setTimeout(() => {
+      //       form.setFieldsValue({
+      //         ...ppinvoice,
+      //         ...defaultPay,
+      //         ...defaultRecive,
+      //         ...defaultVatAddress,
+      //       });
+      //       setInfo({
+      //         ...data,
+      //         // TODO:  后端无返回值，默认0
+      //         ...ppinvoice,
+      //         ...defaultPay,
+      //         ...defaultRecive,
+      //         ...defaultVatAddress,
+      //         channel: 10,
+      //         freight: 0,
+      //         interFreight: 0,
+      //         tariff: 0,
+      //         company: { label: data?.branchCompanyName, value: data?.branchCode } as any,
+      //       });
+      //     }, 200);
 
-          await getItemList({ sidList: quotLineIdList }).then(async (resqw: any) => {
-            if (resqw?.errCode === 200) {
-              const flg = resqw?.data.some((e) => e.mergePop);
-              if (!flg) {
-                setMergeOrder(false);
-              }
+      //     await getItemList({ sidList: quotLineIdList }).then(async (resqw: any) => {
+      //       if (resqw?.errCode === 200) {
+      //         const flg = resqw?.data.some((e) => e.mergePop);
+      //         if (!flg) {
+      //           setMergeOrder(false);
+      //         }
 
-              const newlist = resqw?.data.map((io: any) => ({
-                ...io,
-                qty: io.canQuoteQty || 0, //默认1 接口无返回情况
-                canTransforQuotQty: io.canQuoteQty,
-                closeQty: io.quoteQty,
-                totalAmount: io.totalAmount,
-                totalAmountNet: io.totalAmountNet,
-                tariff: io.tariffPrice,
-                customerSku: io.reqCustomerSku,
-                poItemNo: io.reqPoItemNo,
-                supplierCode: io.supplierSku,
-                deliveryDate: io.expectDate,
-                // quotLineId: io.inquiryCode,
-                inqLnTargetId: io.sid,
-                remark: io.skuRemark || '',
-                quotValidDate: io.quoteValidDate, // 后端不一致 两人少了个e
-                inquiryLineId: io.sid, //行id
-                inquiryId: io.inquiryId, //行单id
-              }));
-              //覆盖运费
-              const par = {
-                customerCode: newInfo?.customerCode || '',
-                shipRegionCode1: defaultRecive?.shipRegionCode1 || '',
-                shipRegionCode2: defaultRecive?.shipRegionCode2 || '',
-                sid: newInfo.sid,
-                freight: newInfo.freight || 0,
-                interFreight: newInfo.interFreight || 0,
-                tariff: newInfo.tariff || 0,
-                calSubTotalLineReqVoList: newlist,
-                biddingCsp: newInfo?.biddingCsp,
-                custPurpose: newInfo.custPurpose,
-              };
-              if (newlist.length > 0 && par?.sid) {
-                await calSubTotal(par).then((res1: any) => {
-                  // const { data1, errCode1, errMsg1 } = res1;
-                  if (errCode === 200) {
-                    if (newlist?.length > 0) {
-                      const linesArray = newlist as any;
-                      for (let i = 0; i < linesArray.length; i++) {
-                        linesArray[i].totalAmount =
-                          res1.data?.calSubTotalLineRespVoList[i]?.totalAmount ||
-                          linesArray[i].totalAmount;
-                        linesArray[i].totalAmountNet =
-                          res1.data?.calSubTotalLineRespVoList[i]?.totalAmountNet ||
-                          linesArray[i].totalAmountNet;
-                        linesArray[i].totalDiscount =
-                          res1.data?.calSubTotalLineRespVoList[i]?.totalDiscount ||
-                          linesArray[i].totalDiscount;
-                        linesArray[i].freight =
-                          res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
-                          linesArray[i].freight;
-                        linesArray[i].interFreight =
-                          res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
-                            ?.interFreight || linesArray[i].interFreight;
-                        linesArray[i].tariff =
-                          res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
-                          linesArray[i].tariff;
-                        linesArray[i].totalFreight =
-                          res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
-                            ?.totalFreight || linesArray[i].totalFreight;
-                      }
-                      // setTimeout(() => {
-                      setIdsData(linesArray.concat());
-                      setTotal(res1.data);
-                      // }, 500)
-                    }
-                    setCanSubmit(true);
-                  } else if (res1?.errCode == 100009) {
-                    setCanSubmit(false);
-                    message.error(res1?.errMsg);
-                    return false;
-                  } else if (res1?.errCode == 300169) {
-                    setCanSubmit(false);
-                    message.error(res1?.errMsg);
-                    return false;
-                  }
-                });
-              }
-            } else {
-              message.error(resqw?.errMsg);
-            }
-          });
-        } else {
-          message.error(errMsg);
-        }
-      });
+      //         const newlist = resqw?.data.map((io: any) => ({
+      //           ...io,
+      //           qty: io.canQuoteQty || 0, //默认1 接口无返回情况
+      //           canTransforQuotQty: io.canQuoteQty,
+      //           closeQty: io.quoteQty,
+      //           totalAmount: io.totalAmount,
+      //           totalAmountNet: io.totalAmountNet,
+      //           tariff: io.tariffPrice,
+      //           customerSku: io.reqCustomerSku,
+      //           poItemNo: io.reqPoItemNo,
+      //           supplierCode: io.supplierSku,
+      //           deliveryDate: io.expectDate,
+      //           // quotLineId: io.inquiryCode,
+      //           inqLnTargetId: io.sid,
+      //           remark: io.skuRemark || '',
+      //           quotValidDate: io.quoteValidDate, // 后端不一致 两人少了个e
+      //           inquiryLineId: io.sid, //行id
+      //           inquiryId: io.inquiryId, //行单id
+      //         }));
+      //         //覆盖运费
+      //         const par = {
+      //           customerCode: newInfo?.customerCode || '',
+      //           shipRegionCode1: defaultRecive?.shipRegionCode1 || '',
+      //           shipRegionCode2: defaultRecive?.shipRegionCode2 || '',
+      //           sid: newInfo.sid,
+      //           freight: newInfo.freight || 0,
+      //           interFreight: newInfo.interFreight || 0,
+      //           tariff: newInfo.tariff || 0,
+      //           calSubTotalLineReqVoList: newlist,
+      //           biddingCsp: newInfo?.biddingCsp,
+      //           custPurpose: newInfo.custPurpose,
+      //         };
+      //         if (newlist.length > 0 && par?.sid) {
+      //           await calSubTotal(par).then((res1: any) => {
+      //             // const { data1, errCode1, errMsg1 } = res1;
+      //             if (errCode === 200) {
+      //               if (newlist?.length > 0) {
+      //                 const linesArray = newlist as any;
+      //                 for (let i = 0; i < linesArray.length; i++) {
+      //                   linesArray[i].totalAmount =
+      //                     res1.data?.calSubTotalLineRespVoList[i]?.totalAmount ||
+      //                     linesArray[i].totalAmount;
+      //                   linesArray[i].totalAmountNet =
+      //                     res1.data?.calSubTotalLineRespVoList[i]?.totalAmountNet ||
+      //                     linesArray[i].totalAmountNet;
+      //                   linesArray[i].totalDiscount =
+      //                     res1.data?.calSubTotalLineRespVoList[i]?.totalDiscount ||
+      //                     linesArray[i].totalDiscount;
+      //                   linesArray[i].freight =
+      //                     res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.lineFreight ||
+      //                     linesArray[i].freight;
+      //                   linesArray[i].interFreight =
+      //                     res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
+      //                       ?.interFreight || linesArray[i].interFreight;
+      //                   linesArray[i].tariff =
+      //                     res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo?.tariff ||
+      //                     linesArray[i].tariff;
+      //                   linesArray[i].totalFreight =
+      //                     res1.data?.calSubTotalLineRespVoList[i]?.lineFreightRespVo
+      //                       ?.totalFreight || linesArray[i].totalFreight;
+      //                 }
+      //                 // setTimeout(() => {
+      //                 setIdsData(linesArray.concat());
+      //                 setTotal(res1.data);
+      //                 // }, 500)
+      //               }
+      //               setCanSubmit(true);
+      //             } else if (res1?.errCode == 100009) {
+      //               setCanSubmit(false);
+      //               message.error(res1?.errMsg);
+      //               return false;
+      //             } else if (res1?.errCode == 300169) {
+      //               setCanSubmit(false);
+      //               message.error(res1?.errMsg);
+      //               return false;
+      //             }
+      //           });
+      //         }
+      //       } else {
+      //         message.error(resqw?.errMsg);
+      //       }
+      //     });
+      //   } else {
+      //     message.error(errMsg);
+      //   }
+      // });
     }
 
     //c产品业务状态

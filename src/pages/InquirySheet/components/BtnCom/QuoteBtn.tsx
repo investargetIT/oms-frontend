@@ -26,45 +26,45 @@ const QuoteBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any) => {
       cancelText: '取消',
       onOk: async () => {
         if (['RFQquote', 'allRFQ'].includes(path)) {
-          await RFQsubmitCheckList(res).then(async (respons: any) => {
-            if (respons.errCode === 200) {
-              message.success('报价成功!');
-              if (props.recall) {
-                props.recall();
-              } else {
-                history.go(-1);
-              }
-            } else {
-              message.error(respons.errMsg);
-            }
-          });
+          // await RFQsubmitCheckList(res).then(async (respons: any) => {
+          //   if (respons.errCode === 200) {
+          //     message.success('报价成功!');
+          //     if (props.recall) {
+          //       props.recall();
+          //     } else {
+          //       history.go(-1);
+          //     }
+          //   } else {
+          //     message.error(respons.errMsg);
+          //   }
+          // });
         } else {
           res.button = 'baojia-tijiaobaojia';
-          await searchFaTransAstSku(path, res).then(async (res1: any) => {
-            if (res1?.errCode == 200) {
-              if (res1?.data?.dataList?.length > 0) {
-                setRepalceList(res1?.data?.dataList);
-                rebackModalRef?.current?.open();
-                //接下来做是否替换操作
-              } else {
-                // 原来逻辑
-                await complete(path, res).then((resd: any) => {
-                  if (resd.errCode === 200) {
-                    message.success('报价成功!');
-                    if (props.recall) {
-                      props.recall();
-                    } else {
-                      history.go(-1);
-                    }
-                  } else {
-                    message.error(resd.errMsg);
-                  }
-                });
-              }
-            } else {
-              message.error(res1?.errMsg);
-            }
-          });
+          // await searchFaTransAstSku(path, res).then(async (res1: any) => {
+          //   if (res1?.errCode == 200) {
+          //     if (res1?.data?.dataList?.length > 0) {
+          //       setRepalceList(res1?.data?.dataList);
+          //       rebackModalRef?.current?.open();
+          //       //接下来做是否替换操作
+          //     } else {
+          //       // 原来逻辑
+          //       await complete(path, res).then((resd: any) => {
+          //         if (resd.errCode === 200) {
+          //           message.success('报价成功!');
+          //           if (props.recall) {
+          //             props.recall();
+          //           } else {
+          //             history.go(-1);
+          //           }
+          //         } else {
+          //           message.error(resd.errMsg);
+          //         }
+          //       });
+          //     }
+          //   } else {
+          //     message.error(res1?.errMsg);
+          //   }
+          // });
         }
         // 判断接口 souring报价
       },

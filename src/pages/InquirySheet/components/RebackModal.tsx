@@ -112,17 +112,17 @@ const RebackModal = (props: RebackModalProps, ref: any) => {
           returnReason: props?.path == 'sourcing-pcm' ? '请修改报价信息' : '有目录品',
           inqLnId: io.inqLnId,
         }));
-      await backConfirm(props.path, newList).then((res: any) => {
-        const { errCode, errMsg } = res;
-        if (errCode == 200) {
-          message.success('提交成功');
-          // reBack();
-          setModalVisible(false);
-          props?.tableRefresh && props?.tableRefresh();
-        } else {
-          message.error(errMsg);
-        }
-      });
+      // await backConfirm(props.path, newList).then((res: any) => {
+      //   const { errCode, errMsg } = res;
+      //   if (errCode == 200) {
+      //     message.success('提交成功');
+      //     // reBack();
+      //     setModalVisible(false);
+      //     props?.tableRefresh && props?.tableRefresh();
+      //   } else {
+      //     message.error(errMsg);
+      //   }
+      // });
     } else if (type == 2) {
       const newList = props?.dataList
         ?.filter((io: any) => selectedRowKeys.some((ic: any) => ic === io.inqLnId))
@@ -133,17 +133,17 @@ const RebackModal = (props: RebackModalProps, ref: any) => {
           returnReason: 'sourcing推荐目录品',
           inqLnId: io.inqLnId,
         }));
-      await backConfirm(props.path, newList).then((res: any) => {
-        const { errCode, errMsg } = res;
-        if (errCode == 200) {
-          message.success('提交成功');
-          // reBack();
-          setModalVisible(false);
-          props?.tableRefresh && props?.tableRefresh();
-        } else {
-          message.error(errMsg);
-        }
-      });
+      // await backConfirm(props.path, newList).then((res: any) => {
+      //   const { errCode, errMsg } = res;
+      //   if (errCode == 200) {
+      //     message.success('提交成功');
+      //     // reBack();
+      //     setModalVisible(false);
+      //     props?.tableRefresh && props?.tableRefresh();
+      //   } else {
+      //     message.error(errMsg);
+      //   }
+      // });
     } else if (type == 3) {
       const newList = props?.dataList
         ?.filter((io: any) => selectedRowKeys.some((ic: any) => ic === io.inqLnId))
@@ -154,16 +154,16 @@ const RebackModal = (props: RebackModalProps, ref: any) => {
           returnReason: 'sourcing推荐目录品',
           inqLnId: io.inqLnId,
         }));
-      await backConfirm(props.path, newList).then((res: any) => {
-        const { errCode, errMsg } = res;
-        if (errCode == 200) {
-          message.success('提交成功');
-          setModalVisible(false);
-          props?.tableRefresh && props?.tableRefresh();
-        } else {
-          message.error(errMsg);
-        }
-      });
+      // await backConfirm(props.path, newList).then((res: any) => {
+      //   const { errCode, errMsg } = res;
+      //   if (errCode == 200) {
+      //     message.success('提交成功');
+      //     setModalVisible(false);
+      //     props?.tableRefresh && props?.tableRefresh();
+      //   } else {
+      //     message.error(errMsg);
+      //   }
+      // });
     }
   };
 
@@ -174,46 +174,46 @@ const RebackModal = (props: RebackModalProps, ref: any) => {
         inqLineIdList: props?.dataList?.map((ele: any) => ele.inqLnId),
         inquiryId: props?.id,
       } as any;
-      const { errMsg, errCode } =
-        props?.path === 'sourcing-pcm'
-          ? await sourcingPcmApprove(temp)
-          : await pcmApprove(props?.path, temp);
-      if (errCode === 200) {
-        message.success('操作成功!');
-        setModalVisible(false);
-        props?.tableRefresh && props?.tableRefresh();
-      } else {
-        message.error(errMsg);
-      }
+      // const { errMsg, errCode } =
+      //   props?.path === 'sourcing-pcm'
+      //     ? await sourcingPcmApprove(temp)
+      //     : await pcmApprove(props?.path, temp);
+      // if (errCode === 200) {
+      //   message.success('操作成功!');
+      //   setModalVisible(false);
+      //   props?.tableRefresh && props?.tableRefresh();
+      // } else {
+      //   message.error(errMsg);
+      // }
     } else if (type == 2) {
       const temp = {
         inqLineIdList: props?.subData,
         inquiryId: props?.id,
       } as any;
-      await complete(props?.path, temp).then((resd: any) => {
-        if (resd.errCode === 200) {
-          message.success('报价成功!');
-          props?.tableRefresh && props?.tableRefresh();
-          setModalVisible(false);
-        } else {
-          message.error(resd.errMsg);
-        }
-      });
+      // await complete(props?.path, temp).then((resd: any) => {
+      //   if (resd.errCode === 200) {
+      //     message.success('报价成功!');
+      //     props?.tableRefresh && props?.tableRefresh();
+      //     setModalVisible(false);
+      //   } else {
+      //     message.error(resd.errMsg);
+      //   }
+      // });
     } else if (type == 3) {
       const temp = {
         ...props?.lineEditData,
         inquiryId: props?.id,
       } as any;
       let resd = null;
-      resd = await updateAndComplete(props?.path, temp);
-      if (resd.errCode === 200) {
-        if (temp.imageParams) updateSkuImg(temp.imageParams);
-        message.success('报价成功!');
-        props?.tableRefresh && props?.tableRefresh();
-        setModalVisible(false);
-      } else {
-        message.error(resd.errMsg);
-      }
+      // resd = await updateAndComplete(props?.path, temp);
+      // if (resd.errCode === 200) {
+      //   if (temp.imageParams) updateSkuImg(temp.imageParams);
+      //   message.success('报价成功!');
+      //   props?.tableRefresh && props?.tableRefresh();
+      //   setModalVisible(false);
+      // } else {
+      //   message.error(resd.errMsg);
+      // }
     }
   };
 

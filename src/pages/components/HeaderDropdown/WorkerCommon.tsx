@@ -17,13 +17,13 @@ const WorkerCommon: React.FC<any> = ({ value, onChange, name }: any) => {
         clearTimeout(timeout);
         timeout = null;
       }
-      setTimeout(() => {
-        queryBySaffName({ staffName: val }).then((res: any) => {
-          if (res.errCode === 200) {
-            setList(res.data.dataList);
-          }
-        });
-      }, 1000);
+      // setTimeout(() => {
+      //   queryBySaffName({ staffName: val }).then((res: any) => {
+      //     if (res.errCode === 200) {
+      //       setList(res.data.dataList);
+      //     }
+      //   });
+      // }, 1000);
     }
   };
   useEffect(() => {

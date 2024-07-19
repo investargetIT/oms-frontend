@@ -67,7 +67,7 @@ const TransferQuto: React.FC<{ sidList: any }> = ({ sidList }: any, ref: any) =>
           <div>当前已选明细 {selectedRow.length} 行</div>
         </Space>
       </div>
-      <VirtualTable
+      {/* <VirtualTable
         columns={columns}
         request={async () => {
           const searchParams: any = {};
@@ -114,7 +114,7 @@ const TransferQuto: React.FC<{ sidList: any }> = ({ sidList }: any, ref: any) =>
         defaultSize="small"
         scroll={{ x: 200, y: 500 }}
         pagination={false}
-      />
+      /> */}
     </div>
   );
 };

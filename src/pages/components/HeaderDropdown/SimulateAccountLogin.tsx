@@ -42,40 +42,40 @@ const Index: React.FC<detailInfo> = (props: any) => {
       const formData = {
         jobNumber: values.workcode,
       };
-      const res = await toggleLogin(formData);
-      if (res && res.errCode === 200) {
-        Cookies.remove('ssoToken', '');
-        if (res?.data?.token) Cookies.set('ssoToken', res.data.token);
-        const msg = await queryCurrentUser();
-        if (msg && msg.errCode === 200) {
-          setTimeout(() => {
-            onReset();
-            setLoad(false);
-            setConfirmLoading(false);
-            message.success('模拟账号切换成功', 3);
-            if (!history) return;
-            const { query } = history.location;
-            const { redirect } = query as { redirect: string };
-            window.location.href = redirect || '/home';
-          }, 1000);
-          // await fetchUserInfo();
-        } else {
-          message.error(msg?.errMsg + '!该账户暂无法登录！');
-          const newCookies = localStorage.getItem('default_token');
-          Cookies.set('ssoToken', newCookies);
-          setTimeout(() => {
-            onReset();
-            setLoad(false);
-            setConfirmLoading(false);
-          }, 1000);
-          // await fetchUserInfo();
-        }
-        return;
-      } else {
-        message.error(res?.errMsg || '该模拟账号切换失败！');
-        setLoad(false);
-        setConfirmLoading(false);
-      }
+      // const res = await toggleLogin(formData);
+      // if (res && res.errCode === 200) {
+      //   Cookies.remove('ssoToken', '');
+      //   if (res?.data?.token) Cookies.set('ssoToken', res.data.token);
+      //   const msg = await queryCurrentUser();
+      //   if (msg && msg.errCode === 200) {
+      //     setTimeout(() => {
+      //       onReset();
+      //       setLoad(false);
+      //       setConfirmLoading(false);
+      //       message.success('模拟账号切换成功', 3);
+      //       if (!history) return;
+      //       const { query } = history.location;
+      //       const { redirect } = query as { redirect: string };
+      //       window.location.href = redirect || '/home';
+      //     }, 1000);
+      //     // await fetchUserInfo();
+      //   } else {
+      //     message.error(msg?.errMsg + '!该账户暂无法登录！');
+      //     const newCookies = localStorage.getItem('default_token');
+      //     Cookies.set('ssoToken', newCookies);
+      //     setTimeout(() => {
+      //       onReset();
+      //       setLoad(false);
+      //       setConfirmLoading(false);
+      //     }, 1000);
+      //     // await fetchUserInfo();
+      //   }
+      //   return;
+      // } else {
+      //   message.error(res?.errMsg || '该模拟账号切换失败！');
+      //   setLoad(false);
+      //   setConfirmLoading(false);
+      // }
     } catch (errorInfo) {
       message.error('该模拟账号切换失败！', 3);
       setLoad(false);

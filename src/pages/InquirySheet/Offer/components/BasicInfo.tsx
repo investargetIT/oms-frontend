@@ -44,42 +44,42 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
   const [orderTypeList, setOrderTypeList]: any = useState([]);
   const getr3List = async () => {
     console.log(info, 'info###s');
-    const { data, errCode } = await getR3ConList({ customerCode: info.customerCode });
-    if (errCode === 200) {
-      setR3List(
-        data?.dataList.map((io: any) => ({
-          label: io.contactName,
-          value: io.contactCode,
-        })),
-      );
-    }
+    // const { data, errCode } = await getR3ConList({ customerCode: info.customerCode });
+    // if (errCode === 200) {
+    //   setR3List(
+    //     data?.dataList.map((io: any) => ({
+    //       label: io.contactName,
+    //       value: io.contactCode,
+    //     })),
+    //   );
+    // }
   };
   const getBuiness = async () => {
-    const { data, errCode } = await getCustomerList({
-      customerCode: info.customerCode,
-      // contactName: info.customerName,
-    });
-    if (errCode === 200) {
-      setBusinessList(
-        data?.list.map((io: any) => ({
-          label: io.oppoValue,
-          value: io.oppoId,
-        })),
-      );
-    }
+    // const { data, errCode } = await getCustomerList({
+    //   customerCode: info.customerCode,
+    //   // contactName: info.customerName,
+    // });
+    // if (errCode === 200) {
+    //   setBusinessList(
+    //     data?.list.map((io: any) => ({
+    //       label: io.oppoValue,
+    //       value: io.oppoId,
+    //     })),
+    //   );
+    // }
   };
   const companyList = async () => {
-    await getCompanyList().then((res: any) => {
-      if (res?.errCode === 200) {
-        setCpList(
-          res?.data?.dataList?.map((io: any) => ({
-            ...io,
-            value: io.key,
-            label: io.value,
-          })),
-        );
-      }
-    });
+    // await getCompanyList().then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     setCpList(
+    //       res?.data?.dataList?.map((io: any) => ({
+    //         ...io,
+    //         value: io.key,
+    //         label: io.value,
+    //       })),
+    //     );
+    //   }
+    // });
   };
 
   const getChannel = async () => {
@@ -97,18 +97,18 @@ const BasicInfo: React.FC<BasicInfoProps> = ({
     getr3List();
     companyList();
     getChannel();
-    getOrderDateList({ type: 'orderType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderTypeList(
-          res.data.dataList.map((e) => {
-            return {
-              label: e.value,
-              value: e.key,
-            };
-          }),
-        );
-      }
-    });
+    // getOrderDateList({ type: 'orderType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderTypeList(
+    //       res.data.dataList.map((e) => {
+    //         return {
+    //           label: e.value,
+    //           value: e.key,
+    //         };
+    //       }),
+    //     );
+    //   }
+    // });
   }, []);
   function validatorFn() {
     setShowDate(false);

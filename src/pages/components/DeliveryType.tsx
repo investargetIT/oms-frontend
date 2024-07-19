@@ -4,11 +4,11 @@ import { queryListDataMap } from '@/services';
 const DeliveryType: React.FC = ({ onChange, value }: any) => {
   const [list, setList] = useState([]);
   useEffect(() => {
-    queryListDataMap(['deliveryTerm']).then((res: any) => {
-      if (res.errCode === 200) {
-        setList(res.data.deliveryTerm);
-      }
-    });
+    // queryListDataMap(['deliveryTerm']).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setList(res.data.deliveryTerm);
+    //   }
+    // });
   }, []);
   const valChange = (val: any) => {
     onChange(val);

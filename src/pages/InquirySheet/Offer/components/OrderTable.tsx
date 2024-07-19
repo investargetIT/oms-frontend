@@ -51,14 +51,14 @@ const OrderTable: React.FC<OrderTableProps> = (
 
   useEffect(() => {
     if (ids.length == 0) return;
-    transferSecondOrder({ quotIdList: ids }).then((res: any) => {
-      const { errCode, data, errMsg } = res;
-      if (errCode === 200) {
-        setCountLine(data?.lines?.length);
-      } else {
-        message.error(errMsg);
-      }
-    });
+    // transferSecondOrder({ quotIdList: ids }).then((res: any) => {
+    //   const { errCode, data, errMsg } = res;
+    //   if (errCode === 200) {
+    //     setCountLine(data?.lines?.length);
+    //   } else {
+    //     message.error(errMsg);
+    //   }
+    // });
   }, [ids]);
 
   const rowSelection = {
@@ -127,18 +127,18 @@ const OrderTable: React.FC<OrderTableProps> = (
     };
     const { data, errCode, errMsg } = await transferOrder(params);
     // console.log(data, 'data', errCode, params, total);
-    if (errCode === 200) {
-      data?.list.forEach((element: any, index: any) => {
-        element.index = index;
-      });
-      setTableData(data?.list);
-      getAllSkuData(data?.list);
-      setPageTotal(data?.total);
-      // setModalVisible(true);
-    } else {
-      onError(errMsg);
-      message.error(errMsg);
-    }
+    // if (errCode === 200) {
+    //   data?.list.forEach((element: any, index: any) => {
+    //     element.index = index;
+    //   });
+    //   setTableData(data?.list);
+    //   getAllSkuData(data?.list);
+    //   setPageTotal(data?.total);
+    //   // setModalVisible(true);
+    // } else {
+    //   onError(errMsg);
+    //   message.error(errMsg);
+    // }
     setLoading(false);
   };
   useLayoutEffect(() => {

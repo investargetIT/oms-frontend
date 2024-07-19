@@ -130,21 +130,21 @@ const UploadInfo: React.FC<uploadParams> = (prop) => {
         });
       }
       if (info.file.status === 'done') {
-        if (info.file?.response?.errCode === 200) {
-          setIsLoad(false);
-          const url = info.file.response.data.resourceUrl;
-          tempList.forEach((item: any) => {
-            if (item.resourceName === info.file.name) {
-              item.resourceUrl = url;
-              item.status = 'done';
-            }
-          });
-          setData(tempList);
-          setIsLoad(false);
-        } else {
-          setIsLoad(false);
-          return message.error('文件上传失败，请重新上传');
-        }
+        // if (info.file?.response?.errCode === 200) {
+        //   setIsLoad(false);
+        //   const url = info.file.response.data.resourceUrl;
+        //   tempList.forEach((item: any) => {
+        //     if (item.resourceName === info.file.name) {
+        //       item.resourceUrl = url;
+        //       item.status = 'done';
+        //     }
+        //   });
+        //   setData(tempList);
+        //   setIsLoad(false);
+        // } else {
+        //   setIsLoad(false);
+        //   return message.error('文件上传失败，请重新上传');
+        // }
       } else if (info.file.status === 'error') {
         setIsLoad(false);
       }

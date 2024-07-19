@@ -54,38 +54,38 @@ const Index: React.FC<IndexProps> = () => {
   }, [Location.pathname]);
   useEffect(() => {
     const par = { type: 'cspStatus' };
-    getOrderDateList(par).then((res: any) => {
-      if (res?.errCode === 200) {
-        const newData = res?.data?.dataList;
-        newData?.unshift({
-          key: '',
-          value: '全部',
-        });
-        setStatusList(
-          newData?.map((io: any) => ({
-            ...io,
-            value: io.key,
-            label: io.value,
-          })),
-        );
-      }
-    });
+    // getOrderDateList(par).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     const newData = res?.data?.dataList;
+    //     newData?.unshift({
+    //       key: '',
+    //       value: '全部',
+    //     });
+    //     setStatusList(
+    //       newData?.map((io: any) => ({
+    //         ...io,
+    //         value: io.key,
+    //         label: io.value,
+    //       })),
+    //     );
+    //   }
+    // });
     // 公司
-    getCompanyList().then((res: any) => {
-      if (res?.errCode === 200) {
-        res?.data?.dataList?.unshift({
-          key: '',
-          value: '全部',
-        });
-        setCpList(
-          res?.data?.dataList?.map((io: any) => ({
-            ...io,
-            value: io.key,
-            label: io.value,
-          })),
-        );
-      }
-    });
+    // getCompanyList().then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     res?.data?.dataList?.unshift({
+    //       key: '',
+    //       value: '全部',
+    //     });
+    //     setCpList(
+    //       res?.data?.dataList?.map((io: any) => ({
+    //         ...io,
+    //         value: io.key,
+    //         label: io.value,
+    //       })),
+    //     );
+    //   }
+    // });
   }, []);
 
   const columns: ProColumns<any>[] = [
@@ -310,21 +310,21 @@ const Index: React.FC<IndexProps> = () => {
               pageNumber: params.current,
               pageSize: params.pageSize,
             };
-            const {
-              data: { list, total },
-              errCode,
-              errMsg,
-            } = await searchOffer(paramsCust);
-            if (errCode === 200) {
-              return Promise.resolve({
-                data: list,
-                total: total,
-                success: true,
-              });
-            } else {
-              message.error(errMsg);
-              return Promise.resolve([]);
-            }
+            // const {
+            //   data: { list, total },
+            //   errCode,
+            //   errMsg,
+            // } = await searchOffer(paramsCust);
+            // if (errCode === 200) {
+            //   return Promise.resolve({
+            //     data: list,
+            //     total: total,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           options={{ reload: false, density: false }}
           rowKey="sid"

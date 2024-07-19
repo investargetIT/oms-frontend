@@ -31,7 +31,7 @@ const ReplaceModal = (props: ReplaceModalProps, ref: any) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<any>([]);
   const { type, id } = props;
 
-  const { destroyCom } = useModel('tabSelect');
+  // const { destroyCom } = useModel('tabSelect');
   const reBack = () => {
     let url = '/inquiry/lectotype';
     if (type == 1) {
@@ -39,7 +39,7 @@ const ReplaceModal = (props: ReplaceModalProps, ref: any) => {
     } else if (type == 2) {
     } else if (type == 3) {
     }
-    destroyCom(url, location.pathname);
+    // destroyCom(url, location.pathname);
   };
 
   useEffect(() => {
@@ -92,50 +92,50 @@ const ReplaceModal = (props: ReplaceModalProps, ref: any) => {
           selectedRowKeys.some((ic: any) => ic === io.inqLnId),
         ),
       };
-      await editSubmitInquiry(par).then((res: any) => {
-        const { errCode, errMsg } = res;
-        if (errCode == 200) {
-          message.success('提交成功');
-          reBack();
-          setModalVisible(false);
-        } else {
-          message.error(errMsg);
-        }
-      });
+      // await editSubmitInquiry(par).then((res: any) => {
+      //   const { errCode, errMsg } = res;
+      //   if (errCode == 200) {
+      //     message.success('提交成功');
+      //     reBack();
+      //     setModalVisible(false);
+      //   } else {
+      //     message.error(errMsg);
+      //   }
+      // });
     } else if (type == 2) {
-      const resd = await searchFaTransAstAT(props.path, {
-        inquiryId: id,
-        inqLineIdList: props.subData,
-        faTransAstList: props?.dataList?.filter((io: any) =>
-          selectedRowKeys.some((ic: any) => ic === io.inqLnId),
-        ),
-      });
-      if (resd.errCode === 200) {
-        // message.success(resd.data);
-        message.success('操作成功!');
-        setModalVisible(false);
-        props.recall && props.recall();
-      } else {
-        message.error(resd.errMsg);
-      }
+      // const resd = await searchFaTransAstAT(props.path, {
+      //   inquiryId: id,
+      //   inqLineIdList: props.subData,
+      //   faTransAstList: props?.dataList?.filter((io: any) =>
+      //     selectedRowKeys.some((ic: any) => ic === io.inqLnId),
+      //   ),
+      // });
+      // if (resd.errCode === 200) {
+      //   // message.success(resd.data);
+      //   message.success('操作成功!');
+      //   setModalVisible(false);
+      //   props.recall && props.recall();
+      // } else {
+      //   message.error(resd.errMsg);
+      // }
     } else if (type == 3 && props?.inSubmit != 1) {
-      const res = {
-        ...props?.lineEditData,
-        sku: props?.dataList[0].astSkus,
-        faTransAstList: props?.dataList?.filter((io: any) =>
-          selectedRowKeys.some((ic: any) => ic === io.inqLnId),
-        ),
-      };
-      const resd = await itemEdit(res);
-      if (resd.errCode === 200) {
-        message.success('操作成功!');
-        setModalVisible(false);
-        props.close && props.close();
-        reBack();
-        props?.tableReload && props.tableReload();
-      } else {
-        message.error(resd.errMsg);
-      }
+      // const res = {
+      //   ...props?.lineEditData,
+      //   sku: props?.dataList[0].astSkus,
+      //   faTransAstList: props?.dataList?.filter((io: any) =>
+      //     selectedRowKeys.some((ic: any) => ic === io.inqLnId),
+      //   ),
+      // };
+      // const resd = await itemEdit(res);
+      // if (resd.errCode === 200) {
+      //   message.success('操作成功!');
+      //   setModalVisible(false);
+      //   props.close && props.close();
+      //   reBack();
+      //   props?.tableReload && props.tableReload();
+      // } else {
+      //   message.error(resd.errMsg);
+      // }
     } else if (type == 3 && props?.inSubmit == 1) {
       const res = {
         ...props?.lineEditData,
@@ -150,15 +150,15 @@ const ReplaceModal = (props: ReplaceModalProps, ref: any) => {
         ),
       };
       // 原来逻辑
-      const resd = await updateAndSubmitCheck(res, props?.lastPath);
-      if (resd.errCode === 200) {
-        message.success('操作成功!');
-        props.handClose && props.handClose();
-        setModalVisible(false);
-        props?.tableReload && props.tableReload();
-      } else {
-        message.error(resd.errMsg);
-      }
+      // const resd = await updateAndSubmitCheck(res, props?.lastPath);
+      // if (resd.errCode === 200) {
+      //   message.success('操作成功!');
+      //   props.handClose && props.handClose();
+      //   setModalVisible(false);
+      //   props?.tableReload && props.tableReload();
+      // } else {
+      //   message.error(resd.errMsg);
+      // }
     }
   };
 
@@ -168,44 +168,44 @@ const ReplaceModal = (props: ReplaceModalProps, ref: any) => {
         sid: props?.id,
         ...props?.subData,
       } as any;
-      const { errMsg, errCode } = await editSubmitInquiry(par);
-      if (errCode === 200) {
-        message.success('操作成功!');
-        reBack();
-        setModalVisible(false);
-      } else {
-        message.error(errMsg);
-      }
+      // const { errMsg, errCode } = await editSubmitInquiry(par);
+      // if (errCode === 200) {
+      //   message.success('操作成功!');
+      //   reBack();
+      //   setModalVisible(false);
+      // } else {
+      //   message.error(errMsg);
+      // }
     } else if (type === 2) {
-      const resd = await submitCheck(props.path, { inquiryId: id, inqLineIdList: props.subData });
-      if (resd.errCode === 200) {
-        message.success('操作成功!');
-        setModalVisible(false);
-        props.recall && props.recall();
-      } else {
-        message.error(resd.errMsg);
-      }
+      // const resd = await submitCheck(props.path, { inquiryId: id, inqLineIdList: props.subData });
+      // if (resd.errCode === 200) {
+      //   message.success('操作成功!');
+      //   setModalVisible(false);
+      //   props.recall && props.recall();
+      // } else {
+      //   message.error(resd.errMsg);
+      // }
     } else if (type == 3 && props?.inSubmit != 1) {
-      const resd = await itemEdit(props?.lineEditData);
-      if (resd.errCode === 200) {
-        message.success('操作成功!');
-        setModalVisible(false);
-        props.close && props.close();
-        props?.tableReload && props.tableReload();
-        reBack();
-      } else {
-        message.error(resd.errMsg);
-      }
+      // const resd = await itemEdit(props?.lineEditData);
+      // if (resd.errCode === 200) {
+      //   message.success('操作成功!');
+      //   setModalVisible(false);
+      //   props.close && props.close();
+      //   props?.tableReload && props.tableReload();
+      //   reBack();
+      // } else {
+      //   message.error(resd.errMsg);
+      // }
     } else if (type == 3 && props?.inSubmit == 1) {
-      const resd = await updateAndSubmitCheck(props?.lineEditData, props?.lastPath);
-      if (resd.errCode === 200) {
-        message.success('操作成功!');
-        props.handClose && props.handClose();
-        setModalVisible(false);
-        props?.tableReload && props.tableReload();
-      } else {
-        message.error(resd.errMsg);
-      }
+      // const resd = await updateAndSubmitCheck(props?.lineEditData, props?.lastPath);
+      // if (resd.errCode === 200) {
+      //   message.success('操作成功!');
+      //   props.handClose && props.handClose();
+      //   setModalVisible(false);
+      //   props?.tableReload && props.tableReload();
+      // } else {
+      //   message.error(resd.errMsg);
+      // }
     }
   };
 

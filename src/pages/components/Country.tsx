@@ -4,11 +4,11 @@ import { queryListDataMap } from '@/services';
 const Country: React.FC = ({ onChange, value }: any) => {
   const [list, setList] = useState([]);
   useEffect(() => {
-    queryListDataMap(['country']).then((res: any) => {
-      if (res.errCode === 200) {
-        setList(res.data.country);
-      }
-    });
+    // queryListDataMap(['country']).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setList(res.data.country);
+    //   }
+    // });
   }, []);
   const valChange = (val: any) => {
     onChange(val);

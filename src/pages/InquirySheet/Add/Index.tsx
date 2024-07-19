@@ -16,7 +16,7 @@ import {
 import ReplaceModal from '../components/ReplaceModal';
 
 const Index: React.FC = () => {
-  const { destroyCom } = useModel('tabSelect');
+  // const { destroyCom } = useModel('tabSelect');
   const pathParams: any = useParams();
   const location: any = useLocation();
   const baseRef = useRef();
@@ -40,28 +40,28 @@ const Index: React.FC = () => {
     }
     if (!location.state && id) {
       //?如果是编辑页面
-      editDetail(id).then((res: any) => {
-        if (res.errCode === 200) {
-          setParams(res.data);
-          setCustomrCode(res.data.customerCode);
-        } else {
-          message.error(res.errMsg);
-        }
-      });
+      // editDetail(id).then((res: any) => {
+      //   if (res.errCode === 200) {
+      //     setParams(res.data);
+      //     setCustomrCode(res.data.customerCode);
+      //   } else {
+      //     message.error(res.errMsg);
+      //   }
+      // });
     } else if (location.state && location.state.type === 'copy') {
       //?如果是复制页面
-      copyInquiryInfo(location.state.id).then((res: any) => {
-        if (res.errCode === 200) {
-          setParams(res.data.inquiryRespVO);
-          setCustomrCode(res.data.inquiryRespVO.customerCode);
-        } else {
-          message.error(res.errMsg);
-        }
-      });
+      // copyInquiryInfo(location.state.id).then((res: any) => {
+      //   if (res.errCode === 200) {
+      //     setParams(res.data.inquiryRespVO);
+      //     setCustomrCode(res.data.inquiryRespVO.customerCode);
+      //   } else {
+      //     message.error(res.errMsg);
+      //   }
+      // });
     }
   }, [pathParams?.id]);
   const reBack = () => {
-    destroyCom('/inquiry/lectotype', location.pathname);
+  //   destroyCom('/inquiry/lectotype', location.pathname);
   };
   const getIntenarlData = (val: any) => {
     setIntenarlData(val);
@@ -89,36 +89,36 @@ const Index: React.FC = () => {
         paramsForm.sid = pathId;
       }
       if (type === 1) {
-        resd = await editDraftInquiry({ ...paramsForm });
+        // resd = await editDraftInquiry({ ...paramsForm });
       } else if (type === 2) {
         // 判断接口
-        await searchFaTransAstSku('info', { inquiryId: paramsForm.sid }).then(async (res: any) => {
-          if (res?.errCode == 200) {
-            setSubParams({ ...paramsForm });
-            // return
-            if (res?.data?.dataList.length > 0) {
-              setRepalceList(res?.data?.dataList);
-              replaceModalRef?.current?.open();
-              //接下来做是否替换操作
-            } else {
-              resd = await editSubmitInquiry({ ...paramsForm });
-            }
-          } else {
-            message.error(res?.errMsg);
-          }
-        });
+        // await searchFaTransAstSku('info', { inquiryId: paramsForm.sid }).then(async (res: any) => {
+        //   if (res?.errCode == 200) {
+        //     setSubParams({ ...paramsForm });
+        //     // return
+        //     if (res?.data?.dataList.length > 0) {
+        //       setRepalceList(res?.data?.dataList);
+        //       replaceModalRef?.current?.open();
+        //       //接下来做是否替换操作
+        //     } else {
+        //       resd = await editSubmitInquiry({ ...paramsForm });
+        //     }
+        //   } else {
+        //     message.error(res?.errMsg);
+        //   }
+        // });
       }
       setSpinning(false);
-      if (resd.errCode === 200) {
-        message.success('操作成功!');
-        if (type === 2) {
-          reBack();
-        } else if (!pathId) {
-          setPathId(resd.data);
-        }
-      } else {
-        Modal.error({ title: resd.errMsg });
-      }
+      // if (resd.errCode === 200) {
+      //   message.success('操作成功!');
+      //   if (type === 2) {
+      //     reBack();
+      //   } else if (!pathId) {
+      //     setPathId(resd.data);
+      //   }
+      // } else {
+      //   Modal.error({ title: resd.errMsg });
+      // }
     } catch {
       setSpinning(false);
     }

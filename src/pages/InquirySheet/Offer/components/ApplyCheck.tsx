@@ -106,66 +106,66 @@ const ApplyCheck: React.FC<ApplyCheckProps> = ({ id, onClose, from }) => {
       customerCode: info?.customerCode,
     };
     try {
-      const { data, errCode, errMsg } = await calcCsp(par);
-      if (errCode == 200) {
-        const list = info?.quotationLineRespVoPage?.list.map((io: any) => {
-          if (io.discountCode.indexOf('YD25') == -1) {
-            for (let i = 0; i < data?.itemList?.length; i++) {
-              if (io.quotLineId == data?.itemList[i]?.sid) {
-                io.applyDiscountPercent = data?.itemList[i]?.discountRate;
-                io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
-                io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
-                io.totalAmount = data?.itemList[i]?.totalAmount;
-                io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
-                io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
-                io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
-                io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
-                io.finalGpRate = data?.itemList[i]?.finalGpRate;
-                io.gpRate = data?.itemList[i]?.gpRate;
-                io.cost = data?.itemList[i]?.costPrice;
-                io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
-                io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
-                io.gpRateGear = data?.itemList[i]?.gpRateGear;
-                io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
+      // const { data, errCode, errMsg } = await calcCsp(par);
+      // if (errCode == 200) {
+      //   const list = info?.quotationLineRespVoPage?.list.map((io: any) => {
+      //     if (io.discountCode.indexOf('YD25') == -1) {
+      //       for (let i = 0; i < data?.itemList?.length; i++) {
+      //         if (io.quotLineId == data?.itemList[i]?.sid) {
+      //           io.applyDiscountPercent = data?.itemList[i]?.discountRate;
+      //           io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
+      //           io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
+      //           io.totalAmount = data?.itemList[i]?.totalAmount;
+      //           io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
+      //           io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
+      //           io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
+      //           io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
+      //           io.finalGpRate = data?.itemList[i]?.finalGpRate;
+      //           io.gpRate = data?.itemList[i]?.gpRate;
+      //           io.cost = data?.itemList[i]?.costPrice;
+      //           io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
+      //           io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
+      //           io.gpRateGear = data?.itemList[i]?.gpRateGear;
+      //           io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
 
-                return io;
-              }
-            }
-          } else {
-            return io;
-          }
-        });
-        if (index !== -1 ) {
-          list[index].error = false
-          let flg =  list.some(e => e.error)
-          setErrorMsg(flg)
-        }
-        setInfo({
-          ...info,
-          amount: data?.amount,
-          amountNet: data?.amountNet,
-          goodsAmount: data?.goodsAmount,
-          goodsAmountNet: data?.goodsAmountNet,
-          amountNew: data?.amountNew,
-          amountNetNew: data?.amountNetNew,
-          goodsAmountNew: data?.goodsAmountNew,
-          goodsAmountNetNew: data?.goodsAmountNetNew,
-          calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
-          calcTaxDiscount: data?.calcTaxDiscount,
-          calcApplyDiscount: data?.calcApplyDiscount,
-          calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
-          gpRate: data?.gpRate,
-          pmsGpRate: data?.pmsGpRate,
-          pmsGpRateDesc: data?.pmsGpRateDesc,
-          finalGpRate: data?.finalGpRate,
-          quotationLineRespVoPage: {
-            ...info?.quotationLineRespVoPage,
-            list,
-          },
-        });
-      } else {
-        message.error(errMsg);
-      }
+      //           return io;
+      //         }
+      //       }
+      //     } else {
+      //       return io;
+      //     }
+      //   });
+      //   if (index !== -1 ) {
+      //     list[index].error = false
+      //     let flg =  list.some(e => e.error)
+      //     setErrorMsg(flg)
+      //   }
+      //   setInfo({
+      //     ...info,
+      //     amount: data?.amount,
+      //     amountNet: data?.amountNet,
+      //     goodsAmount: data?.goodsAmount,
+      //     goodsAmountNet: data?.goodsAmountNet,
+      //     amountNew: data?.amountNew,
+      //     amountNetNew: data?.amountNetNew,
+      //     goodsAmountNew: data?.goodsAmountNew,
+      //     goodsAmountNetNew: data?.goodsAmountNetNew,
+      //     calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
+      //     calcTaxDiscount: data?.calcTaxDiscount,
+      //     calcApplyDiscount: data?.calcApplyDiscount,
+      //     calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
+      //     gpRate: data?.gpRate,
+      //     pmsGpRate: data?.pmsGpRate,
+      //     pmsGpRateDesc: data?.pmsGpRateDesc,
+      //     finalGpRate: data?.finalGpRate,
+      //     quotationLineRespVoPage: {
+      //       ...info?.quotationLineRespVoPage,
+      //       list,
+      //     },
+      //   });
+      // } else {
+      //   message.error(errMsg);
+      // }
     } catch (error) {
       let list = [...info?.quotationLineRespVoPage?.list]
       list[index].error = true
@@ -185,259 +185,259 @@ const ApplyCheck: React.FC<ApplyCheckProps> = ({ id, onClose, from }) => {
     setLoad(true);
     // 需求单 和 报价单
     if (from === 'need') {
-      offerDetailNeed(id, { pageNumber: 1, pageSize: 10000 }).then(async (res: any) => {
-        //id quoteCode 測试号B220609090459930
-        if (res.errCode === 200) {
-          const newData = {
-            ...res?.data,
-            quotationLineRespVoPage: {
-              ...res?.data?.quotationLineRespVoPage,
-              list: res?.data?.quotationLineRespVoPage?.list.map((io: any) => ({
-                ...io,
-                applySalesPrice:
-                  io.applySalesPrice ||
-                  Number(
-                    (io.salesPrice * ((100 + (io.applyDiscountPercent || 0)) / 100)).toFixed(2),
-                  ),
-                applySalesPriceNet:
-                  io.applySalesPriceNet ||
-                  Number(
-                    (
-                      (io.salesPrice * (100 + (io.applyDiscountPercent || 0))) /
-                      100 /
-                      (1 + 0.13)
-                    ).toFixed(2),
-                  ),
-                applyDiscountPercent: io.applyDiscountPercent || 0,
-              })),
-            },
-          };
-          // getTotal 计算接口 刷页面
-          const par = {
-            volumeDiscountTag: mark ? 1 : 0,
-            volumeDiscountRate: mark,
-            freightTag: 1,
-            freight: newData?.freight || 0,
-            interFreight: newData?.interFreight || 0,
-            tariff: newData?.tariff || 0,
-            querySource: 1,
-            totalFreight: newData?.totalFreight || 0,
-            itemList: newData?.quotationLineRespVoPage?.list?.map((io: any) => ({
-              sid: io.quotLineId,
-              bizStatus:
-                (!io.quotationLineDiscountRespVoList ||
-                  io?.quotationLineDiscountRespVoList?.some(
-                    (ic: any) =>
-                      ic.discountCode != 'YPR0' &&
-                      ic.discountCode != 'YD17' &&
-                      ic.discountCode != 'YD25',
-                  )) &&
-                io.allowApplyHelpDiscount !== 0 &&
-                io.skuType != 20
-                  ? 11
-                  : 31, //31不参与批量折扣
-              discountRate: applyPercentStatus ? io.applyDiscountPercent : null,
-              applySalesPrice: applySalesStatus ? io.applySalesPrice : null,
-              applySalesPriceNet: apllySalesNetStatus ? io.applySalesPriceNet : null,
-              salesPrice: io.salesPrice,
-              listPrice: io.listPrice,
-              costPrice: io.cost,
-              qty: io.qty,
-              sku: io.sku,
-            })),
-            deptName: newData?.deptName || '',
-            customerCode: newData?.customerCode,
-          };
-          await calcCsp(par).then((res1: any) => {
-            const { data, errCode, errMsg } = res1;
-            if (errCode === 200) {
-              const list = newData?.quotationLineRespVoPage?.list?.map((io: any) => {
-                for (let i = 0; i < data?.itemList?.length; i++) {
-                  if (io.quotLineId == data?.itemList[i]?.sid) {
-                    io.applyDiscountPercent = data?.itemList[i]?.discountRate;
-                    io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
-                    io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
-                    io.totalAmount = data?.itemList[i]?.totalAmount;
-                    io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
-                    io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
-                    io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
-                    io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
-                    io.finalGpRate = data?.itemList[i]?.finalGpRate;
-                    io.gpRate = data?.itemList[i]?.gpRate;
-                    io.cost = data?.itemList[i]?.costPrice;
-                    io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
-                    io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
-                    io.gpRateGear = data?.itemList[i]?.gpRateGear;
-                    io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
+      // offerDetailNeed(id, { pageNumber: 1, pageSize: 10000 }).then(async (res: any) => {
+      //   //id quoteCode 測试号B220609090459930
+      //   if (res.errCode === 200) {
+      //     const newData = {
+      //       ...res?.data,
+      //       quotationLineRespVoPage: {
+      //         ...res?.data?.quotationLineRespVoPage,
+      //         list: res?.data?.quotationLineRespVoPage?.list.map((io: any) => ({
+      //           ...io,
+      //           applySalesPrice:
+      //             io.applySalesPrice ||
+      //             Number(
+      //               (io.salesPrice * ((100 + (io.applyDiscountPercent || 0)) / 100)).toFixed(2),
+      //             ),
+      //           applySalesPriceNet:
+      //             io.applySalesPriceNet ||
+      //             Number(
+      //               (
+      //                 (io.salesPrice * (100 + (io.applyDiscountPercent || 0))) /
+      //                 100 /
+      //                 (1 + 0.13)
+      //               ).toFixed(2),
+      //             ),
+      //           applyDiscountPercent: io.applyDiscountPercent || 0,
+      //         })),
+      //       },
+      //     };
+      //     // getTotal 计算接口 刷页面
+      //     const par = {
+      //       volumeDiscountTag: mark ? 1 : 0,
+      //       volumeDiscountRate: mark,
+      //       freightTag: 1,
+      //       freight: newData?.freight || 0,
+      //       interFreight: newData?.interFreight || 0,
+      //       tariff: newData?.tariff || 0,
+      //       querySource: 1,
+      //       totalFreight: newData?.totalFreight || 0,
+      //       itemList: newData?.quotationLineRespVoPage?.list?.map((io: any) => ({
+      //         sid: io.quotLineId,
+      //         bizStatus:
+      //           (!io.quotationLineDiscountRespVoList ||
+      //             io?.quotationLineDiscountRespVoList?.some(
+      //               (ic: any) =>
+      //                 ic.discountCode != 'YPR0' &&
+      //                 ic.discountCode != 'YD17' &&
+      //                 ic.discountCode != 'YD25',
+      //             )) &&
+      //           io.allowApplyHelpDiscount !== 0 &&
+      //           io.skuType != 20
+      //             ? 11
+      //             : 31, //31不参与批量折扣
+      //         discountRate: applyPercentStatus ? io.applyDiscountPercent : null,
+      //         applySalesPrice: applySalesStatus ? io.applySalesPrice : null,
+      //         applySalesPriceNet: apllySalesNetStatus ? io.applySalesPriceNet : null,
+      //         salesPrice: io.salesPrice,
+      //         listPrice: io.listPrice,
+      //         costPrice: io.cost,
+      //         qty: io.qty,
+      //         sku: io.sku,
+      //       })),
+      //       deptName: newData?.deptName || '',
+      //       customerCode: newData?.customerCode,
+      //     };
+      //     await calcCsp(par).then((res1: any) => {
+      //       const { data, errCode, errMsg } = res1;
+      //       if (errCode === 200) {
+      //         const list = newData?.quotationLineRespVoPage?.list?.map((io: any) => {
+      //           for (let i = 0; i < data?.itemList?.length; i++) {
+      //             if (io.quotLineId == data?.itemList[i]?.sid) {
+      //               io.applyDiscountPercent = data?.itemList[i]?.discountRate;
+      //               io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
+      //               io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
+      //               io.totalAmount = data?.itemList[i]?.totalAmount;
+      //               io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
+      //               io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
+      //               io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
+      //               io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
+      //               io.finalGpRate = data?.itemList[i]?.finalGpRate;
+      //               io.gpRate = data?.itemList[i]?.gpRate;
+      //               io.cost = data?.itemList[i]?.costPrice;
+      //               io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
+      //               io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
+      //               io.gpRateGear = data?.itemList[i]?.gpRateGear;
+      //               io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
 
-                    return io;
-                  }
-                }
-              });
-              const dataCalc = {
-                ...newData,
-                amount: data?.amount,
-                amountNet: data?.amountNet,
-                goodsAmount: data?.goodsAmount,
-                goodsAmountNet: data?.goodsAmountNet,
-                amountNew: data?.amountNew,
-                amountNetNew: data?.amountNetNew,
-                goodsAmountNew: data?.goodsAmountNew,
-                goodsAmountNetNew: data?.goodsAmountNetNew,
-                calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
-                calcTaxDiscount: data?.calcTaxDiscount,
-                calcApplyDiscount: data?.calcApplyDiscount,
-                calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
-                gpRate: data?.gpRate,
-                pmsGpRate: data?.pmsGpRate,
-                pmsGpRateDesc: data?.pmsGpRateDesc,
-                finalGpRate: data?.finalGpRate,
-                quotationLineRespVoPage: {
-                  ...newData?.quotationLineRespVoPage,
-                  list,
-                },
-              };
-              setInfo(dataCalc);
-              // 校验繁殖后端随便写数据
-              sessionStorage.setItem('oldList1', JSON.stringify(dataCalc));
-              setLoad(false);
-            } else {
-              message.error(errMsg);
-              setLoad(false);
-            }
-          });
-        } else {
-          message.error(res.errMsg);
-          setLoad(false);
-        }
-      });
+      //               return io;
+      //             }
+      //           }
+      //         });
+      //         const dataCalc = {
+      //           ...newData,
+      //           amount: data?.amount,
+      //           amountNet: data?.amountNet,
+      //           goodsAmount: data?.goodsAmount,
+      //           goodsAmountNet: data?.goodsAmountNet,
+      //           amountNew: data?.amountNew,
+      //           amountNetNew: data?.amountNetNew,
+      //           goodsAmountNew: data?.goodsAmountNew,
+      //           goodsAmountNetNew: data?.goodsAmountNetNew,
+      //           calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
+      //           calcTaxDiscount: data?.calcTaxDiscount,
+      //           calcApplyDiscount: data?.calcApplyDiscount,
+      //           calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
+      //           gpRate: data?.gpRate,
+      //           pmsGpRate: data?.pmsGpRate,
+      //           pmsGpRateDesc: data?.pmsGpRateDesc,
+      //           finalGpRate: data?.finalGpRate,
+      //           quotationLineRespVoPage: {
+      //             ...newData?.quotationLineRespVoPage,
+      //             list,
+      //           },
+      //         };
+      //         setInfo(dataCalc);
+      //         // 校验繁殖后端随便写数据
+      //         sessionStorage.setItem('oldList1', JSON.stringify(dataCalc));
+      //         setLoad(false);
+      //       } else {
+      //         message.error(errMsg);
+      //         setLoad(false);
+      //       }
+      //     });
+      //   } else {
+      //     message.error(res.errMsg);
+      //     setLoad(false);
+      //   }
+      // });
     } else {
-      offerDetail(id, { pageNumber: 1, pageSize: 10000 }).then(async (res: any) => {
-        // id  //quoteId ==? sid
-        if (res.errCode === 200) {
-          const newData = {
-            ...res?.data,
-            quotationLineRespVoPage: {
-              ...res?.data?.quotationLineRespVoPage,
-              list: res?.data?.quotationLineRespVoPage?.list.map((io: any) => ({
-                ...io,
-                applySalesPrice:
-                  io.applySalesPrice ||
-                  Number(
-                    (io.salesPrice * ((100 + (io.applyDiscountPercent || 0)) / 100)).toFixed(2),
-                  ),
-                applySalesPriceNet:
-                  io.applySalesPriceNet ||
-                  Number(
-                    (
-                      (io.salesPrice * (100 + (io.applyDiscountPercent || 0))) /
-                      100 /
-                      (1 + 0.13)
-                    ).toFixed(2),
-                  ),
-                applyDiscountPercent: io.applyDiscountPercent || 0,
-              })),
-            },
-          };
-          // getTotal 计算接口 刷页面
-          const par = {
-            volumeDiscountTag: mark ? 1 : 0,
-            volumeDiscountRate: mark,
-            freightTag: 1,
-            freight: newData?.freight || 0,
-            interFreight: newData?.interFreight || 0,
-            tariff: newData?.tariff || 0,
-            querySource: 1,
-            totalFreight: newData?.totalFreight || 0,
-            itemList: newData?.quotationLineRespVoPage?.list?.map((io: any) => ({
-              sid: io.quotLineId,
-              bizStatus:
-                (!io.quotationLineDiscountRespVoList ||
-                  io?.quotationLineDiscountRespVoList?.some(
-                    (ic: any) =>
-                      ic.discountCode != 'YPR0' &&
-                      ic.discountCode != 'YD17' &&
-                      ic.discountCode != 'YD25',
-                  )) &&
-                io.allowApplyHelpDiscount !== 0 &&
-                io.skuType != 20
-                  ? 11
-                  : 31, //31不参与批量折扣
-              discountRate: applyPercentStatus ? io.applyDiscountPercent : null,
-              applySalesPrice: applySalesStatus ? io.applySalesPrice : null,
-              applySalesPriceNet: apllySalesNetStatus ? io.applySalesPriceNet : null,
-              salesPrice: io.salesPrice,
-              listPrice: io.listPrice,
-              costPrice: io.cost,
-              qty: io.qty,
-              sku: io.sku,
-            })),
-            deptName: newData?.deptName || '',
-            customerCode: newData?.customerCode,
-          };
-          await calcCsp(par).then((res1: any) => {
-            const { data, errCode, errMsg } = res1;
-            if (errCode === 200) {
-              const list = newData?.quotationLineRespVoPage?.list?.map((io: any) => {
-                for (let i = 0; i < data?.itemList?.length; i++) {
-                  if (io.quotLineId == data?.itemList[i]?.sid) {
-                    io.applyDiscountPercent = data?.itemList[i]?.discountRate;
-                    io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
-                    io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
-                    io.totalAmount = data?.itemList[i]?.totalAmount;
-                    io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
-                    io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
-                    io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
-                    io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
-                    io.finalGpRate = data?.itemList[i]?.finalGpRate;
-                    io.gpRate = data?.itemList[i]?.gpRate;
-                    io.cost = data?.itemList[i]?.costPrice;
-                    io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
-                    io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
-                    io.gpRateGear = data?.itemList[i]?.gpRateGear;
-                    io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
+      // offerDetail(id, { pageNumber: 1, pageSize: 10000 }).then(async (res: any) => {
+      //   // id  //quoteId ==? sid
+      //   if (res.errCode === 200) {
+      //     const newData = {
+      //       ...res?.data,
+      //       quotationLineRespVoPage: {
+      //         ...res?.data?.quotationLineRespVoPage,
+      //         list: res?.data?.quotationLineRespVoPage?.list.map((io: any) => ({
+      //           ...io,
+      //           applySalesPrice:
+      //             io.applySalesPrice ||
+      //             Number(
+      //               (io.salesPrice * ((100 + (io.applyDiscountPercent || 0)) / 100)).toFixed(2),
+      //             ),
+      //           applySalesPriceNet:
+      //             io.applySalesPriceNet ||
+      //             Number(
+      //               (
+      //                 (io.salesPrice * (100 + (io.applyDiscountPercent || 0))) /
+      //                 100 /
+      //                 (1 + 0.13)
+      //               ).toFixed(2),
+      //             ),
+      //           applyDiscountPercent: io.applyDiscountPercent || 0,
+      //         })),
+      //       },
+      //     };
+      //     // getTotal 计算接口 刷页面
+      //     const par = {
+      //       volumeDiscountTag: mark ? 1 : 0,
+      //       volumeDiscountRate: mark,
+      //       freightTag: 1,
+      //       freight: newData?.freight || 0,
+      //       interFreight: newData?.interFreight || 0,
+      //       tariff: newData?.tariff || 0,
+      //       querySource: 1,
+      //       totalFreight: newData?.totalFreight || 0,
+      //       itemList: newData?.quotationLineRespVoPage?.list?.map((io: any) => ({
+      //         sid: io.quotLineId,
+      //         bizStatus:
+      //           (!io.quotationLineDiscountRespVoList ||
+      //             io?.quotationLineDiscountRespVoList?.some(
+      //               (ic: any) =>
+      //                 ic.discountCode != 'YPR0' &&
+      //                 ic.discountCode != 'YD17' &&
+      //                 ic.discountCode != 'YD25',
+      //             )) &&
+      //           io.allowApplyHelpDiscount !== 0 &&
+      //           io.skuType != 20
+      //             ? 11
+      //             : 31, //31不参与批量折扣
+      //         discountRate: applyPercentStatus ? io.applyDiscountPercent : null,
+      //         applySalesPrice: applySalesStatus ? io.applySalesPrice : null,
+      //         applySalesPriceNet: apllySalesNetStatus ? io.applySalesPriceNet : null,
+      //         salesPrice: io.salesPrice,
+      //         listPrice: io.listPrice,
+      //         costPrice: io.cost,
+      //         qty: io.qty,
+      //         sku: io.sku,
+      //       })),
+      //       deptName: newData?.deptName || '',
+      //       customerCode: newData?.customerCode,
+      //     };
+      //     await calcCsp(par).then((res1: any) => {
+      //       const { data, errCode, errMsg } = res1;
+      //       if (errCode === 200) {
+      //         const list = newData?.quotationLineRespVoPage?.list?.map((io: any) => {
+      //           for (let i = 0; i < data?.itemList?.length; i++) {
+      //             if (io.quotLineId == data?.itemList[i]?.sid) {
+      //               io.applyDiscountPercent = data?.itemList[i]?.discountRate;
+      //               io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
+      //               io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
+      //               io.totalAmount = data?.itemList[i]?.totalAmount;
+      //               io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
+      //               io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
+      //               io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
+      //               io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
+      //               io.finalGpRate = data?.itemList[i]?.finalGpRate;
+      //               io.gpRate = data?.itemList[i]?.gpRate;
+      //               io.cost = data?.itemList[i]?.costPrice;
+      //               io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
+      //               io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
+      //               io.gpRateGear = data?.itemList[i]?.gpRateGear;
+      //               io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
 
-                    return io;
-                  }
-                }
-              });
-              const dataCalc = {
-                ...newData,
-                amount: data?.amount,
-                amountNet: data?.amountNet,
-                goodsAmount: data?.goodsAmount,
-                goodsAmountNet: data?.goodsAmountNet,
-                amountNew: data?.amountNew,
-                amountNetNew: data?.amountNetNew,
-                goodsAmountNew: data?.goodsAmountNew,
-                goodsAmountNetNew: data?.goodsAmountNetNew,
-                calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
-                calcTaxDiscount: data?.calcTaxDiscount,
-                calcApplyDiscount: data?.calcApplyDiscount,
-                calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
-                gpRate: data?.gpRate,
-                pmsGpRate: data?.pmsGpRate,
-                pmsGpRateDesc: data?.pmsGpRateDesc,
-                finalGpRate: data?.finalGpRate,
-                quotationLineRespVoPage: {
-                  ...newData?.quotationLineRespVoPage,
-                  list,
-                },
-              };
-              setInfo(dataCalc);
-              // 校验繁殖后端随便写数据
-              sessionStorage.setItem('oldList1', JSON.stringify(dataCalc));
-              setLoad(false);
-            } else {
-              message.error(errMsg);
-              setLoad(false);
-            }
-          });
-        } else {
-          message.error(res.errMsg);
-          setLoad(false);
-        }
-      });
+      //               return io;
+      //             }
+      //           }
+      //         });
+      //         const dataCalc = {
+      //           ...newData,
+      //           amount: data?.amount,
+      //           amountNet: data?.amountNet,
+      //           goodsAmount: data?.goodsAmount,
+      //           goodsAmountNet: data?.goodsAmountNet,
+      //           amountNew: data?.amountNew,
+      //           amountNetNew: data?.amountNetNew,
+      //           goodsAmountNew: data?.goodsAmountNew,
+      //           goodsAmountNetNew: data?.goodsAmountNetNew,
+      //           calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
+      //           calcTaxDiscount: data?.calcTaxDiscount,
+      //           calcApplyDiscount: data?.calcApplyDiscount,
+      //           calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
+      //           gpRate: data?.gpRate,
+      //           pmsGpRate: data?.pmsGpRate,
+      //           pmsGpRateDesc: data?.pmsGpRateDesc,
+      //           finalGpRate: data?.finalGpRate,
+      //           quotationLineRespVoPage: {
+      //             ...newData?.quotationLineRespVoPage,
+      //             list,
+      //           },
+      //         };
+      //         setInfo(dataCalc);
+      //         // 校验繁殖后端随便写数据
+      //         sessionStorage.setItem('oldList1', JSON.stringify(dataCalc));
+      //         setLoad(false);
+      //       } else {
+      //         message.error(errMsg);
+      //         setLoad(false);
+      //       }
+      //     });
+      //   } else {
+      //     message.error(res.errMsg);
+      //     setLoad(false);
+      //   }
+      // });
     }
   }, []);
 
@@ -879,9 +879,9 @@ const ApplyCheck: React.FC<ApplyCheckProps> = ({ id, onClose, from }) => {
       return;
     }
 
-    setTimeout(() => {
-      getTotal(applySalesStatus, apllySalesNetStatus, applyPercentStatus, mark, -1);
-    }, 300);
+    // setTimeout(() => {
+    //   getTotal(applySalesStatus, apllySalesNetStatus, applyPercentStatus, mark, -1);
+    // }, 300);
   };
 
   const submit = async (values: any) => {
@@ -922,29 +922,29 @@ const ApplyCheck: React.FC<ApplyCheckProps> = ({ id, onClose, from }) => {
     // 区分入口出口
     if (from === 'need') {
       // 需求单审批流提交
-      await approvalDiscountWorkFlow(par).then((res: any) => {
-        const { errCode, errMsg } = res;
-        if (errCode == 200) {
-          message.success('提交成功');
-          setLoadding(false);
-          onClose && onClose(false);
-        } else {
-          message.error(errMsg);
-          setLoadding(false);
-        }
-      });
+      // await approvalDiscountWorkFlow(par).then((res: any) => {
+      //   const { errCode, errMsg } = res;
+      //   if (errCode == 200) {
+      //     message.success('提交成功');
+      //     setLoadding(false);
+      //     onClose && onClose(false);
+      //   } else {
+      //     message.error(errMsg);
+      //     setLoadding(false);
+      //   }
+      // });
     } else {
-      await approvalDiscount(par).then((res: any) => {
-        const { errCode, errMsg } = res;
-        if (errCode == 200) {
-          message.success('提交成功');
-          setLoadding(false);
-          onClose && onClose(false);
-        } else {
-          message.error(errMsg);
-          setLoadding(false);
-        }
-      });
+      // await approvalDiscount(par).then((res: any) => {
+      //   const { errCode, errMsg } = res;
+      //   if (errCode == 200) {
+      //     message.success('提交成功');
+      //     setLoadding(false);
+      //     onClose && onClose(false);
+      //   } else {
+      //     message.error(errMsg);
+      //     setLoadding(false);
+      //   }
+      // });
     }
   };
 
@@ -964,128 +964,128 @@ const ApplyCheck: React.FC<ApplyCheckProps> = ({ id, onClose, from }) => {
       if (msg.file.status !== 'uploading') {
       }
       if (msg.file.status === 'done') {
-        if (msg?.file?.response?.errCode === 200) {
-          const dataList = msg?.file?.response?.data;
-          // 重新刷新数据
-          const newListNew = info?.quotationLineRespVoPage?.list
-            ?.map((io: any) => {
-              for (let i = 0; i < info?.quotationLineRespVoPage?.list?.length; i++) {
-                if (io.quotLineId == dataList[i]?.sid) {
-                  io.sid = dataList[i]?.sid;
-                  (io.bizStatus =
-                    (!io.quotationLineDiscountRespVoList ||
-                      io?.quotationLineDiscountRespVoList?.some(
-                        (ic: any) =>
-                          ic.discountCode != 'YPR0' &&
-                          ic.discountCode != 'YD17' &&
-                          ic.discountCode != 'YD25',
-                      )) &&
-                    io.allowApplyHelpDiscount !== 0 &&
-                    io.skuType != 20
-                      ? 11
-                      : 31), //31不参与批量折扣
-                    (io.discountRate = dataList[i]?.applyDiscountPercent);
-                  io.applySalesPrice = dataList[i]?.applySalesPrice;
-                  io.applySalesPriceNet = dataList[i]?.applySalesPriceNet;
-                  io.salesPrice = dataList[i]?.salesPrice;
-                  io.listPrice = io.listPrice;
-                  io.costPrice = io.cost;
-                  io.qty = io.qty;
-                  io.sku = dataList[i]?.sku;
-                  return io;
-                }
-              }
-            })
-            ?.filter((ic: any) => ic);
-          const newList = [
-            ...newListNew,
-            ...info?.quotationLineRespVoPage?.list
-              ?.filter((io: any) => !newListNew.some((ic: any) => io.quotLineId == ic.sid))
-              ?.map((iq: any) => ({ ...iq, sid: iq.quotLineId, costPrice: iq.cost })),
-          ];
+        // if (msg?.file?.response?.errCode === 200) {
+        //   const dataList = msg?.file?.response?.data;
+        //   // 重新刷新数据
+        //   const newListNew = info?.quotationLineRespVoPage?.list
+        //     ?.map((io: any) => {
+        //       for (let i = 0; i < info?.quotationLineRespVoPage?.list?.length; i++) {
+        //         if (io.quotLineId == dataList[i]?.sid) {
+        //           io.sid = dataList[i]?.sid;
+        //           (io.bizStatus =
+        //             (!io.quotationLineDiscountRespVoList ||
+        //               io?.quotationLineDiscountRespVoList?.some(
+        //                 (ic: any) =>
+        //                   ic.discountCode != 'YPR0' &&
+        //                   ic.discountCode != 'YD17' &&
+        //                   ic.discountCode != 'YD25',
+        //               )) &&
+        //             io.allowApplyHelpDiscount !== 0 &&
+        //             io.skuType != 20
+        //               ? 11
+        //               : 31), //31不参与批量折扣
+        //             (io.discountRate = dataList[i]?.applyDiscountPercent);
+        //           io.applySalesPrice = dataList[i]?.applySalesPrice;
+        //           io.applySalesPriceNet = dataList[i]?.applySalesPriceNet;
+        //           io.salesPrice = dataList[i]?.salesPrice;
+        //           io.listPrice = io.listPrice;
+        //           io.costPrice = io.cost;
+        //           io.qty = io.qty;
+        //           io.sku = dataList[i]?.sku;
+        //           return io;
+        //         }
+        //       }
+        //     })
+        //     ?.filter((ic: any) => ic);
+        //   const newList = [
+        //     ...newListNew,
+        //     ...info?.quotationLineRespVoPage?.list
+        //       ?.filter((io: any) => !newListNew.some((ic: any) => io.quotLineId == ic.sid))
+        //       ?.map((iq: any) => ({ ...iq, sid: iq.quotLineId, costPrice: iq.cost })),
+        //   ];
 
-          const par = {
-            volumeDiscountTag: 0,
-            // volumeDiscountRate: mark,
-            freightTag: 1,
-            freight: info?.freight || 0,
-            interFreight: info?.interFreight || 0,
-            tariff: info?.tariff || 0,
-            querySource: 1,
-            totalFreight: info?.totalFreight || 0,
-            itemList: newList,
-            deptName: info?.deptName || '',
-            customerCode: info?.customerCode,
-          };
-          await calcCsp(par).then((res1: any) => {
-            const { data, errCode, errMsg } = res1;
-            if (errCode === 200) {
-              const list = newList?.map((io: any) => {
-                for (let i = 0; i < data?.itemList?.length; i++) {
-                  if (io.quotLineId == data?.itemList[i]?.sid) {
-                    io.applyDiscountPercent = data?.itemList[i]?.discountRate;
-                    io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
-                    io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
-                    io.totalAmount = data?.itemList[i]?.totalAmount;
-                    io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
-                    io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
-                    io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
-                    io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
-                    io.finalGpRate = data?.itemList[i]?.finalGpRate;
-                    io.gpRate = data?.itemList[i]?.gpRate;
-                    io.cost = data?.itemList[i]?.costPrice;
-                    io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
-                    io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
-                    io.gpRateGear = data?.itemList[i]?.gpRateGear;
-                    io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
+        //   const par = {
+        //     volumeDiscountTag: 0,
+        //     // volumeDiscountRate: mark,
+        //     freightTag: 1,
+        //     freight: info?.freight || 0,
+        //     interFreight: info?.interFreight || 0,
+        //     tariff: info?.tariff || 0,
+        //     querySource: 1,
+        //     totalFreight: info?.totalFreight || 0,
+        //     itemList: newList,
+        //     deptName: info?.deptName || '',
+        //     customerCode: info?.customerCode,
+        //   };
+        //   await calcCsp(par).then((res1: any) => {
+        //     const { data, errCode, errMsg } = res1;
+        //     if (errCode === 200) {
+        //       const list = newList?.map((io: any) => {
+        //         for (let i = 0; i < data?.itemList?.length; i++) {
+        //           if (io.quotLineId == data?.itemList[i]?.sid) {
+        //             io.applyDiscountPercent = data?.itemList[i]?.discountRate;
+        //             io.applySalesPrice = data?.itemList[i]?.applySalesPrice;
+        //             io.applySalesPriceNet = data?.itemList[i]?.applySalesPriceNet;
+        //             io.totalAmount = data?.itemList[i]?.totalAmount;
+        //             io.totalAmountNet = data?.itemList[i]?.totalAmountNet;
+        //             io.totalAmountAfter = data?.itemList[i]?.discountTotalAmount;
+        //             io.totalAmountNetAfter = data?.itemList[i]?.discountTotalAmountNet;
+        //             io.custTotalDiscount = data?.itemList[i]?.custTotalDiscount;
+        //             io.finalGpRate = data?.itemList[i]?.finalGpRate;
+        //             io.gpRate = data?.itemList[i]?.gpRate;
+        //             io.cost = data?.itemList[i]?.costPrice;
+        //             io.pmsLastCost = data?.itemList[i]?.rmbPurchasePrice;
+        //             io.pmlsLastGpRate = data?.itemList[i]?.pmsGpRate;
+        //             io.gpRateGear = data?.itemList[i]?.gpRateGear;
+        //             io.gpRateGearRate = data?.itemList[i]?.gpRateGearRate;
 
-                    return io;
-                  }
-                }
-              });
-              setInfo({
-                ...info,
-                amount: data?.amount,
-                amountNet: data?.amountNet,
-                goodsAmount: data?.goodsAmount,
-                goodsAmountNet: data?.goodsAmountNet,
-                amountNew: data?.amountNew,
-                amountNetNew: data?.amountNetNew,
-                goodsAmountNew: data?.goodsAmountNew,
-                goodsAmountNetNew: data?.goodsAmountNetNew,
-                calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
-                calcTaxDiscount: data?.calcTaxDiscount,
-                calcApplyDiscount: data?.calcApplyDiscount,
-                calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
-                gpRate: data?.gpRate,
-                finalGpRate: data?.finalGpRate,
-                pmsGpRate: data?.pmsGpRate, //新加
-                pmsGpRateDesc: data?.pmsGpRateDesc, //新加
-                quotationLineRespVoPage: {
-                  ...info?.quotationLineRespVoPage,
-                  list,
-                },
-              });
-              // sessionStorage.removeItem('oldList1');
-            } else {
-              setTimeout(() => {
-                message.error(errMsg);
-              }, 2000);
-              // 计算出错了
-              const sdata = sessionStorage.getItem('oldList1') as any;
-              setInfo(JSON.parse(sdata));
-            }
-          });
-          message.success(`${msg.file.name} file uploaded successfully`, 1);
-          setTimeout(() => {
-            setModalVisible(false);
-          }, 2000);
-        } else {
-          message.error(`${msg?.file?.response?.errMsg}`);
-          setTimeout(() => {
-            setModalVisible(false);
-          }, 2000);
-        }
+        //             return io;
+        //           }
+        //         }
+        //       });
+        //       setInfo({
+        //         ...info,
+        //         amount: data?.amount,
+        //         amountNet: data?.amountNet,
+        //         goodsAmount: data?.goodsAmount,
+        //         goodsAmountNet: data?.goodsAmountNet,
+        //         amountNew: data?.amountNew,
+        //         amountNetNew: data?.amountNetNew,
+        //         goodsAmountNew: data?.goodsAmountNew,
+        //         goodsAmountNetNew: data?.goodsAmountNetNew,
+        //         calcTotalDiscountPercent: data?.calcTotalDiscountPercent,
+        //         calcTaxDiscount: data?.calcTaxDiscount,
+        //         calcApplyDiscount: data?.calcApplyDiscount,
+        //         calcApplyTaxDiscount: data?.calcApplyTaxDiscount,
+        //         gpRate: data?.gpRate,
+        //         finalGpRate: data?.finalGpRate,
+        //         pmsGpRate: data?.pmsGpRate, //新加
+        //         pmsGpRateDesc: data?.pmsGpRateDesc, //新加
+        //         quotationLineRespVoPage: {
+        //           ...info?.quotationLineRespVoPage,
+        //           list,
+        //         },
+        //       });
+        //       // sessionStorage.removeItem('oldList1');
+        //     } else {
+        //       setTimeout(() => {
+        //         message.error(errMsg);
+        //       }, 2000);
+        //       // 计算出错了
+        //       const sdata = sessionStorage.getItem('oldList1') as any;
+        //       setInfo(JSON.parse(sdata));
+        //     }
+        //   });
+        //   message.success(`${msg.file.name} file uploaded successfully`, 1);
+        //   setTimeout(() => {
+        //     setModalVisible(false);
+        //   }, 2000);
+        // } else {
+        //   message.error(`${msg?.file?.response?.errMsg}`);
+        //   setTimeout(() => {
+        //     setModalVisible(false);
+        //   }, 2000);
+        // }
       } else if (msg.file.status === 'error') {
         message.error(`${msg.file.name} file upload failed.`);
       }
@@ -1143,16 +1143,16 @@ const ApplyCheck: React.FC<ApplyCheckProps> = ({ id, onClose, from }) => {
 
   useEffect(() => {
     //支付条件匹配
-    getSelectList({ type: 'paymentTerm' }).then((res: any) => {
-      const { errCode, data } = res;
-      if (errCode === 200) {
-        const obj = {} as any;
-        data?.dataList?.map((io: any) => {
-          obj[io.key] = io.value;
-        });
-        setPayEnum(obj);
-      }
-    });
+    // getSelectList({ type: 'paymentTerm' }).then((res: any) => {
+    //   const { errCode, data } = res;
+    //   if (errCode === 200) {
+    //     const obj = {} as any;
+    //     data?.dataList?.map((io: any) => {
+    //       obj[io.key] = io.value;
+    //     });
+    //     setPayEnum(obj);
+    //   }
+    // });
   }, []);
   const colorList: any = {
     黄色: '#f1db08',

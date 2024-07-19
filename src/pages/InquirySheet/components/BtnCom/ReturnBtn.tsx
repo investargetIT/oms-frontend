@@ -86,23 +86,23 @@ const ReturnBtn: React.FC<{
         cancelText: '取消',
         onOk: async () => {
           let resd = null;
-          if (props.isOrder) {
-            resd = await backByInq(res.inquiryId, res);
-          } else {
-            const path: any = pathParams?.sorurceType || history.location.pathname.split('/').pop();
-            resd = await inqBack(path, res.toLineStatus, res);
-          }
-          if (resd.errCode === 200) {
-            message.success(resd.errMsg);
-            setIsModalVisible(false);
-            if (props.recall) {
-              props.recall();
-            } else {
-              history.go(-1);
-            }
-          } else {
-            message.error(resd.errMsg);
-          }
+          // if (props.isOrder) {
+          //   resd = await backByInq(res.inquiryId, res);
+          // } else {
+          //   const path: any = pathParams?.sorurceType || history.location.pathname.split('/').pop();
+          //   resd = await inqBack(path, res.toLineStatus, res);
+          // }
+          // if (resd.errCode === 200) {
+          //   message.success(resd.errMsg);
+          //   setIsModalVisible(false);
+          //   if (props.recall) {
+          //     props.recall();
+          //   } else {
+          //     history.go(-1);
+          //   }
+          // } else {
+          //   message.error(resd.errMsg);
+          // }
         },
       });
     });

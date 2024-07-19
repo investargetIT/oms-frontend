@@ -75,6 +75,8 @@ const RelatedProcesses: React.FC<{ billNo: string }> = (props: any) => {
         //   pageSize: params.pageSize,
         //   billNo: billNo,
         // };
+        //以上原来就屏蔽
+
         const res = await getRelatedProcessesList(billNo);
         if (res.errCode === 200) {
           return Promise.resolve({

@@ -32,19 +32,19 @@ const ProreplaceBtn: React.FC<{ selectedRow: any; recall?: any }> = (props: any)
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          changeSegment({ ...temp, ...res }, path).then((resd: any) => {
-            if (resd.errCode === 200) {
-              message.success('操作成功!');
-              if (props.recall) {
-                props.recall();
-              } else {
-                history.go(-1);
-              }
-              setIsModalVisible(false);
-            } else {
-              Modal.error({ title: resd.errMsg });
-            }
-          });
+          // changeSegment({ ...temp, ...res }, path).then((resd: any) => {
+          //   if (resd.errCode === 200) {
+          //     message.success('操作成功!');
+          //     if (props.recall) {
+          //       props.recall();
+          //     } else {
+          //       history.go(-1);
+          //     }
+          //     setIsModalVisible(false);
+          //   } else {
+          //     Modal.error({ title: resd.errMsg });
+          //   }
+          // });
         },
       });
     });

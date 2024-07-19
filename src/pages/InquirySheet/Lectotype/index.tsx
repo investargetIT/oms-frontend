@@ -14,7 +14,7 @@ import { KeepAlive } from 'react-activation';
 import TableCom from '@/pages/components/TableCom/Index';
 const Index: React.FC = () => {
   const { initialState } = useModel('@@initialState');
-  const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
+  // const { getKeys } = useModel('basicUnit', (model) => ({ getKeys: model.getKeys }));
   const { RangePicker }: any = DatePicker;
   const ref = useRef<ActionType>();
   const ModRef = useRef();
@@ -181,21 +181,21 @@ const Index: React.FC = () => {
     item.ellipsis = true;
   });
   useEffect(() => {
-    getKeys([
-      'reqTypeEnum',
-      'inqTypeAllEnum',
-      'inqStat',
-      'customerLevelEnum',
-      'branchCompanyEnum',
-    ]).then((res: any) => {
-      if (res) {
-        setReqList(res.reqTypeEnum);
-        setTypeList(res.inqTypeAllEnum);
-        setStatusList(res.inqStat);
-        setLevelList(res.customerLevelEnum);
-        setCompanyList(res.branchCompanyEnum);
-      }
-    });
+    // getKeys([
+    //   'reqTypeEnum',
+    //   'inqTypeAllEnum',
+    //   'inqStat',
+    //   'customerLevelEnum',
+    //   'branchCompanyEnum',
+    // ]).then((res: any) => {
+    //   if (res) {
+    //     setReqList(res.reqTypeEnum);
+    //     setTypeList(res.inqTypeAllEnum);
+    //     setStatusList(res.inqStat);
+    //     setLevelList(res.customerLevelEnum);
+    //     setCompanyList(res.branchCompanyEnum);
+    //   }
+    // });
   }, []);
   useEffect(() => {
     setYClient((initialState?.windowInnerHeight || window.innerHeight) - 340);
@@ -205,14 +205,14 @@ const Index: React.FC = () => {
     }
   }, [history.action]);
   useEffect(() => {
-    getFieldConfiguration({ url: history.location.pathname }).then((res) => {
-      if (res.data) {
-        const datas = JSON.parse(res.data);
-        setColumnsStateMap(datas);
-      } else {
-        setColumnsStateMap({});
-      }
-    });
+    // getFieldConfiguration({ url: history.location.pathname }).then((res) => {
+    //   if (res.data) {
+    //     const datas = JSON.parse(res.data);
+    //     setColumnsStateMap(datas);
+    //   } else {
+    //     setColumnsStateMap({});
+    //   }
+    // });
   }, [history.location.pathname]);
   useEffect(() => {
     setYClient((initialState?.windowInnerHeight || window.innerHeight) - 360);
@@ -233,30 +233,30 @@ const Index: React.FC = () => {
         const searchParams = form.getFieldsValue(true);
         searchParams.createTimeStart = moment(searchParams.createTime[0]).format('YYYY-MM-DD');
         searchParams.createTimeEnd = moment(searchParams.createTime[1]).format('YYYY-MM-DD');
-        exportInquiry(JSON.parse(JSON.stringify({ ...pageParams, ...searchParams, sidList }))).then(
-          (res: any) => {
-            const { data } = res;
-            const reader = new FileReader();
-            reader.onload = function () {
-              try {
-                const resContent = reader.result ? JSON.parse(reader.result.toString()) : '';
-                if (resContent.statusCode) {
-                  Modal.error(resContent.errMsg);
-                }
-              } catch {
-                const el = document.createElement('a');
-                el.style.display = 'none';
-                el.href = URL.createObjectURL(data);
-                el.download = '需求单信息.xlsx';
-                document.body.append(el);
-                el.click();
-                window.URL.revokeObjectURL(el.href);
-                document.body.removeChild(el);
-              }
-            };
-            reader.readAsText(data);
-          },
-        );
+        // exportInquiry(JSON.parse(JSON.stringify({ ...pageParams, ...searchParams, sidList }))).then(
+        //   (res: any) => {
+        //     const { data } = res;
+        //     const reader = new FileReader();
+        //     reader.onload = function () {
+        //       try {
+        //         const resContent = reader.result ? JSON.parse(reader.result.toString()) : '';
+        //         if (resContent.statusCode) {
+        //           Modal.error(resContent.errMsg);
+        //         }
+        //       } catch {
+        //         const el = document.createElement('a');
+        //         el.style.display = 'none';
+        //         el.href = URL.createObjectURL(data);
+        //         el.download = '需求单信息.xlsx';
+        //         document.body.append(el);
+        //         el.click();
+        //         window.URL.revokeObjectURL(el.href);
+        //         document.body.removeChild(el);
+        //       }
+        //     };
+        //     reader.readAsText(data);
+        //   },
+        // );
       },
     });
   };
@@ -275,15 +275,15 @@ const Index: React.FC = () => {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        cancelInquiry(ids.join()).then((res: any) => {
-          if (res.errCode === 200) {
-            message.success('取消成功!');
-            ref.current?.reload();
-            setSelectedRowKeys([]);
-          } else {
-            message.error(res.errMsg);
-          }
-        });
+        // cancelInquiry(ids.join()).then((res: any) => {
+        //   if (res.errCode === 200) {
+        //     message.success('取消成功!');
+        //     ref.current?.reload();
+        //     setSelectedRowKeys([]);
+        //   } else {
+        //     message.error(res.errMsg);
+        //   }
+        // });
       },
     });
     return true;
@@ -299,28 +299,28 @@ const Index: React.FC = () => {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        inqExportLn(JSON.parse(JSON.stringify(ids))).then((res: any) => {
-          const { data } = res;
-          const reader = new FileReader();
-          reader.onload = function () {
-            try {
-              const resContent = reader.result ? JSON.parse(reader.result.toString()) : '';
-              if (resContent.statusCode) {
-                Modal.error(resContent.errMsg);
-              }
-            } catch {
-              const el = document.createElement('a');
-              el.style.display = 'none';
-              el.href = URL.createObjectURL(data);
-              el.download = '需求单信息.xlsx';
-              document.body.append(el);
-              el.click();
-              window.URL.revokeObjectURL(el.href);
-              document.body.removeChild(el);
-            }
-          };
-          reader.readAsText(data);
-        });
+        // inqExportLn(JSON.parse(JSON.stringify(ids))).then((res: any) => {
+        //   const { data } = res;
+        //   const reader = new FileReader();
+        //   reader.onload = function () {
+        //     try {
+        //       const resContent = reader.result ? JSON.parse(reader.result.toString()) : '';
+        //       if (resContent.statusCode) {
+        //         Modal.error(resContent.errMsg);
+        //       }
+        //     } catch {
+        //       const el = document.createElement('a');
+        //       el.style.display = 'none';
+        //       el.href = URL.createObjectURL(data);
+        //       el.download = '需求单信息.xlsx';
+        //       document.body.append(el);
+        //       el.click();
+        //       window.URL.revokeObjectURL(el.href);
+        //       document.body.removeChild(el);
+        //     }
+        //   };
+        //   reader.readAsText(data);
+        // });
       },
     });
     return true;
@@ -561,10 +561,10 @@ const Index: React.FC = () => {
           value: columnsStateMap,
           onChange: (val: any) => {
             setColumnsStateMap(val);
-            saveFieldConfiguration({
-              url: history.location.pathname,
-              fieldConfiguration: JSON.stringify(val),
-            });
+            // saveFieldConfiguration({
+            //   url: history.location.pathname,
+            //   fieldConfiguration: JSON.stringify(val),
+            // });
           },
           // persistenceKey: '/inquiry/lectotype',
           // persistenceType: 'localStorage',
@@ -579,15 +579,15 @@ const Index: React.FC = () => {
           searchParams.pageNumber = params.current;
           searchParams.pageSize = params.pageSize;
           setPageParams(params);
-          const res = await allInquiry(searchParams);
-          setSelectedRowKeys([]);
-          setSelRows([]);
-          if (res.errCode === 200) {
-            return Promise.resolve({ data: res.data?.list, total: res.data?.total, success: true });
-          } else {
-            Modal.error({ title: res.errMsg });
-            return Promise.resolve([]);
-          }
+          // const res = await allInquiry(searchParams);
+          // setSelectedRowKeys([]);
+          // setSelRows([]);
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({ data: res.data?.list, total: res.data?.total, success: true });
+          // } else {
+          //   Modal.error({ title: res.errMsg });
+          //   return Promise.resolve([]);
+          // }
         }}
         rowSelection={{ type: 'checkbox', onChange: onSelect, selectedRowKeys }}
         onRow={(record: any) => {

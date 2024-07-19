@@ -66,15 +66,15 @@ const SkuInfo: React.FC<{
             delList.push(item.sid);
           }
         });
-        deleteItemDetail({ list: delList }).then((delMsg: any) => {
-          if (delMsg.errCode === 200) {
-            message.success('删除成功!');
-            tableRef.current?.reload(true);
-          } else {
-            message.error(delMsg.errMsg);
-          }
-        });
-        setSelectedRowKeys([]);
+        // deleteItemDetail({ list: delList }).then((delMsg: any) => {
+        //   if (delMsg.errCode === 200) {
+        //     message.success('删除成功!');
+        //     tableRef.current?.reload(true);
+        //   } else {
+        //     message.error(delMsg.errMsg);
+        //   }
+        // });
+        // setSelectedRowKeys([]);
       },
     });
   };
@@ -88,30 +88,30 @@ const SkuInfo: React.FC<{
     }
     singleVal.inquiryId = inquiryId;
     if (singleVal?.sid) {
-      editItemDetail(singleVal).then((editMsg: any) => {
-        if (editMsg.errCode === 200) {
-          message.success('编辑成功!');
-          tableRef.current?.reload();
-        } else {
-          message.error(editMsg.errMsg);
-        }
-      });
+      // editItemDetail(singleVal).then((editMsg: any) => {
+      //   if (editMsg.errCode === 200) {
+      //     message.success('编辑成功!');
+      //     tableRef.current?.reload();
+      //   } else {
+      //     message.error(editMsg.errMsg);
+      //   }
+      // });
     } else {
       const baseForm: any = (await props?.baseInfo.current?.getBaseForm()) || {};
       baseForm.inquiryId = inquiryId;
       setUploadData(JSON.parse(JSON.stringify(baseForm)));
-      addItemDetail({ ...baseForm, ...singleVal }).then((editMsg: any) => {
-        if (editMsg.errCode === 200) {
-          message.success('新增成功!');
-          if (!inquiryId) {
-            props.setPathId(editMsg.data);
-            setInquiryId(editMsg.data);
-          }
-          tableRef.current?.reload(true);
-        } else {
-          message.error(editMsg.errMsg);
-        }
-      });
+      // addItemDetail({ ...baseForm, ...singleVal }).then((editMsg: any) => {
+      //   if (editMsg.errCode === 200) {
+      //     message.success('新增成功!');
+      //     if (!inquiryId) {
+      //       props.setPathId(editMsg.data);
+      //       setInquiryId(editMsg.data);
+      //     }
+      //     tableRef.current?.reload(true);
+      //   } else {
+      //     message.error(editMsg.errMsg);
+      //   }
+      // });
     }
     skuRef.current?.resetForm();
     setVisible(false);
@@ -126,14 +126,14 @@ const SkuInfo: React.FC<{
   };
   const operateClearAll = () => {
     if (inquiryId) {
-      clearItemDetail({ inquiryId }).then((clearMsg: any) => {
-        if (clearMsg.errCode === 200) {
-          message.success('清空成功!');
-          tableRef.current?.reload(true);
-        } else {
-          message.error(clearMsg.errMsg);
-        }
-      });
+      // clearItemDetail({ inquiryId }).then((clearMsg: any) => {
+      //   if (clearMsg.errCode === 200) {
+      //     message.success('清空成功!');
+      //     tableRef.current?.reload(true);
+      //   } else {
+      //     message.error(clearMsg.errMsg);
+      //   }
+      // });
     }
     setSelectedRowKeys([]);
   };
@@ -151,22 +151,22 @@ const SkuInfo: React.FC<{
   useImperativeHandle(ref, () => ({
     clearAllSku: operateClearAll,
   }));
-  const editInfo = (record: any) => {
-    setVisible(true);
-    setTimeout(() => {
-      if (record.sid) {
-        editInqLine(record.sid).then((res: any) => {
-          if (res.errCode === 200) {
-            res.data.index = record.index;
-            res.data.sid = record.sid;
-            skuRef?.current?.setForm(res.data);
-          }
-        });
-      } else {
-        skuRef?.current?.setForm(record);
-      }
-    }, 1000);
-  };
+  // const editInfo = (record: any) => {
+  //   setVisible(true);
+  //   setTimeout(() => {
+  //     if (record.sid) {
+  //       editInqLine(record.sid).then((res: any) => {
+  //         if (res.errCode === 200) {
+  //           res.data.index = record.index;
+  //           res.data.sid = record.sid;
+  //           skuRef?.current?.setForm(res.data);
+  //         }
+  //       });
+  //     } else {
+  //       skuRef?.current?.setForm(record);
+  //     }
+  //   }, 1000);
+  // };
   const loglogInfo = (record: any) => {
     setId(record.sid);
     setLogVisible(true);
@@ -446,23 +446,23 @@ const SkuInfo: React.FC<{
             //? 如果是编辑的，或者新增的逻辑
             searchParams.inquiryId = inquiryId;
           }
-          const res = await inqLnList(searchParams);
-          if (res?.errCode === 200) {
-            setSelectedRow([]);
-            const list: any = res.data?.list.map((item: any) => {
-              return { ...item, ...item?.reqVo };
-            });
-            setData(list);
-            props.getSkuData(list);
-            return Promise.resolve({
-              data: list,
-              total: res.data?.total,
-              success: true,
-            });
-          } else {
-            message.error(res?.errMsg);
-            return Promise.resolve([]);
-          }
+          // const res = await inqLnList(searchParams);
+          // if (res?.errCode === 200) {
+          //   setSelectedRow([]);
+          //   const list: any = res.data?.list.map((item: any) => {
+          //     return { ...item, ...item?.reqVo };
+          //   });
+          //   setData(list);
+          //   props.getSkuData(list);
+          //   return Promise.resolve({
+          //     data: list,
+          //     total: res.data?.total,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(res?.errMsg);
+          //   return Promise.resolve([]);
+          // }
         }}
         rowSelection={rowSelection}
         onRow={(record: any) => {

@@ -56,19 +56,19 @@ const ModalList: React.FC<modalProps> = (props: any) => {
             request={async () => {
               let list = [] as any;
               const par = { list: ['oppoTypeEnum'] };
-              await getByKeys(par).then((res: any) => {
-                if (res?.errCode === 200) {
-                  res?.data?.map((io: any) => {
-                    if (io.key === 'oppoTypeEnum') {
-                      list = io.enums.map((ic: any) => ({
-                        ...ic,
-                        value: ic.code,
-                        label: ic.name,
-                      }));
-                    }
-                  });
-                }
-              });
+              // await getByKeys(par).then((res: any) => {
+              //   if (res?.errCode === 200) {
+              //     res?.data?.map((io: any) => {
+              //       if (io.key === 'oppoTypeEnum') {
+              //         list = io.enums.map((ic: any) => ({
+              //           ...ic,
+              //           value: ic.code,
+              //           label: ic.name,
+              //         }));
+              //       }
+              //     });
+              //   }
+              // });
               return list;
             }}
           />
@@ -88,19 +88,19 @@ const ModalList: React.FC<modalProps> = (props: any) => {
             request={async () => {
               let list = [] as any;
               const par = { list: ['oppoStatusEnum'] };
-              await getByKeys(par).then((res: any) => {
-                if (res?.errCode === 200) {
-                  res?.data?.map((io: any) => {
-                    if (io.key === 'oppoStatusEnum') {
-                      list = io.enums.map((ic: any) => ({
-                        ...ic,
-                        value: ic.code,
-                        label: ic.name,
-                      }));
-                    }
-                  });
-                }
-              });
+              // await getByKeys(par).then((res: any) => {
+              //   if (res?.errCode === 200) {
+              //     res?.data?.map((io: any) => {
+              //       if (io.key === 'oppoStatusEnum') {
+              //         list = io.enums.map((ic: any) => ({
+              //           ...ic,
+              //           value: ic.code,
+              //           label: ic.name,
+              //         }));
+              //       }
+              //     });
+              //   }
+              // });
               return list;
             }}
           />

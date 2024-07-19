@@ -20,11 +20,11 @@ const SelectCommon: React.FC<{
 }: any) => {
   const [list, setList] = useState([]);
   useEffect(() => {
-    queryListDataMap([selectType]).then((res: any) => {
-      if (res.errCode === 200) {
-        setList(res.data[selectType]);
-      }
-    });
+    // queryListDataMap([selectType]).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setList(res.data[selectType]);
+    //   }
+    // });
   }, []);
   const valChange = (val: any, option: any) => {
     onChange(val);

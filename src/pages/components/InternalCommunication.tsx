@@ -25,11 +25,11 @@ const InternalCommunication: React.FC<{
   }, [props.chatLogVOList]);
   const getData = () => {
     if (props.id) {
-      searchContent({ sourceId: props.id, sourceType: props.sourceType || 20 }).then((res: any) => {
-        if (res.errCode === 200) {
-          setData(res.data?.dataList);
-        }
-      });
+      // searchContent({ sourceId: props.id, sourceType: props.sourceType || 20 }).then((res: any) => {
+      //   if (res.errCode === 200) {
+      //     setData(res.data?.dataList);
+      //   }
+      // });
     }
   };
   useEffect(() => {
@@ -77,18 +77,18 @@ const InternalCommunication: React.FC<{
       );
     } else {
       // 调用添加接口进行添加
-      createContent({
-        opContent: remark,
-        sourceId: props.id,
-        sourceType: props.sourceType || 20,
-      }).then((res: any) => {
-        if (res.errCode === 200) {
-          message.success('内部沟通记录保存成功！');
-          getData();
-        } else {
-          message.error(res.errMsg);
-        }
-      });
+      // createContent({
+      //   opContent: remark,
+      //   sourceId: props.id,
+      //   sourceType: props.sourceType || 20,
+      // }).then((res: any) => {
+      //   if (res.errCode === 200) {
+      //     message.success('内部沟通记录保存成功！');
+      //     getData();
+      //   } else {
+      //     message.error(res.errMsg);
+      //   }
+      // });
     }
     setVisible(false);
     setRemark('');

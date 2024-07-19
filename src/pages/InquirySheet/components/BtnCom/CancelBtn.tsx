@@ -40,19 +40,19 @@ const CancelBtn: React.FC<{
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          cancelOption(res).then((resd: any) => {
-            if (resd.errCode === 200) {
-              message.success('操作成功!');
-              setIsModalVisible(false);
-              if (props.recall) {
-                props.recall();
-              } else {
-                history.go(-1);
-              }
-            } else {
-              message.error(resd.errMsg);
-            }
-          });
+          // cancelOption(res).then((resd: any) => {
+          //   if (resd.errCode === 200) {
+          //     message.success('操作成功!');
+          //     setIsModalVisible(false);
+          //     if (props.recall) {
+          //       props.recall();
+          //     } else {
+          //       history.go(-1);
+          //     }
+          //   } else {
+          //     message.error(resd.errMsg);
+          //   }
+          // });
         },
       });
     });
