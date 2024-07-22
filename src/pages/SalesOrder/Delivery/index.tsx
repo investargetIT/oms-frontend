@@ -89,11 +89,11 @@ const Index: React.FC = () => {
   };
   const [orderTypeList, setOrderTypeList]: any = useState([]);
   useEffect(() => {
-    getOrderDateList({ type: 'orderType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderTypeList(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'orderType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderTypeList(res.data.dataList);
+    //   }
+    // });
 
     //设置select初始值
     form.setFieldsValue({
@@ -104,24 +104,24 @@ const Index: React.FC = () => {
   const [choosedCustomerCode, setChoosedCustomerCode]: any = useState('');
 
   const getSelModal = (val: any) => {
-    if (!val) return;
-    if (JSON.stringify(val) != '{}') {
-      form.setFieldsValue({
-        customerName: val.customerName,
-      });
-      setChoosedCustomerCode(val.customerCode);
-    }
+    // if (!val) return;
+    // if (JSON.stringify(val) != '{}') {
+    //   form.setFieldsValue({
+    //     customerName: val.customerName,
+    //   });
+    //   setChoosedCustomerCode(val.customerCode);
+    // }
   };
 
   const operateMethod = (val: any) => {
-    setModalVal(val);
+    // setModalVal(val);
   };
   const addNewModalClose = () => {
-    setIsAddNewModalVisible(false);
+    // setIsAddNewModalVisible(false);
   };
   const modalOK = () => {
-    setIsAddNewModalVisible(false);
-    getSelModal(modalVal);
+  //   setIsAddNewModalVisible(false);
+  //   getSelModal(modalVal);
   };
 
   const columns: ProColumns<any>[] = [
@@ -379,44 +379,44 @@ const Index: React.FC = () => {
         // }}
         request={async (params) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
-          const searchParams = form.getFieldsValue(true);
-          if (startPage) {
-            params.current = 1;
-            // params.pageSize = 20;
-          }
-          searchParams.startTime =
-            moment(searchParams.createTime[0]).format('YYYY-MM-DD') + ' ' + '00:00:00';
-          searchParams.endTime =
-            moment(searchParams.createTime[1]).format('YYYY-MM-DD') + ' ' + '23:59:59';
-          searchParams.customerCode = choosedCustomerCode;
+          // const searchParams = form.getFieldsValue(true);
+          // if (startPage) {
+          //   params.current = 1;
+          //   // params.pageSize = 20;
+          // }
+          // searchParams.startTime =
+          //   moment(searchParams.createTime[0]).format('YYYY-MM-DD') + ' ' + '00:00:00';
+          // searchParams.endTime =
+          //   moment(searchParams.createTime[1]).format('YYYY-MM-DD') + ' ' + '23:59:59';
+          // searchParams.customerCode = choosedCustomerCode;
 
-          // searchParams.startTime = moment(searchParams.createTime[0]).format('YYYY-MM-DD');
-          // searchParams.endTime = moment(searchParams.createTime[1]).format('YYYY-MM-DD');
-          if (searchParams.expCodes && JSON.stringify(searchParams.expCodes) !== '') {
-            searchParams.expCode = searchParams.expCodes;
-          } else {
-            delete searchParams.expCode;
-          }
-          searchParams.pageNumber = params.current;
-          searchParams.pageSize = params.pageSize;
+          // // searchParams.startTime = moment(searchParams.createTime[0]).format('YYYY-MM-DD');
+          // // searchParams.endTime = moment(searchParams.createTime[1]).format('YYYY-MM-DD');
+          // if (searchParams.expCodes && JSON.stringify(searchParams.expCodes) !== '') {
+          //   searchParams.expCode = searchParams.expCodes;
+          // } else {
+          //   delete searchParams.expCode;
+          // }
+          // searchParams.pageNumber = params.current;
+          // searchParams.pageSize = params.pageSize;
           // console.log(searchParams);
-          const res = await getDeliveryList(searchParams);
-          res.data?.list.forEach((e: any, i: number) => {
-            //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
-            e.index = i;
-          });
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            });
-          } else {
-            message.error(res.errMsg, 3);
-            return Promise.resolve([]);
-          }
+          // const res = await getDeliveryList(searchParams);
+          // res.data?.list.forEach((e: any, i: number) => {
+          //   //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
+          //   e.index = i;
+          // });
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     current: 1,
+          //     pageSize: 20,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(res.errMsg, 3);
+          //   return Promise.resolve([]);
+          // }
         }}
         rowKey="index"
         pagination={{

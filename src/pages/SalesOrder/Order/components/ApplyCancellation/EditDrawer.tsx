@@ -57,22 +57,22 @@ const Index: React.FC<detailInfo> = (props: any) => {
       // icon: <ExclamationCircleOutlined />,
       content: '您还没有保存本次申请，这将把您之前的操作全部还原。',
       onOk() {
-        cancelAndReleaseOrder(getSid)
-          .then((res: any) => {
-            if (res?.errCode === 200) {
-              props.addNewDrawerClose();
-              // props.tableReload()
-              message.success('本次申请已取消');
-            } else {
-              message.error(res?.errMsg);
-            }
-          })
-          .finally(() => {
-            return;
-          })
-          .catch((errorInfo) => {
-            message.error(errorInfo, 3);
-          });
+        // cancelAndReleaseOrder(getSid)
+        //   .then((res: any) => {
+        //     if (res?.errCode === 200) {
+        //       props.addNewDrawerClose();
+        //       // props.tableReload()
+        //       message.success('本次申请已取消');
+        //     } else {
+        //       message.error(res?.errMsg);
+        //     }
+        //   })
+        //   .finally(() => {
+        //     return;
+        //   })
+        //   .catch((errorInfo) => {
+        //     message.error(errorInfo, 3);
+        //   });
       },
       onCancel() {},
     });

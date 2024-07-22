@@ -22,17 +22,17 @@ const ApplyForm: React.FC<{ sku: string; lineData: object; tableRowData: object 
   const [data, setData]: any = useState([]);
   const [stock, setStock]: any = useState(0);
   useEffect(() => {
-    getOrderDateList({ type: 'special' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setSpeicalTypeData(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'special' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setSpeicalTypeData(res.data.dataList);
+    //   }
+    // });
 
-    getStock({ orderNo: tableRowData.orderNo, sku: sku }).then((res: any) => {
-      if (res.errCode === 200) {
-        setStock(res.data?.stockCount);
-      }
-    });
+    // getStock({ orderNo: tableRowData.orderNo, sku: sku }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setStock(res.data?.stockCount);
+    //   }
+    // });
 
     //设置select初始值
     // applyForm.setFieldsValue({
@@ -63,16 +63,16 @@ const ApplyForm: React.FC<{ sku: string; lineData: object; tableRowData: object 
     createSpecialRequest(saveData)
       .then((res: any) => {
         console.log(res);
-        if (res.errCode === 200) {
-          props.applyModalHandleOk();
-          setConfirmLoading(false);
-          props.detailTableReload();
-          message.success('特殊需求申请提交成功', 3);
-          applyForm.resetFields();
-        } else {
-          message.error(res.errMsg);
-          setConfirmLoading(false);
-        }
+        // if (res.errCode === 200) {
+        //   props.applyModalHandleOk();
+        //   setConfirmLoading(false);
+        //   props.detailTableReload();
+        //   message.success('特殊需求申请提交成功', 3);
+        //   applyForm.resetFields();
+        // } else {
+        //   message.error(res.errMsg);
+        //   setConfirmLoading(false);
+        // }
       })
       .finally(() => {
         return;
@@ -181,15 +181,15 @@ const ApplyForm: React.FC<{ sku: string; lineData: object; tableRowData: object 
           // console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
-          if (info.file?.response?.errCode === 200) {
-            // const name = info.file.response.data.resourceName
-            const url = info.file.response.data.resourceUrl;
-            tempList.forEach((item: any) => {
-              if (item.resourceName === info.file.name) {
-                item.resourceUrl = url;
-              }
-            });
-          }
+          // if (info.file?.response?.errCode === 200) {
+          //   // const name = info.file.response.data.resourceName
+          //   const url = info.file.response.data.resourceUrl;
+          //   tempList.forEach((item: any) => {
+          //     if (item.resourceName === info.file.name) {
+          //       item.resourceUrl = url;
+          //     }
+          //   });
+          // }
         } else if (info.file.status === 'error') {
         }
         setData(tempList);

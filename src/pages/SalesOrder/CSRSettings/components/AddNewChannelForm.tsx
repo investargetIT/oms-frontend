@@ -56,22 +56,22 @@ const AddNewChannelForm: React.FC<closeModal> = (props: any) => {
         // enabled: true,
       };
 
-      createChannelConfig(saveData)
-        .then((res: any) => {
-          console.log(res);
-          if (res.errCode === 200) {
-            props.addNewModalClose();
-            setConfirmLoading(false);
-            message.success('渠道添加成功', 3);
-            props.tableReload();
-          } else {
-            message.error(res.errMsg);
-            setConfirmLoading(false);
-          }
-        })
-        .finally(() => {
-          return;
-        });
+      // createChannelConfig(saveData)
+      //   .then((res: any) => {
+      //     console.log(res);
+      //     if (res.errCode === 200) {
+      //       props.addNewModalClose();
+      //       setConfirmLoading(false);
+      //       message.success('渠道添加成功', 3);
+      //       props.tableReload();
+      //     } else {
+      //       message.error(res.errMsg);
+      //       setConfirmLoading(false);
+      //     }
+      //   })
+      //   .finally(() => {
+      //     return;
+      //   });
     }
     // console.log(formData);
   };
@@ -144,27 +144,27 @@ const AddNewChannelForm: React.FC<closeModal> = (props: any) => {
               enabled: '',
               channelName: params.channelName,
             };
-            const res = await getAllChannelList(searchParams);
-            if (startPage) {
-              params.current = 1;
-              // params.pageSize = 20;
-            }
-            res.data?.forEach((e: any, i: number) => {
-              //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
-              e.index = i;
-            });
-            if (res.errCode === 200) {
-              return Promise.resolve({
-                data: JSON.parse(JSON.stringify(res.data)),
-                total: res.data?.length,
-                current: 1,
-                pageSize: 20,
-                success: true,
-              });
-            } else {
-              message.error(res.errMsg, 3);
-              return Promise.resolve([]);
-            }
+            // const res = await getAllChannelList(searchParams);
+            // if (startPage) {
+            //   params.current = 1;
+            //   // params.pageSize = 20;
+            // }
+            // res.data?.forEach((e: any, i: number) => {
+            //   //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
+            //   e.index = i;
+            // });
+            // if (res.errCode === 200) {
+            //   return Promise.resolve({
+            //     data: JSON.parse(JSON.stringify(res.data)),
+            //     total: res.data?.length,
+            //     current: 1,
+            //     pageSize: 20,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(res.errMsg, 3);
+            //   return Promise.resolve([]);
+            // }
           }}
           rowKey="index"
           search={{

@@ -137,16 +137,16 @@ const BasicInfo = ({ id }: any, Ref: any) => {
           res.data?.list?.forEach((e: any, i: number) => {
             e.index = i;
           });
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              success: true,
-            });
-          } else {
-            message.error(res.errMsg);
-            return Promise.resolve([]);
-          }
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(res.errMsg);
+          //   return Promise.resolve([]);
+          // }
         }}
         pagination={{
           pageSize: 10,

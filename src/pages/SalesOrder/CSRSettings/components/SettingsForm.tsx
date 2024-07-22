@@ -157,44 +157,44 @@ const SettingsForm: React.FC<
     if (type == 'byChannel') {
       saveData.channel = id;
       saveData.remark = formData.remark;
-      updateChannelConfig(saveData)
-        .then((res: any) => {
-          console.log(res);
-          if (res.errCode === 200) {
-            props.settingModalClose();
-            setConfirmLoading(false);
-            message.success('设置成功', 3);
-            form.resetFields();
-            props.tableReload();
-          } else {
-            message.error(res.errMsg);
-            setConfirmLoading(false);
-          }
-        })
-        .finally(() => {
-          return;
-        });
+      // updateChannelConfig(saveData)
+      //   .then((res: any) => {
+      //     console.log(res);
+      //     if (res.errCode === 200) {
+      //       props.settingModalClose();
+      //       setConfirmLoading(false);
+      //       message.success('设置成功', 3);
+      //       form.resetFields();
+      //       props.tableReload();
+      //     } else {
+      //       message.error(res.errMsg);
+      //       setConfirmLoading(false);
+      //     }
+      //   })
+      //   .finally(() => {
+      //     return;
+      //   });
     } else {
       saveData.customerCode = id;
       saveData.checkRemark = formData.checkRemark;
       saveData.staffCode = staffCode;
-      updateCustomerConfig(saveData)
-        .then((res: any) => {
-          console.log(res);
-          if (res.errCode === 200) {
-            props.settingModalClose();
-            setConfirmLoading(false);
-            message.success('设置成功', 3);
-            form.resetFields();
-            props.tableReload();
-          } else {
-            message.error(res.errMsg);
-            setConfirmLoading(false);
-          }
-        })
-        .finally(() => {
-          return;
-        });
+      // updateCustomerConfig(saveData)
+      //   .then((res: any) => {
+      //     console.log(res);
+      //     if (res.errCode === 200) {
+      //       props.settingModalClose();
+      //       setConfirmLoading(false);
+      //       message.success('设置成功', 3);
+      //       form.resetFields();
+      //       props.tableReload();
+      //     } else {
+      //       message.error(res.errMsg);
+      //       setConfirmLoading(false);
+      //     }
+      //   })
+      //   .finally(() => {
+      //     return;
+      //   });
     }
   };
   const onFinishFailed = (errorInfo: any) => {

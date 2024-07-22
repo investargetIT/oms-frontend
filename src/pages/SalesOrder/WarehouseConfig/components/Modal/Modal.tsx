@@ -19,32 +19,32 @@ const Index = function ({ houseInfo, fn, fn2 }: any, ref: any) {
   const handleOk = async () => {
     // ? 弹框点击下一步
     if (tableNo == 2) {
-      const res = await updateWareHouseCustomer({
-        wareCode: houseInfo.wareCode,
-        storageLocation: location,
-        customerCode: Record.customerCode,
-      });
-      if (res.errCode === 200) {
-        message.success('编辑成功');
-        setVisible(false);
-        fn2(); //?刷新表格2
-      } else {
-        message.error(res.errMsg);
-        setVisible(false);
-      }
+      // const res = await updateWareHouseCustomer({
+      //   wareCode: houseInfo.wareCode,
+      //   storageLocation: location,
+      //   customerCode: Record.customerCode,
+      // });
+      // if (res.errCode === 200) {
+      //   message.success('编辑成功');
+      //   setVisible(false);
+      //   fn2(); //?刷新表格2
+      // } else {
+      //   message.error(res.errMsg);
+      //   setVisible(false);
+      // }
     } else {
-      const res = await updateStorageLocation({
-        storageLocation: location,
-        sid: houseInfo.sid,
-      });
-      if (res.errCode === 200) {
-        message.success('编辑成功');
-        setVisible(false);
-        fn(); //?刷新表格1
-      } else {
-        message.error(res.errMsg);
-        setVisible(false);
-      }
+      // const res = await updateStorageLocation({
+      //   storageLocation: location,
+      //   sid: houseInfo.sid,
+      // });
+      // if (res.errCode === 200) {
+      //   message.success('编辑成功');
+      //   setVisible(false);
+      //   fn(); //?刷新表格1
+      // } else {
+      //   message.error(res.errMsg);
+      //   setVisible(false);
+      // }
     }
   };
   const changeInput = (e: any) => {

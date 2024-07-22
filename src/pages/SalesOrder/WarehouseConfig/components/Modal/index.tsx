@@ -31,14 +31,14 @@ const Index = function ({ houseInfo, fn, fn2 }: any, ref: any) {
         wareCode: houseInfo.wareCode,
         regionCode: akey,
       });
-      if (res.errCode === 200) {
-        message.success('添加成功');
-        setVisible(false);
-        fn(); //?刷新表格
-      } else {
-        message.error(res.errMsg);
-        setVisible(false);
-      }
+      // if (res.errCode === 200) {
+      //   message.success('添加成功');
+      //   setVisible(false);
+      //   fn(); //?刷新表格
+      // } else {
+      //   message.error(res.errMsg);
+      //   setVisible(false);
+      // }
     } else {
       const res = await saveWareHouseMapping({
         wareCode: houseInfo.wareCode,
@@ -47,14 +47,14 @@ const Index = function ({ houseInfo, fn, fn2 }: any, ref: any) {
         // wareCode: WareCode,
         level: 1,
       });
-      if (res.errCode === 200) {
-        message.success('添加成功');
-        setVisible(false);
-        fn2(); //?刷新表格
-      } else {
-        message.error(res.errMsg);
-        setVisible(false);
-      }
+      // if (res.errCode === 200) {
+      //   message.success('添加成功');
+      //   setVisible(false);
+      //   fn2(); //?刷新表格
+      // } else {
+      //   message.error(res.errMsg);
+      //   setVisible(false);
+      // }
     }
     // console.log(res, 123);
   };
@@ -74,11 +74,11 @@ const Index = function ({ houseInfo, fn, fn2 }: any, ref: any) {
     const res = await getRegionList({
       // parentId: 'region',
     });
-    if (res.errCode === 200) {
-      setRegion(res.data?.dataList);
-    } else {
-      message.error('获取区域失败');
-    }
+    // if (res.errCode === 200) {
+    //   setRegion(res.data?.dataList);
+    // } else {
+    //   message.error('获取区域失败');
+    // }
   };
   return (
     <div>

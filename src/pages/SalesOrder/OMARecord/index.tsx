@@ -80,21 +80,21 @@ const Index: React.FC = () => {
       icon: <ExclamationCircleOutlined />,
       // content: '这将把您之前的操作全部还原。',
       onOk() {
-        cancelAndReleaseOrder(sid)
-          .then((res: any) => {
-            if (res?.errCode === 200) {
-              tableReload();
-              message.success('本次申请已取消');
-            } else {
-              message.error(res?.errMsg);
-            }
-          })
-          .finally(() => {
-            return;
-          })
-          .catch((errorInfo) => {
-            message.error(errorInfo, 3);
-          });
+        // cancelAndReleaseOrder(sid)
+        //   .then((res: any) => {
+        //     if (res?.errCode === 200) {
+        //       tableReload();
+        //       message.success('本次申请已取消');
+        //     } else {
+        //       message.error(res?.errMsg);
+        //     }
+        //   })
+        //   .finally(() => {
+        //     return;
+        //   })
+        //   .catch((errorInfo) => {
+        //     message.error(errorInfo, 3);
+        //   });
       },
       onCancel() {},
     });
@@ -335,16 +335,16 @@ const Index: React.FC = () => {
   useEffect(() => {
     setColList(columns);
 
-    getOrderDateList({ type: 'requestStatus' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setRequestStatusList(res?.data?.dataList);
-      }
-    });
-    getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderChannelList(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'requestStatus' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setRequestStatusList(res?.data?.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderChannelList(res.data.dataList);
+    //   }
+    // });
     //设置select初始值
     form.setFieldsValue({
       requestChannel: orderChannelList && orderChannelList[0] ? orderChannelList[0].key : '',
@@ -511,24 +511,24 @@ const Index: React.FC = () => {
           }
           searchParams.pageNumber = params.current;
           searchParams.pageSize = params.pageSize;
-          const res = await getApplyOrderDetail(searchParams);
+          // const res = await getApplyOrderDetail(searchParams);
 
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            });
-            res?.data?.list.forEach((e: any, i: number) => {
-              //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
-              e.index = i;
-            });
-          } else {
-            message.error(res.errMsg, 3);
-            return Promise.resolve([]);
-          }
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     current: 1,
+          //     pageSize: 20,
+          //     success: true,
+          //   });
+          //   res?.data?.list.forEach((e: any, i: number) => {
+          //     //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
+          //     e.index = i;
+          //   });
+          // } else {
+          //   message.error(res.errMsg, 3);
+          //   return Promise.resolve([]);
+          // }
         }}
         pagination={{
           // pageSize: 20,

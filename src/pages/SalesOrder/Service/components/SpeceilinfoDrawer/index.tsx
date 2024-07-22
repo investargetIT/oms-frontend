@@ -209,14 +209,14 @@ const Index = ({ fn }: any, ref: any) => {
     }
     // return console.log(222, '222');
     setConfirmload(true);
-    const res = await modifySpecInfo(changeArr, OrderNo);
-    if (res.errCode == 200) {
-      message.success('保存成功');
-      setIsModalVisible(false);
-      fn(); //?刷新主数据的表格
-    } else {
-      message.warning(res.errMsg);
-    }
+    // const res = await modifySpecInfo(changeArr, OrderNo);
+    // if (res.errCode == 200) {
+    //   message.success('保存成功');
+    //   setIsModalVisible(false);
+    //   fn(); //?刷新主数据的表格
+    // } else {
+    //   message.warning(res.errMsg);
+    // }
     setConfirmload(false);
   };
   useImperativeHandle(ref, () => ({
@@ -255,18 +255,18 @@ const Index = ({ fn }: any, ref: any) => {
             // searchParams.pageSize = params.pageSize;
             const res = await modifySpecInfoDetail(OrderNo);
             setInitialData(res.data?.dataList); //?将初始的后端反的数据存一下，在提交的时候比较有没有改动
-            if (res.errCode === 200) {
-              setChangeArr(res?.data?.dataList);
-              setInputArr(res.data?.dataList?.map((ele: any) => ele.taxNo));
-              return Promise.resolve({
-                data: res.data?.dataList,
-                total: res.data?.total,
-                success: true,
-              });
-            } else {
-              message.error(res.errMsg);
-              return Promise.resolve([]);
-            }
+            // if (res.errCode === 200) {
+            //   setChangeArr(res?.data?.dataList);
+            //   setInputArr(res.data?.dataList?.map((ele: any) => ele.taxNo));
+            //   return Promise.resolve({
+            //     data: res.data?.dataList,
+            //     total: res.data?.total,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(res.errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           rowKey="lineNum"
           search={false}

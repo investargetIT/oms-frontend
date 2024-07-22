@@ -36,17 +36,17 @@ const Index: React.FC = () => {
     setCurrentPage(current);
     setCurrentPageSize(pageSize);
   }
-  const detailDrawerClose = () => {
-    setIsModalVisible(false);
-  };
+  // const detailDrawerClose = () => {
+  //   setIsModalVisible(false);
+  // };
 
   const [orderTypeList, setOrderTypeList]: any = useState([]);
   useEffect(() => {
-    getOrderDateList({ type: 'orderType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderTypeList(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'orderType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderTypeList(res.data.dataList);
+    //   }
+    // });
 
     //设置select初始值
     form.setFieldsValue({
@@ -56,26 +56,26 @@ const Index: React.FC = () => {
 
   const [choosedCustomerCode, setChoosedCustomerCode]: any = useState('');
 
-  const getSelModal = (val: any) => {
-    if (!val) return;
-    if (JSON.stringify(val) != '{}') {
-      form.setFieldsValue({
-        customerName: val.customerName,
-      });
-      setChoosedCustomerCode(val.customerCode);
-    }
-  };
+  // const getSelModal = (val: any) => {
+  //   if (!val) return;
+  //   if (JSON.stringify(val) != '{}') {
+  //     form.setFieldsValue({
+  //       customerName: val.customerName,
+  //     });
+  //     setChoosedCustomerCode(val.customerCode);
+  //   }
+  // };
 
-  const operateMethod = (val: any) => {
-    setModalVal(val);
-  };
-  const addNewModalClose = () => {
-    setIsAddNewModalVisible(false);
-  };
-  const modalOK = () => {
-    setIsAddNewModalVisible(false);
-    getSelModal(modalVal);
-  };
+  // const operateMethod = (val: any) => {
+  //   setModalVal(val);
+  // };
+  // const addNewModalClose = () => {
+  //   setIsAddNewModalVisible(false);
+  // };
+  // const modalOK = () => {
+  //   setIsAddNewModalVisible(false);
+  //   getSelModal(modalVal);
+  // };
 
   const columns: ProColumns<any>[] = [
     {
@@ -332,23 +332,23 @@ const Index: React.FC = () => {
 
           searchParams.pageNumber = params.current;
           searchParams.pageSize = params.pageSize;
-          const res = await getDeliveryList(searchParams);
-          res.data?.list.forEach((e: any, i: number) => {
-            //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
-            e.index = i;
-          });
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            });
-          } else {
-            message.error(res.errMsg, 3);
-            return Promise.resolve([]);
-          }
+          // const res = await getDeliveryList(searchParams);
+          // res.data?.list.forEach((e: any, i: number) => {
+          //   //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
+          //   e.index = i;
+          // });
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     current: 1,
+          //     pageSize: 20,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(res.errMsg, 3);
+          //   return Promise.resolve([]);
+          // }
         }}
         rowKey="index"
         pagination={{

@@ -14,24 +14,24 @@ const MasterDataDetail: React.FC<{ id: string; tableRowData: object }, closeModa
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    setConfirmLoading(true);
-    const formData = JSON.parse(JSON.stringify(values));
-    formData.id = id;
-    console.log('Success:', formData);
-    setTimeout(() => {
-      props.approveModalHandleOk();
-      setConfirmLoading(false);
-      message.success('保存成功', 3);
-      form.resetFields();
-    }, 2000);
+    // setConfirmLoading(true);
+    // const formData = JSON.parse(JSON.stringify(values));
+    // formData.id = id;
+    // console.log('Success:', formData);
+    // setTimeout(() => {
+    //   props.approveModalHandleOk();
+    //   setConfirmLoading(false);
+    //   message.success('保存成功', 3);
+    //   form.resetFields();
+    // }, 2000);
   };
   const onSubmit = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      props.approveModalHandleOk();
-      setConfirmLoading(false);
-      message.success('该订单审核通过成功', 3);
-    }, 100);
+    // setConfirmLoading(true);
+    // setTimeout(() => {
+    //   props.approveModalHandleOk();
+    //   setConfirmLoading(false);
+    //   message.success('该订单审核通过成功', 3);
+    // }, 100);
   };
 
   const onFinishFailed = (errorInfo: any) => {

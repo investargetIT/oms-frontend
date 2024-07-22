@@ -9,11 +9,11 @@ const Index = function ({ tableReload, orderNos, clearSelect }: any, ref: any) {
   const [ReleaseReasonData, setReleaseReasonData] = useState('');
 
   useEffect(() => {
-    getOrderDateList({ type: 'releaseOrderReason' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setReleaseReasonData(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'releaseOrderReason' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setReleaseReasonData(res.data.dataList);
+    //   }
+    // });
   }, []);
 
   const open = () => {
@@ -36,19 +36,19 @@ const Index = function ({ tableReload, orderNos, clearSelect }: any, ref: any) {
           releaseRemark: formData.releaseRemark,
         };
         console.log(saveData);
-        financeReleaseOrders(saveData).then((res: any) => {
-          console.log(res);
-          if (res.errCode === 200) {
-            setConfirmLoading(false);
-            message.success('订单放单成功！', 3);
-            close();
-            tableReload();
-            clearSelect();
-          } else {
-            message.error(res.errMsg);
-            setConfirmLoading(false);
-          }
-        });
+        // financeReleaseOrders(saveData).then((res: any) => {
+        //   console.log(res);
+        //   if (res.errCode === 200) {
+        //     setConfirmLoading(false);
+        //     message.success('订单放单成功！', 3);
+        //     close();
+        //     tableReload();
+        //     clearSelect();
+        //   } else {
+        //     message.error(res.errMsg);
+        //     setConfirmLoading(false);
+        //   }
+        // });
       })
       .catch((error) => {
         message.error(error, 3);
@@ -66,22 +66,22 @@ const Index = function ({ tableReload, orderNos, clearSelect }: any, ref: any) {
       releaseReason: formData.releaseReason,
       releaseRemark: formData.releaseRemark,
     };
-    financeReleaseOrders(saveData)
-      .then((res: any) => {
-        console.log(res);
-        if (res.errCode === 200) {
-          setConfirmLoading(false);
-          message.success('订单放单成功！', 3);
-          close();
-          tableReload();
-        } else {
-          message.error(res.errMsg);
-          setConfirmLoading(false);
-        }
-      })
-      .finally(() => {
-        return;
-      });
+    // financeReleaseOrders(saveData)
+    //   .then((res: any) => {
+    //     console.log(res);
+    //     if (res.errCode === 200) {
+    //       setConfirmLoading(false);
+    //       message.success('订单放单成功！', 3);
+    //       close();
+    //       tableReload();
+    //     } else {
+    //       message.error(res.errMsg);
+    //       setConfirmLoading(false);
+    //     }
+    //   })
+    //   .finally(() => {
+    //     return;
+    //   });
   };
 
   const onFinishFailed = (errorInfo: any) => {

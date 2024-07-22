@@ -163,20 +163,20 @@ const MyModal = ({ reload }: any, ref: any) => {
             searchParams.pageNumber = params.current;
             searchParams.pageSize = params.pageSize;
             searchParams.syncSap = true;
-            const res = await orderList(searchParams);
-            if (res.errCode === 200) {
-              res.data?.list.forEach((e: any, i: number) => {
-                e.index = i;
-              });
-              return Promise.resolve({
-                data: res.data?.list,
-                total: res.data?.total,
-                success: true,
-              });
-            } else {
-              Modal.error(res.errMsg);
-              return Promise.resolve([]);
-            }
+            // const res = await orderList(searchParams);
+            // if (res.errCode === 200) {
+            //   res.data?.list.forEach((e: any, i: number) => {
+            //     e.index = i;
+            //   });
+            //   return Promise.resolve({
+            //     data: res.data?.list,
+            //     total: res.data?.total,
+            //     success: true,
+            //   });
+            // } else {
+            //   Modal.error(res.errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           pagination={{
             defaultPageSize: 10,

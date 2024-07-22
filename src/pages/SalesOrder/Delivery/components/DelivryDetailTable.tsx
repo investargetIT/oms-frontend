@@ -123,29 +123,29 @@ const DelivryDetailTable: React.FC<{ id: string; tableRowData: object }> = (prop
             // params.pageSize = 20;
           }
           // 表单搜索项会从 params 传入，传递给后端接口。
-          const searchParams = {
-            // orderNo: id,
-            obdNo: id,
-            pageNumber: params.current,
-            pageSize: params.pageSize,
-          };
-          const res = await getDeliverySkuList(searchParams);
-          res.data?.list.forEach((e: any, i: number) => {
-            //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
-            e.index = i;
-          });
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            });
-          } else {
-            message.error(res.errMsg, 3);
-            return Promise.resolve([]);
-          }
+          // const searchParams = {
+          //   // orderNo: id,
+          //   obdNo: id,
+          //   pageNumber: params.current,
+          //   pageSize: params.pageSize,
+          // };
+          // const res = await getDeliverySkuList(searchParams);
+          // res.data?.list.forEach((e: any, i: number) => {
+          //   //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
+          //   e.index = i;
+          // });
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     current: 1,
+          //     pageSize: 20,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(res.errMsg, 3);
+          //   return Promise.resolve([]);
+          // }
         }}
         rowKey="index"
         pagination={{

@@ -44,26 +44,26 @@ const ApplyForm: React.FC<modalData> = (props) => {
 
     updatePricingMethod(saveData)
       .then((res: any) => {
-        if (res.errCode === 200) {
-          const temp: any = res?.data?.salesOrderSnapshotRespVo;
-          const defauleParams: any = {
-            ...temp,
-            ...temp.salesOrderRespVo,
-            ...temp.salesOrderReceiverRespVo,
-            ...temp.salesOrderInvoiceInfoRespVo,
-          };
+        // if (res.errCode === 200) {
+        //   const temp: any = res?.data?.salesOrderSnapshotRespVo;
+        //   const defauleParams: any = {
+        //     ...temp,
+        //     ...temp.salesOrderRespVo,
+        //     ...temp.salesOrderReceiverRespVo,
+        //     ...temp.salesOrderInvoiceInfoRespVo,
+        //   };
 
-          props.handleData(defauleParams);
-          props.clearChageArr();
-          props.detailTableReload();
-          props.close();
-          setConfirmLoading(false);
-          message.success('计价方式修改成功', 3);
-          applyForm.resetFields();
-        } else {
-          message.error(res.errMsg);
-          setConfirmLoading(false);
-        }
+        //   props.handleData(defauleParams);
+        //   props.clearChageArr();
+        //   props.detailTableReload();
+        //   props.close();
+        //   setConfirmLoading(false);
+        //   message.success('计价方式修改成功', 3);
+        //   applyForm.resetFields();
+        // } else {
+        //   message.error(res.errMsg);
+        //   setConfirmLoading(false);
+        // }
       })
       .finally(() => {
         return;

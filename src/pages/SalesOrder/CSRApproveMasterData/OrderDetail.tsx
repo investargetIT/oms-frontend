@@ -85,19 +85,19 @@ const MasterDataDetail: React.FC<closeModal> = (props: any) => {
       amount: tableRowData?.amount,
     };
     isThirtyRepeat(isThirtyRepeat_params).then((res: any) => {
-      if (res.errCode === 200) {
-        if (JSON.stringify(res.data?.dataList) != '[]') {
-          setThirtyRepeatStatus(true);
-        } else {
-          setThirtyRepeatStatus(false);
-        }
-      }
+      // if (res.errCode === 200) {
+      //   if (JSON.stringify(res.data?.dataList) != '[]') {
+      //     setThirtyRepeatStatus(true);
+      //   } else {
+      //     setThirtyRepeatStatus(false);
+      //   }
+      // }
     });
 
     getOrderDateList({ type: 'invoice' }).then((res: any) => {
-      if (res.errCode === 200) {
-        seInvoiceData(res.data?.dataList);
-      }
+      // if (res.errCode === 200) {
+      //   seInvoiceData(res.data?.dataList);
+      // }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -267,33 +267,33 @@ const MasterDataDetail: React.FC<closeModal> = (props: any) => {
   const [allData, setAllData]: any = useState({});
   useEffect(() => {
     const fn = async () => {
-      const res = await getCsrOrderDetail(detailData);
-      if (res.errCode === 200) {
-        const {
-          data: { salesOrderRespVo, salesOrderReceiverRespVo, salesOrderInvoiceInfoRespVo },
-        } = res;
-        const temp: any = res?.data;
-        const defauleParams: any = {
-          ...temp,
-          ...temp.salesOrderRespVo,
-          ...temp.salesOrderReceiverRespVo,
-          ...temp.salesOrderInvoiceInfoRespVo,
-        };
-        setAllData(defauleParams);
-        if (salesOrderRespVo) {
-          setBasicData(salesOrderRespVo);
-        }
-        if (salesOrderReceiverRespVo) {
-          setReceiveData(salesOrderReceiverRespVo);
-        }
-        if (salesOrderInvoiceInfoRespVo) {
-          setInvoiceData(salesOrderInvoiceInfoRespVo);
-        }
-      }
-      console.log(tableRowData?.invoiceEmail, 'tableRowData?.invoiceEmail')
-      if (tableRowData?.invoiceEmail) {
-        setInvoiceRequired(false);
-      }
+      // const res = await getCsrOrderDetail(detailData);
+      // if (res.errCode === 200) {
+      //   const {
+      //     data: { salesOrderRespVo, salesOrderReceiverRespVo, salesOrderInvoiceInfoRespVo },
+      //   } = res;
+      //   const temp: any = res?.data;
+      //   const defauleParams: any = {
+      //     ...temp,
+      //     ...temp.salesOrderRespVo,
+      //     ...temp.salesOrderReceiverRespVo,
+      //     ...temp.salesOrderInvoiceInfoRespVo,
+      //   };
+      //   setAllData(defauleParams);
+      //   if (salesOrderRespVo) {
+      //     setBasicData(salesOrderRespVo);
+      //   }
+      //   if (salesOrderReceiverRespVo) {
+      //     setReceiveData(salesOrderReceiverRespVo);
+      //   }
+      //   if (salesOrderInvoiceInfoRespVo) {
+      //     setInvoiceData(salesOrderInvoiceInfoRespVo);
+      //   }
+      // }
+      // console.log(tableRowData?.invoiceEmail, 'tableRowData?.invoiceEmail')
+      // if (tableRowData?.invoiceEmail) {
+      //   setInvoiceRequired(false);
+      // }
     };
     fn();
   }, [id]);
@@ -547,16 +547,16 @@ const MasterDataDetail: React.FC<closeModal> = (props: any) => {
     saveCsrMasterData(saveData)
       .then((res: any) => {
         console.log(res);
-        if (res.errCode === 200) {
-          props.approveModalHandleOk();
-          setConfirmLoading(false);
-          message.success('保存成功', 3);
-          form.resetFields();
-          props.tableReload();
-        } else {
-          message.error(res.errMsg);
-          setConfirmLoading(false);
-        }
+        // if (res.errCode === 200) {
+        //   props.approveModalHandleOk();
+        //   setConfirmLoading(false);
+        //   message.success('保存成功', 3);
+        //   form.resetFields();
+        //   props.tableReload();
+        // } else {
+        //   message.error(res.errMsg);
+        //   setConfirmLoading(false);
+        // }
       })
       .finally(() => {
         return;
@@ -660,16 +660,16 @@ const MasterDataDetail: React.FC<closeModal> = (props: any) => {
         approveCsrMasterData(approveData)
           .then((res: any) => {
             console.log(res);
-            if (res.errCode === 200) {
-              props.approveModalHandleOk();
-              setConfirmLoading(false);
-              message.success('该订单审核通过', 3);
-              form.resetFields();
-              props.tableReload();
-            } else {
-              message.error(res.errMsg);
-              setConfirmLoading(false);
-            }
+            // if (res.errCode === 200) {
+            //   props.approveModalHandleOk();
+            //   setConfirmLoading(false);
+            //   message.success('该订单审核通过', 3);
+            //   form.resetFields();
+            //   props.tableReload();
+            // } else {
+            //   message.error(res.errMsg);
+            //   setConfirmLoading(false);
+            // }
           })
           .finally(() => {
             return;
@@ -1425,19 +1425,19 @@ const MasterDataDetail: React.FC<closeModal> = (props: any) => {
                               sourceType: 40,
                               subType: 20,
                             };
-                            const res = await getFilesList(searchParams);
-                            if (res.errCode === 200) {
-                              return Promise.resolve({
-                                data: res.data?.list,
-                                total: res.data?.total,
-                                current: 1,
-                                pageSize: 10,
-                                success: true,
-                              });
-                            } else {
-                              message.error(res.errMsg, 3);
-                              return Promise.resolve([]);
-                            }
+                            // const res = await getFilesList(searchParams);
+                            // if (res.errCode === 200) {
+                            //   return Promise.resolve({
+                            //     data: res.data?.list,
+                            //     total: res.data?.total,
+                            //     current: 1,
+                            //     pageSize: 10,
+                            //     success: true,
+                            //   });
+                            // } else {
+                            //   message.error(res.errMsg, 3);
+                            //   return Promise.resolve([]);
+                            // }
                           }}
                           rowKey={() => Math.random()}
                           search={false}

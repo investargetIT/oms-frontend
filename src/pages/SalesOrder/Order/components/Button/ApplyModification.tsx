@@ -33,27 +33,27 @@ const ApplyModification = (props: any) => {
     } else {
       const orderNo = selectOrder[0].orderNo;
       const res = await preCheck(orderNo);
-      if (res.errCode == 200 && res?.data?.success) {
-        if (orderNo === 0) {
-          //此为模拟效果 需判断订单是否锁定
-          Modal.warning({
-            title: '本订单已锁定！',
-            content: (
-              <>
-                <p>请重新选择订单！</p>
-              </>
-            ),
-            okText: '知道了',
-          });
-          // setConfirmLoading(false);
-        } else {
-          const sideWidth = SideBar[0]?.clientWidth || 0;
-          setDrawerWidth(window.innerWidth - sideWidth);
-          addNewDrawerOpen();
-        }
-      } else {
-        return message.error('订单尚未同步Sap，请去Sap同步订单');
-      }
+      // if (res.errCode == 200 && res?.data?.success) {
+      //   if (orderNo === 0) {
+      //     //此为模拟效果 需判断订单是否锁定
+      //     Modal.warning({
+      //       title: '本订单已锁定！',
+      //       content: (
+      //         <>
+      //           <p>请重新选择订单！</p>
+      //         </>
+      //       ),
+      //       okText: '知道了',
+      //     });
+      //     // setConfirmLoading(false);
+      //   } else {
+      //     const sideWidth = SideBar[0]?.clientWidth || 0;
+      //     setDrawerWidth(window.innerWidth - sideWidth);
+      //     addNewDrawerOpen();
+      //   }
+      // } else {
+      //   return message.error('订单尚未同步Sap，请去Sap同步订单');
+      // }
     }
   };
 

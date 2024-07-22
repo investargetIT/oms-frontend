@@ -64,18 +64,18 @@ const RelativeOrder: React.FC<{ id: string }> = (props) => {
             pageSize: params.pageSize,
             orderNo: id,
           };
-          const res = await relation(searchParams);
-          console.log(res, '这里是关联订单的数据');
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              success: true,
-            });
-          } else {
-            Modal.error(res.errMsg);
-            return Promise.resolve([]);
-          }
+          // const res = await relation(searchParams);
+          // console.log(res, '这里是关联订单的数据');
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     success: true,
+          //   });
+          // } else {
+          //   Modal.error(res.errMsg);
+          //   return Promise.resolve([]);
+          // }
         }}
         pagination={{
           defaultPageSize: 10,

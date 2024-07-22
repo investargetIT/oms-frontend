@@ -101,17 +101,18 @@ const Index = ({}: any, ref: any) => {
             // const searchParams: any = {};
             // searchParams.pageNumber = params.current;
             // searchParams.pageSize = params.pageSize;
-            const res = await queryMiDetail({ orderNo: OrderNo });
-            if (res.errCode === 200) {
-              return Promise.resolve({
-                data: res.data?.dataList,
-                total: res.data?.total,
-                success: true,
-              });
-            } else {
-              message.error(res.errMsg);
-              return Promise.resolve([]);
-            }
+            //以上原来就屏蔽
+            // const res = await queryMiDetail({ orderNo: OrderNo });
+            // if (res.errCode === 200) {
+            //   return Promise.resolve({
+            //     data: res.data?.dataList,
+            //     total: res.data?.total,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(res.errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           rowKey="lineNum"
           search={false}

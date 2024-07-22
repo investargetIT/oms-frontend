@@ -100,38 +100,38 @@ const MyDrawer = ({}, ref: any) => {
 
   function changeTab(e: any) {
     if (e !== '2') return; //?避免不必要的请求
-    getDeliveryLogistics(logData).then((res: any) => {
-      if (res.errCode === 200) {
-        if (res.data[0] && JSON.stringify(res.data[0]) != '{}') {
-          if (res.data[0].image_urlList && JSON.stringify(res.data[0].image_urlList) != '[]') {
-            const detail_data: any = {
-              data: res.data[0].image_urlList,
-              total: res.data[0].image_urlList.length,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            };
-            setReceiptDetail(detail_data);
-          }
-          if (res.data[0].tran_data_list && JSON.stringify(res.data[0].tran_data_list) != '[]') {
-            const detail_data: any = {
-              data: res.data[0].tran_data_list,
-              total: res.data[0].tran_data_list.length,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            };
-            setLogisticsDetail(detail_data);
-          }
-        }
-        logRef?.current?.reloadtable(true);
-        setLogisticsError('');
-      } else {
-        setLogisticsError(res.errMsg);
-        setReceiptDetail([]);
-        setLogisticsDetail([]);
-      }
-    });
+    // getDeliveryLogistics(logData).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     if (res.data[0] && JSON.stringify(res.data[0]) != '{}') {
+    //       if (res.data[0].image_urlList && JSON.stringify(res.data[0].image_urlList) != '[]') {
+    //         const detail_data: any = {
+    //           data: res.data[0].image_urlList,
+    //           total: res.data[0].image_urlList.length,
+    //           current: 1,
+    //           pageSize: 20,
+    //           success: true,
+    //         };
+    //         setReceiptDetail(detail_data);
+    //       }
+    //       if (res.data[0].tran_data_list && JSON.stringify(res.data[0].tran_data_list) != '[]') {
+    //         const detail_data: any = {
+    //           data: res.data[0].tran_data_list,
+    //           total: res.data[0].tran_data_list.length,
+    //           current: 1,
+    //           pageSize: 20,
+    //           success: true,
+    //         };
+    //         setLogisticsDetail(detail_data);
+    //       }
+    //     }
+    //     logRef?.current?.reloadtable(true);
+    //     setLogisticsError('');
+    //   } else {
+    //     setLogisticsError(res.errMsg);
+    //     setReceiptDetail([]);
+    //     setLogisticsDetail([]);
+    //   }
+    // });
   }
   return (
     <div>
@@ -191,20 +191,20 @@ const MyDrawer = ({}, ref: any) => {
                   obdNo: rowDetail?.obdNo,
                   // startTime:row.
                 };
-                const res = await queryObdItem(searchParams);
-                res.data?.list.forEach((e: { index: number }, i: number) => {
-                  e.index = i;
-                });
-                if (res.errCode === 200) {
-                  return Promise.resolve({
-                    data: res.data?.list,
-                    total: res.data?.total,
-                    success: true,
-                  });
-                } else {
-                  Modal.error(res.errMsg);
-                  return Promise.resolve([]);
-                }
+                // const res = await queryObdItem(searchParams);
+                // res.data?.list.forEach((e: { index: number }, i: number) => {
+                //   e.index = i;
+                // });
+                // if (res.errCode === 200) {
+                //   return Promise.resolve({
+                //     data: res.data?.list,
+                //     total: res.data?.total,
+                //     success: true,
+                //   });
+                // } else {
+                //   Modal.error(res.errMsg);
+                //   return Promise.resolve([]);
+                // }
               }}
               rowKey="index"
               search={false}

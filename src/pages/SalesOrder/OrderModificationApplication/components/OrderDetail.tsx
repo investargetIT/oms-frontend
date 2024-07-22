@@ -44,13 +44,13 @@ const OrderDetail = ({ tableRowData, id, orderId }: any, ref: any) => {
       sourceType: 40,
       subType: 30,
     };
-    const res = await getFilesList(searchParams);
-    if (res.errCode === 200) {
-      setFileDataList(res.data?.list);
-      // setTotal(res.data?.total)
-    } else {
-      message.error(res.errMsg, 3);
-    }
+    // const res = await getFilesList(searchParams);
+    // if (res.errCode === 200) {
+    //   setFileDataList(res.data?.list);
+    //   // setTotal(res.data?.total)
+    // } else {
+    //   message.error(res.errMsg, 3);
+    // }
   };
 
   useEffect(() => {
@@ -65,13 +65,13 @@ const OrderDetail = ({ tableRowData, id, orderId }: any, ref: any) => {
     // };
     const fn = async () => {
       setLoad(true);
-      const res = await getRequesOrderDetail(id);
-      if (res.errCode == 200) {
-        setFoundationData(res.data);
-        // 获取fileListData接口
-        getFileDataList(res?.data?.sid);
-        setLoad(false);
-      }
+      // const res = await getRequesOrderDetail(id);
+      // if (res.errCode == 200) {
+      //   setFoundationData(res.data);
+      //   // 获取fileListData接口
+      //   getFileDataList(res?.data?.sid);
+      //   setLoad(false);
+      // }
     };
     fn();
     // Fn();
@@ -159,12 +159,12 @@ const OrderDetail = ({ tableRowData, id, orderId }: any, ref: any) => {
       subType: 30,
       resourceVOList,
     };
-    const resSave = await saveRefResource(params);
-    // 刷接口
-    if (resSave.errCode === 200) {
-      getFileDataList(foundationData?.sid);
-      setIsUpload(false);
-    }
+    // const resSave = await saveRefResource(params);
+    // // 刷接口
+    // if (resSave.errCode === 200) {
+    //   getFileDataList(foundationData?.sid);
+    //   setIsUpload(false);
+    // }
   };
 
   return (

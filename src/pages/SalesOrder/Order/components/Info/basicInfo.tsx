@@ -92,12 +92,12 @@ const BasicInfo = ({ id, row }: any, Ref: any) => {
       sourceType: 40, //待定
       resourceVOList,
     };
-    const resSave = await saveRefResource(params);
-    // 刷接口
-    if (resSave.errCode === 200) {
-      ref2?.current?.reload();
-      setIsUpload(false);
-    }
+    // const resSave = await saveRefResource(params);
+    // // 刷接口
+    // if (resSave.errCode === 200) {
+    //   ref2?.current?.reload();
+    //   setIsUpload(false);
+    // }
   };
   const download = () => {
     setLoadXls(true);
@@ -123,13 +123,13 @@ const BasicInfo = ({ id, row }: any, Ref: any) => {
       customerSku,
       poItemNo,
     };
-    const res = await updateCustomerPo([params]);
-    if (res.errCode == 200) {
-      message.success('修改成功');
-      ref?.current?.reload();
-    } else {
-      message.error('失败' + res.errMsg);
-    }
+    // const res = await updateCustomerPo([params]);
+    // if (res.errCode == 200) {
+    //   message.success('修改成功');
+    //   ref?.current?.reload();
+    // } else {
+    //   message.error('失败' + res.errMsg);
+    // }
   };
 
   // 商品明细
@@ -637,17 +637,17 @@ const BasicInfo = ({ id, row }: any, Ref: any) => {
                         searchParams.pageNumber = params.current;
                         searchParams.pageSize = params.pageSize;
                         searchParams.orderNo = id;
-                        const res = await goodsDetails(searchParams);
-                        if (res.errCode === 200) {
-                          return Promise.resolve({
-                            data: res.data?.list,
-                            total: res.data?.total,
-                            success: true,
-                          });
-                        } else {
-                          message.error(res.errMsg);
-                          return Promise.resolve([]);
-                        }
+                        // const res = await goodsDetails(searchParams);
+                        // if (res.errCode === 200) {
+                        //   return Promise.resolve({
+                        //     data: res.data?.list,
+                        //     total: res.data?.total,
+                        //     success: true,
+                        //   });
+                        // } else {
+                        //   message.error(res.errMsg);
+                        //   return Promise.resolve([]);
+                        // }
                       }}
                       pagination={{
                         defaultPageSize: 10,
@@ -692,17 +692,17 @@ const BasicInfo = ({ id, row }: any, Ref: any) => {
                         sourceId: row.sid,
                         sourceType: 40,
                       };
-                      const res = await queryRefResource(searchParams);
-                      if (res.errCode === 200) {
-                        return Promise.resolve({
-                          data: res.data?.list,
-                          total: res.data?.total,
-                          success: true,
-                        });
-                      } else {
-                        message.error(res.errMsg);
-                        return Promise.resolve([]);
-                      }
+                      // const res = await queryRefResource(searchParams);
+                      // if (res.errCode === 200) {
+                      //   return Promise.resolve({
+                      //     data: res.data?.list,
+                      //     total: res.data?.total,
+                      //     success: true,
+                      //   });
+                      // } else {
+                      //   message.error(res.errMsg);
+                      //   return Promise.resolve([]);
+                      // }
                     }}
                     rowKey={() => Math.random()}
                     bordered

@@ -180,16 +180,16 @@ const Index: React.FC = () => {
     ref?.current?.reload(true);
   };
   useEffect(() => {
-    getOrderDateList({ type: 'workflow' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderRequestStatusList(res.data.dataList);
-      }
-    });
-    getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderChannelList(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'workflow' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderRequestStatusList(res.data.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderChannelList(res.data.dataList);
+    //   }
+    // });
     //设置select初始值
     form.setFieldsValue({
       requestStatus:
@@ -314,20 +314,20 @@ const Index: React.FC = () => {
             searchParams.endTime = moment(searchParams.createTime[1]).format('YYYY-MM-DD');
             searchParams.pageNumber = params.current;
             searchParams.pageSize = params.pageSize;
-            const res = await queryProduct(searchParams);
-            res?.data?.list.forEach((e: any, i: any) => {
-              e.index = i;
-            });
-            if (res.errCode === 200) {
-              return Promise.resolve({
-                data: res.data?.list,
-                total: res.data?.total,
-                success: true,
-              });
-            } else {
-              Modal.error(res.errMsg);
-              return Promise.resolve([]);
-            }
+            // const res = await queryProduct(searchParams);
+            // res?.data?.list.forEach((e: any, i: any) => {
+            //   e.index = i;
+            // });
+            // if (res.errCode === 200) {
+            //   return Promise.resolve({
+            //     data: res.data?.list,
+            //     total: res.data?.total,
+            //     success: true,
+            //   });
+            // } else {
+            //   Modal.error(res.errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           pagination={{
             showSizeChanger: true,

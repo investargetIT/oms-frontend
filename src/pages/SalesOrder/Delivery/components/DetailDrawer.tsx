@@ -30,19 +30,19 @@ const DetailDrawer: React.FC<{ id: string; tableRowData: object }> = (props: any
   const [logisticsError, setLogisticsError] = useState('');
   const detailRef = useRef<ActionType>();
   const onDown = (filePath: string) => {
-    downloadToStream(filePath).then((res) => {
-      console.log(res);
-      let result;
-      const uint8Array = new Uint8Array(res);
-      for (let i = 0; i < uint8Array.length; i++) {
-        // String.fromCharCode：将 Unicode 编码转为一个字符:
-        result += String.fromCharCode(uint8Array[i]);
-      }
-      const printBase64 = window.btoa(result);
-      // 与src里直接放入data:application/pdf;base64 xxxx这样的格式， 真正的base64数据是xxx不包含之前的
-      // 如果要是做预览，请自行加上前边类型字段
-      printJS({ printable: printBase64, type: 'pdf', base64: true });
-    });
+    // downloadToStream(filePath).then((res) => {
+    //   console.log(res);
+    //   let result;
+    //   const uint8Array = new Uint8Array(res);
+    //   for (let i = 0; i < uint8Array.length; i++) {
+    //     // String.fromCharCode：将 Unicode 编码转为一个字符:
+    //     result += String.fromCharCode(uint8Array[i]);
+    //   }
+    //   const printBase64 = window.btoa(result);
+    //   // 与src里直接放入data:application/pdf;base64 xxxx这样的格式， 真正的base64数据是xxx不包含之前的
+    //   // 如果要是做预览，请自行加上前边类型字段
+    //   printJS({ printable: printBase64, type: 'pdf', base64: true });
+    // });
   };
 
   const columns: ProColumns<any>[] = [
@@ -91,38 +91,38 @@ const DetailDrawer: React.FC<{ id: string; tableRowData: object }> = (props: any
       obd_no_list: [tableRowData?.obdNo],
       sys_user: 'OMS',
     };
-    getDeliveryLogistics(logData).then((res: any) => {
-      if (res.errCode === 200) {
-        if (res.data[0] && JSON.stringify(res.data[0]) != '{}') {
-          if (res.data[0].image_urlList && JSON.stringify(res.data[0].image_urlList) != '[]') {
-            const detail_data: any = {
-              data: res.data[0].image_urlList,
-              total: res.data[0].image_urlList.length,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            };
-            setReceiptDetail(detail_data);
-          }
+    // getDeliveryLogistics(logData).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     if (res.data[0] && JSON.stringify(res.data[0]) != '{}') {
+    //       if (res.data[0].image_urlList && JSON.stringify(res.data[0].image_urlList) != '[]') {
+    //         const detail_data: any = {
+    //           data: res.data[0].image_urlList,
+    //           total: res.data[0].image_urlList.length,
+    //           current: 1,
+    //           pageSize: 20,
+    //           success: true,
+    //         };
+    //         setReceiptDetail(detail_data);
+    //       }
 
-          if (res.data[0].tran_data_list && JSON.stringify(res.data[0].tran_data_list) != '[]') {
-            const detail_data = {
-              data: res.data[0].tran_data_list,
-              total: res.data[0].tran_data_list.length,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            };
-            setLogisticsDetail(detail_data);
-          }
-        }
-        setLogisticsError('');
-      } else {
-        setLogisticsError(res.errMsg);
-        setReceiptDetail([]);
-        setLogisticsDetail([]);
-      }
-    });
+    //       if (res.data[0].tran_data_list && JSON.stringify(res.data[0].tran_data_list) != '[]') {
+    //         const detail_data = {
+    //           data: res.data[0].tran_data_list,
+    //           total: res.data[0].tran_data_list.length,
+    //           current: 1,
+    //           pageSize: 20,
+    //           success: true,
+    //         };
+    //         setLogisticsDetail(detail_data);
+    //       }
+    //     }
+    //     setLogisticsError('');
+    //   } else {
+    //     setLogisticsError(res.errMsg);
+    //     setReceiptDetail([]);
+    //     setLogisticsDetail([]);
+    //   }
+    // });
   }, []);
 
   return (
@@ -190,24 +190,24 @@ const DetailDrawer: React.FC<{ id: string; tableRowData: object }> = (props: any
               submitTimeout={2000}
               onFinish={async (values) => {
                 const { response } = values.file[0];
-                const res = await saveRefResourceNew({
-                  sourceId: tableRowData?.orderId,
-                  subIdentification: tableRowData?.obdNo,
-                  resourceVOList: [
-                    {
-                      resourceUrl: response.data.resourceUrl,
-                      resourceName: response.data.resourceName,
-                      subType: values.subType,
-                    },
-                  ],
-                });
-                if (res.errMsg === '成功') {
-                  detailRef?.current?.reload(true);
-                  return true;
-                } else {
-                  message.error(res.errMsg);
-                  return false;
-                }
+                // const res = await saveRefResourceNew({
+                //   sourceId: tableRowData?.orderId,
+                //   subIdentification: tableRowData?.obdNo,
+                //   resourceVOList: [
+                //     {
+                //       resourceUrl: response.data.resourceUrl,
+                //       resourceName: response.data.resourceName,
+                //       subType: values.subType,
+                //     },
+                //   ],
+                // });
+                // if (res.errMsg === '成功') {
+                //   detailRef?.current?.reload(true);
+                //   return true;
+                // } else {
+                //   message.error(res.errMsg);
+                //   return false;
+                // }
               }}
               trigger={
                 tableRowData.preShip === 1 ? (
@@ -249,17 +249,17 @@ const DetailDrawer: React.FC<{ id: string; tableRowData: object }> = (props: any
             options={false}
             request={async (params = {}) => {
               const { current, pageSize }: any = params;
-              const res = await queryRefResource({
-                pageNumber: current,
-                pageSize: pageSize,
-                sourceId: tableRowData?.orderId,
-                subIdentification: tableRowData?.obdNo,
-                sourceType: 136,
-              });
-              return {
-                data: res.data.list,
-                total: res.data.total,
-              };
+              // const res = await queryRefResource({
+              //   pageNumber: current,
+              //   pageSize: pageSize,
+              //   sourceId: tableRowData?.orderId,
+              //   subIdentification: tableRowData?.obdNo,
+              //   sourceType: 136,
+              // });
+              // return {
+              //   data: res.data.list,
+              //   total: res.data.total,
+              // };
             }}
             rowKey={() => Math.random()}
             search={false}

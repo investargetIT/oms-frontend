@@ -29,19 +29,19 @@ const Index = function ({}: any, ref: any) {
   const handleOk = async (): Promise<any> => {
     // ? 弹框点击下一步
     setConfirmload(true);
-    const res = await updateRemark({ userRemark, csrRemark, orderNo });
-    if (res.errCode == 200) {
-      message.success('更新成功');
-      // ? 直接返现更改的两个修改后的值
-      // inverted()
-      setInitialState((s: any) => ({
-        ...s,
-        userRemark,
-        csrRemark,
-      }));
-    } else {
-      message.error('更新失败' + res.errMsg);
-    }
+    // const res = await updateRemark({ userRemark, csrRemark, orderNo });
+    // if (res.errCode == 200) {
+    //   message.success('更新成功');
+    //   // ? 直接返现更改的两个修改后的值
+    //   // inverted()
+    //   setInitialState((s: any) => ({
+    //     ...s,
+    //     userRemark,
+    //     csrRemark,
+    //   }));
+    // } else {
+    //   message.error('更新失败' + res.errMsg);
+    // }
     setVisible(false);
     setConfirmload(false);
   };

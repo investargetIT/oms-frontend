@@ -68,15 +68,15 @@ const AddNewForm: React.FC<closeModal> = (props) => {
         })
           .then((res: any) => {
             // console.log(res);
-            if (res.errCode === 200) {
-              props.addNewModalClose();
-              setConfirmLoading(false);
-              message.success('客户添加成功', 3);
-              props.tableReload();
-            } else {
-              message.error(res.errMsg);
-              setConfirmLoading(false);
-            }
+            // if (res.errCode === 200) {
+            //   props.addNewModalClose();
+            //   setConfirmLoading(false);
+            //   message.success('客户添加成功', 3);
+            //   props.tableReload();
+            // } else {
+            //   message.error(res.errMsg);
+            //   setConfirmLoading(false);
+            // }
           })
           .finally(() => {
             setConfirmLoading(false);
@@ -84,31 +84,31 @@ const AddNewForm: React.FC<closeModal> = (props) => {
           });
       } else {
         //?代表的是原逻辑
-        createCustomerConfig(formData)
-          .then((res: any) => {
-            console.log(res);
-            if (res.errCode === 200) {
-              props.addNewModalClose();
-              setConfirmLoading(false);
-              message.success('客户添加成功', 3);
-              props.tableReload();
-            } else {
-              message.error(res.errMsg);
-              setConfirmLoading(false);
-            }
-          })
-          .finally(() => {
-            return;
-          })
-          .catch((error: any) => {
-            if (error.response) {
-              if (error.name == 'ResponseError') {
-                //注意：不应该写在这，这些东西 本质是500
-                message.error(`${error?.data?.errMsg}`);
-              }
-              setConfirmLoading(false);
-            }
-          });
+        // createCustomerConfig(formData)
+        //   .then((res: any) => {
+        //     console.log(res);
+        //     if (res.errCode === 200) {
+        //       props.addNewModalClose();
+        //       setConfirmLoading(false);
+        //       message.success('客户添加成功', 3);
+        //       props.tableReload();
+        //     } else {
+        //       message.error(res.errMsg);
+        //       setConfirmLoading(false);
+        //     }
+        //   })
+        //   .finally(() => {
+        //     return;
+        //   })
+        //   .catch((error: any) => {
+        //     if (error.response) {
+        //       if (error.name == 'ResponseError') {
+        //         //注意：不应该写在这，这些东西 本质是500
+        //         message.error(`${error?.data?.errMsg}`);
+        //       }
+        //       setConfirmLoading(false);
+        //     }
+        //   });
       }
     }
     // console.log(formData);
@@ -249,30 +249,30 @@ const AddNewForm: React.FC<closeModal> = (props) => {
               pageSize: params.pageSize,
             };
             //区分判断调用接口
-            const url = props?.state
-              ? getAllCustomerList(searchParams)
-              : queryBatchCustomerList(searchParamsMult);
-            const res = await url;
-            if (startPage) {
-              params.current = 1;
-              // params.pageSize = 20;
-            }
-            res.data?.list?.forEach((e: any, i: number) => {
-              //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
-              e.index = i;
-            });
-            if (res.errCode === 200) {
-              return Promise.resolve({
-                data: res.data?.list,
-                total: res.data?.total,
-                current: 1,
-                pageSize: 20,
-                success: true,
-              });
-            } else {
-              message.error(res.errMsg, 3);
-              return Promise.resolve([]);
-            }
+            // const url = props?.state
+            //   ? getAllCustomerList(searchParams)
+            //   : queryBatchCustomerList(searchParamsMult);
+            // const res = await url;
+            // if (startPage) {
+            //   params.current = 1;
+            //   // params.pageSize = 20;
+            // }
+            // res.data?.list?.forEach((e: any, i: number) => {
+            //   //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
+            //   e.index = i;
+            // });
+            // if (res.errCode === 200) {
+            //   return Promise.resolve({
+            //     data: res.data?.list,
+            //     total: res.data?.total,
+            //     current: 1,
+            //     pageSize: 20,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(res.errMsg, 3);
+            //   return Promise.resolve([]);
+            // }
           }}
           rowKey="index"
           search={{

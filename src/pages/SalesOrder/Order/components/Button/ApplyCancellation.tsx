@@ -26,17 +26,17 @@ const ApplyCancellation = (props: any) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   useEffect(() => {
-    getOrderDateList({ type: 'orderRequestType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setRequestTypeList([res?.data?.dataList[0], res?.data?.dataList[1]]);
-      }
-    });
-    getOrderDateList({ type: 'orderRequestCancelType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setCancelTypeData(res.data?.dataList);
-        setCancelReasonData(res.data?.dataList[0]?.children);
-      }
-    });
+    // getOrderDateList({ type: 'orderRequestType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setRequestTypeList([res?.data?.dataList[0], res?.data?.dataList[1]]);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderRequestCancelType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setCancelTypeData(res.data?.dataList);
+    //     setCancelReasonData(res.data?.dataList[0]?.children);
+    //   }
+    // });
 
     //设置select初始值
     // form.setFieldsValue({
@@ -113,18 +113,18 @@ const ApplyCancellation = (props: any) => {
       setFirstStepData(formData);
       getNextStep(formData)
         .then((res: any) => {
-          if (res?.errCode === 200) {
-            setOrderData(res?.data);
-            console.log(orderData);
-            const sideWidth = SideBar[0]?.clientWidth || 0;
-            setDrawerWidth(window.innerWidth - sideWidth);
-            setConfirmLoading(false);
-            closeModal();
-            addNewDrawerOpen();
-          } else {
-            message.error(res.errMsg);
-            setConfirmLoading(false);
-          }
+          // if (res?.errCode === 200) {
+          //   setOrderData(res?.data);
+          //   console.log(orderData);
+          //   const sideWidth = SideBar[0]?.clientWidth || 0;
+          //   setDrawerWidth(window.innerWidth - sideWidth);
+          //   setConfirmLoading(false);
+          //   closeModal();
+          //   addNewDrawerOpen();
+          // } else {
+          //   message.error(res.errMsg);
+          //   setConfirmLoading(false);
+          // }
         })
         .finally(() => {
           return;

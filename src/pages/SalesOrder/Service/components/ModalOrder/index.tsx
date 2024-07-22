@@ -13,12 +13,12 @@ export default ({ open, visit, id }) => {
       }}
       width={400}
       onFinish={async (val) => {
-        const res = await quickModifyStatus(val);
-        if (res.errCode === 200) {
-          message.success('提交成功');
-          return true;
-        }
-        message.error(res.errMsg);
+        // const res = await quickModifyStatus(val);
+        // if (res.errCode === 200) {
+        //   message.success('提交成功');
+        //   return true;
+        // }
+        // message.error(res.errMsg);
         return false;
       }}
       onVisibleChange={visit}

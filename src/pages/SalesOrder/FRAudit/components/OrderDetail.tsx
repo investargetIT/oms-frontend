@@ -37,30 +37,30 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
   const [allData, setAllData]: any = useState({});
   useEffect(() => {
     const fn = async () => {
-      const res = await getOrderDetail(id);
-      if (res.errCode === 200) {
-        const {
-          data: { salesOrderRespVo, salesOrderReceiverRespVo, salesOrderInvoiceInfoRespVo },
-        } = res;
-        const temp: any = res?.data;
-        const defauleParams: any = {
-          ...temp,
-          ...temp.salesOrderRespVo,
-          ...temp.salesOrderReceiverRespVo,
-          ...temp.salesOrderInvoiceInfoRespVo,
-        };
-        setAllData(defauleParams);
-        if (salesOrderRespVo) {
-          setBasicData(salesOrderRespVo);
-        }
-        if (salesOrderReceiverRespVo) {
-          setReceiveData(salesOrderReceiverRespVo);
-        }
-        if (salesOrderInvoiceInfoRespVo) {
-          setInvoiceData(salesOrderInvoiceInfoRespVo);
-        }
-      }
-      console.log(basicData, receiveData, invoiceData);
+      // const res = await getOrderDetail(id);
+      // if (res.errCode === 200) {
+      //   const {
+      //     data: { salesOrderRespVo, salesOrderReceiverRespVo, salesOrderInvoiceInfoRespVo },
+      //   } = res;
+      //   const temp: any = res?.data;
+      //   const defauleParams: any = {
+      //     ...temp,
+      //     ...temp.salesOrderRespVo,
+      //     ...temp.salesOrderReceiverRespVo,
+      //     ...temp.salesOrderInvoiceInfoRespVo,
+      //   };
+      //   setAllData(defauleParams);
+      //   if (salesOrderRespVo) {
+      //     setBasicData(salesOrderRespVo);
+      //   }
+      //   if (salesOrderReceiverRespVo) {
+      //     setReceiveData(salesOrderReceiverRespVo);
+      //   }
+      //   if (salesOrderInvoiceInfoRespVo) {
+      //     setInvoiceData(salesOrderInvoiceInfoRespVo);
+      //   }
+      // }
+      // console.log(basicData, receiveData, invoiceData);
     };
     fn();
   }, [id]);
@@ -171,38 +171,38 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
   const customer_code = tableRowData?.customerCode;
   const [thirtyRepeatStatus, setThirtyRepeatStatus]: any = useState(false);
   useEffect(() => {
-    getOrderDateList({ type: 'releaseOrderReason' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setReleaseReasonData(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'releaseOrderReason' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setReleaseReasonData(res.data.dataList);
+    //   }
+    // });
 
-    getOrderDateList({ type: 'paymentTerm' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setPaymentTermData(res.data?.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'paymentTerm' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setPaymentTermData(res.data?.dataList);
+    //   }
+    // });
 
-    getOrderDateList({ type: 'paymentTerm', code: getPaymentTerms }).then((res: any) => {
-      if (res.errCode === 200) {
-        setPaymentMethodData(res.data?.dataList[0]?.children);
-      }
-    });
+    // getOrderDateList({ type: 'paymentTerm', code: getPaymentTerms }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setPaymentMethodData(res.data?.dataList[0]?.children);
+    //   }
+    // });
 
     const isThirtyRepeat_params = {
       orderNo: id,
       customerCode: customer_code,
       amount: tableRowData?.amount,
     };
-    isThirtyRepeat(isThirtyRepeat_params).then((res: any) => {
-      if (res.errCode === 200) {
-        if (JSON.stringify(res.data?.dataList) != '[]') {
-          setThirtyRepeatStatus(true);
-        } else {
-          setThirtyRepeatStatus(false);
-        }
-      }
-    });
+    // isThirtyRepeat(isThirtyRepeat_params).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     if (JSON.stringify(res.data?.dataList) != '[]') {
+    //       setThirtyRepeatStatus(true);
+    //     } else {
+    //       setThirtyRepeatStatus(false);
+    //     }
+    //   }
+    // });
     form.setFieldsValue({
       paymentTermsCode: getPaymentTermCode,
       paymentMethodCode: getPaymentMethodCode,
@@ -230,24 +230,24 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
     const paymentMethod_code = '' + e.value + '';
     setPaymentTermCode(e);
     setPaymentTerms(e.value);
-    getOrderDateList({ type: 'paymentTerm', code: paymentMethod_code }).then((res: any) => {
-      if (res.errCode === 200) {
-        setPaymentMethodData(res.data?.dataList[0]?.children);
-        // setPaymentMethodCode(res.data?.dataList[0]?.children[0].key);
-        setPaymentMethodCode({
-          value: res.data?.dataList[0]?.children[0].key,
-          label: res.data?.dataList[0]?.children[0].value,
-        });
-        setPaymentMethod(res.data?.dataList[0]?.children[0].key);
-        setPaymentMethodName(res.data?.dataList[0]?.children[0].value);
-        form.setFieldsValue({
-          paymentMethodCode: {
-            value: res.data?.dataList[0]?.children[0].key,
-            label: res.data?.dataList[0]?.children[0].value,
-          },
-        });
-      }
-    });
+    // getOrderDateList({ type: 'paymentTerm', code: paymentMethod_code }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setPaymentMethodData(res.data?.dataList[0]?.children);
+    //     // setPaymentMethodCode(res.data?.dataList[0]?.children[0].key);
+    //     setPaymentMethodCode({
+    //       value: res.data?.dataList[0]?.children[0].key,
+    //       label: res.data?.dataList[0]?.children[0].value,
+    //     });
+    //     setPaymentMethod(res.data?.dataList[0]?.children[0].key);
+    //     setPaymentMethodName(res.data?.dataList[0]?.children[0].value);
+    //     form.setFieldsValue({
+    //       paymentMethodCode: {
+    //         value: res.data?.dataList[0]?.children[0].key,
+    //         label: res.data?.dataList[0]?.children[0].value,
+    //       },
+    //     });
+    //   }
+    // });
     setPaymentTermsName(e.label);
   };
 
@@ -257,24 +257,24 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
   };
 
   const onReject = () => {
-    setConfirmLoading(true);
-    financeRefuseOrder(id)
-      .then((res: any) => {
-        console.log(res);
-        if (res.errCode === 200) {
-          setConfirmLoading(false);
-          message.success('该订单拒绝放单操作成功！', 3);
-          approveModalHandleOk();
-          tableReload();
-        } else {
-          message.error(res.errMsg);
-          setConfirmLoading(false);
-        }
-      })
-      .finally(() => {
-        return;
-      });
-    console.log(ref);
+    // setConfirmLoading(true);
+    // financeRefuseOrder(id)
+    //   .then((res: any) => {
+    //     console.log(res);
+    //     if (res.errCode === 200) {
+    //       setConfirmLoading(false);
+    //       message.success('该订单拒绝放单操作成功！', 3);
+    //       approveModalHandleOk();
+    //       tableReload();
+    //     } else {
+    //       message.error(res.errMsg);
+    //       setConfirmLoading(false);
+    //     }
+    //   })
+    //   .finally(() => {
+    //     return;
+    //   });
+    // console.log(ref);
   };
 
   const onSaveRemark = () => {
@@ -293,15 +293,15 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
     financeSaveReleaseRemark(saveData)
       .then((res: any) => {
         console.log(res);
-        if (res.errCode === 200) {
-          setConfirmLoading(false);
-          message.success('保存成功', 3);
-          approveModalHandleOk();
-          tableReload();
-        } else {
-          message.error(res.errMsg);
-          setConfirmLoading(false);
-        }
+        // if (res.errCode === 200) {
+        //   setConfirmLoading(false);
+        //   message.success('保存成功', 3);
+        //   approveModalHandleOk();
+        //   tableReload();
+        // } else {
+        //   message.error(res.errMsg);
+        //   setConfirmLoading(false);
+        // }
       })
       .finally(() => {
         return;
@@ -326,19 +326,19 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
           },
         };
         console.log(saveData);
-        financeReleaseOrders(saveData).then((res: any) => {
-          console.log(res);
-          if (res.errCode === 200) {
-            setConfirmLoading(false);
-            message.success('订单放单成功！', 3);
-            ReleaseOrderModalClose();
-            approveModalHandleOk();
-            tableReload();
-          } else {
-            message.error(res.errMsg);
-            setConfirmLoading(false);
-          }
-        });
+        // financeReleaseOrders(saveData).then((res: any) => {
+        //   console.log(res);
+        //   if (res.errCode === 200) {
+        //     setConfirmLoading(false);
+        //     message.success('订单放单成功！', 3);
+        //     ReleaseOrderModalClose();
+        //     approveModalHandleOk();
+        //     tableReload();
+        //   } else {
+        //     message.error(res.errMsg);
+        //     setConfirmLoading(false);
+        //   }
+        // });
       })
       .catch((error) => {
         message.error(error, 3);
@@ -861,18 +861,18 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
                             e.index = i;
                           });
 
-                          if (res.errCode === 200) {
-                            return Promise.resolve({
-                              data: res.data?.list,
-                              total: res.data?.total,
-                              current: 1,
-                              pageSize: 10,
-                              success: true,
-                            });
-                          } else {
-                            message.error(res.errMsg);
-                            return Promise.resolve([]);
-                          }
+                          // if (res.errCode === 200) {
+                          //   return Promise.resolve({
+                          //     data: res.data?.list,
+                          //     total: res.data?.total,
+                          //     current: 1,
+                          //     pageSize: 10,
+                          //     success: true,
+                          //   });
+                          // } else {
+                          //   message.error(res.errMsg);
+                          //   return Promise.resolve([]);
+                          // }
                         }}
                         rowKey="index"
                         search={false}
@@ -937,17 +937,17 @@ const OrderDetail = ({ tableRowData, id, tableReload, approveModalHandleOk }: an
                             sourceId: data.sid,
                             sourceType: 40,
                           };
-                          const res = await queryRefResource(searchParams);
-                          if (res.errCode === 200) {
-                            return Promise.resolve({
-                              data: res.data?.list,
-                              total: res.data?.total,
-                              success: true,
-                            });
-                          } else {
-                            message.error(res.errMsg);
-                            return Promise.resolve([]);
-                          }
+                          // const res = await queryRefResource(searchParams);
+                          // if (res.errCode === 200) {
+                          //   return Promise.resolve({
+                          //     data: res.data?.list,
+                          //     total: res.data?.total,
+                          //     success: true,
+                          //   });
+                          // } else {
+                          //   message.error(res.errMsg);
+                          //   return Promise.resolve([]);
+                          // }
                         }}
                         rowKey={() => Math.random()}
                         bordered

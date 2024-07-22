@@ -109,16 +109,16 @@ const Index: React.FC = () => {
     // setSaleVisible(false);
     if (saleValue == 2) {
       setConfirmload(true);
-      const res = await notReplace(Record.orderNo);
-      if (res.errCode == 200) {
-        message.success('不替换操作成功');
-        setSaleVisible(false);
-        // 增加log标记
-        await saveReplaceLog({ types: [4], orderNo: Record.orderNo });
-        fn(); //?刷新主数据的表格
-      } else {
-        message.warning(res.errMsg);
-      }
+      // const res = await notReplace(Record.orderNo);
+      // if (res.errCode == 200) {
+      //   message.success('不替换操作成功');
+      //   setSaleVisible(false);
+      //   // 增加log标记
+      //   await saveReplaceLog({ types: [4], orderNo: Record.orderNo });
+      //   fn(); //?刷新主数据的表格
+      // } else {
+      //   message.warning(res.errMsg);
+      // }
       setConfirmload(false);
     } else if (saleValue == 1) {
       // console.log(22, '22');
@@ -205,8 +205,8 @@ const Index: React.FC = () => {
             key={'重推'}
             type="link"
             onClick={async () => {
-              await modifySapOrderSyncOpState([record.sid]);
-              message.success('操作成功');
+              // await modifySapOrderSyncOpState([record.sid]);
+              // message.success('操作成功');
               ref.current?.reload(true);
             }}
           >
@@ -339,26 +339,26 @@ const Index: React.FC = () => {
   const [JVListData, setJVListData] = useState<any>([]);
   useEffect(() => {
     // 业务类型list
-    getByKeys({ list: ['businessTypeEnum'] }).then((res: any) => {
-      if (res?.errCode === 200) {
-        if (res?.data[0] == null) return;
-        setStatusList(
-          res?.data?.map((io: any) => {
-            return io.enums.map((ic: any) => ({
-              ...ic,
-              key: ic.code,
-              value: ic.name,
-            }));
-          }),
-        );
-      }
-    });
+    // getByKeys({ list: ['businessTypeEnum'] }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     if (res?.data[0] == null) return;
+    //     setStatusList(
+    //       res?.data?.map((io: any) => {
+    //         return io.enums.map((ic: any) => ({
+    //           ...ic,
+    //           key: ic.code,
+    //           value: ic.name,
+    //         }));
+    //       }),
+    //     );
+    //   }
+    // });
 
-    queryMasterJV({ pageSize: 200, disable: true }).then((res: any) => {
-      if (res?.errCode === 200) {
-        setJVListData(res?.data?.list);
-      }
-    });
+    // queryMasterJV({ pageSize: 200, disable: true }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     setJVListData(res?.data?.list);
+    //   }
+    // });
   }, []);
   useEffect(() => {
     setIsModalVisible(false);
@@ -368,33 +368,33 @@ const Index: React.FC = () => {
       message.error('请至少选择一个订单！', 3);
     }
     const arr = selectOrder.map((e) => e.sid);
-    await modifySapOrderSyncOpState(arr);
-    message.success('操作成功');
+    // await modifySapOrderSyncOpState(arr);
+    // message.success('操作成功');
     ref.current?.reload(true);
   };
   useEffect(() => {
     const k = Math.random();
     setKey(k);
-    getOrderDateList({ type: 'orderStatus' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderStatusList(res.data.dataList);
-      }
-    });
-    getOrderDateList({ type: 'orderType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderTypeList(res.data.dataList);
-      }
-    });
-    getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderChannelList(res.data.dataList);
-      }
-    });
-    getCompanyList().then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderCompanyList(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'orderStatus' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderStatusList(res.data.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderTypeList(res.data.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderChannelList(res.data.dataList);
+    //   }
+    // });
+    // getCompanyList().then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderCompanyList(res.data.dataList);
+    //   }
+    // });
 
     //设置select初始值
     form.setFieldsValue({
@@ -479,26 +479,26 @@ const Index: React.FC = () => {
               subOrderNo = JSON.parse(JSON.stringify(searchParams.orderNo.substring(1)));
             }
 
-            const res1 = await getSalesOrders({
-              ...searchParams,
-              orderNo: subOrderNo,
-            });
+            // const res1 = await getSalesOrders({
+            //   ...searchParams,
+            //   orderNo: subOrderNo,
+            // });
             setParams(searchParams);
 
             res1.data?.list.forEach((e: any, i: number) => {
               //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
               e.index = i;
             });
-            if (res1.errCode === 200) {
-              return Promise.resolve({
-                data: res1.data?.list,
-                total: res1.data?.total,
-                success: true,
-              });
-            } else {
-              message.error(res1.errMsg);
-              return Promise.resolve([]);
-            }
+            // if (res1.errCode === 200) {
+            //   return Promise.resolve({
+            //     data: res1.data?.list,
+            //     total: res1.data?.total,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(res1.errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           onRow={(record) => {
             return {

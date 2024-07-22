@@ -36,33 +36,33 @@ const OrderInfoContent = ({ tableRowData, orderId, orderType }: any, ref: any) =
     const fn = async () => {
       setLoad(true);
       //注意：以下接口要修改为新的合并借口（类型post入参 订单号 订单类型） 老街口扔在使用
-      const res = await querySnapshotDetail({ orderNo: orderId, orderType });
-      // const res = await getOrderDetail(orderId); //单独老街口
-      if (res.errCode === 200) {
-        const {
-          salesOrderSnapshotRespVo: {
-            salesOrderRespVo,
-            salesOrderReceiverRespVo,
-            salesOrderInvoiceInfoRespVo,
-          },
-          pageLineVO: { list },
-        } = res?.data;
-        if (salesOrderRespVo) {
-          setBasicData(salesOrderRespVo);
-        }
-        if (salesOrderReceiverRespVo) {
-          setReceiveData(salesOrderReceiverRespVo);
-        }
-        if (salesOrderInvoiceInfoRespVo) {
-          setInvoiceData(salesOrderInvoiceInfoRespVo);
-        }
-        if (list) {
-          setPageLineVO(list);
-        }
-        setLoad(false);
-      } else {
-        setLoad(false);
-      }
+      // const res = await querySnapshotDetail({ orderNo: orderId, orderType });
+      // // const res = await getOrderDetail(orderId); //单独老街口
+      // if (res.errCode === 200) {
+      //   const {
+      //     salesOrderSnapshotRespVo: {
+      //       salesOrderRespVo,
+      //       salesOrderReceiverRespVo,
+      //       salesOrderInvoiceInfoRespVo,
+      //     },
+      //     pageLineVO: { list },
+      //   } = res?.data;
+      //   if (salesOrderRespVo) {
+      //     setBasicData(salesOrderRespVo);
+      //   }
+      //   if (salesOrderReceiverRespVo) {
+      //     setReceiveData(salesOrderReceiverRespVo);
+      //   }
+      //   if (salesOrderInvoiceInfoRespVo) {
+      //     setInvoiceData(salesOrderInvoiceInfoRespVo);
+      //   }
+      //   if (list) {
+      //     setPageLineVO(list);
+      //   }
+      //   setLoad(false);
+      // } else {
+      //   setLoad(false);
+      // }
 
       console.log(basicData, receiveData, invoiceData);
 

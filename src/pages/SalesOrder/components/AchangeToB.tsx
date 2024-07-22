@@ -76,19 +76,19 @@ const AchangeToB: React.FC<{ id: string }> = (props: any) => {
           pageSize: params.pageSize,
           orderNo: id,
         };
-        const res = await getAChangeToBList(searchParams);
-        if (res.errCode === 200) {
-          return Promise.resolve({
-            data: res.data?.list,
-            total: res.data?.total,
-            current: 1,
-            pageSize: 20,
-            success: true,
-          });
-        } else {
-          message.error(res.errMsg, 3);
-          return Promise.resolve([]);
-        }
+        // const res = await getAChangeToBList(searchParams);
+        // if (res.errCode === 200) {
+        //   return Promise.resolve({
+        //     data: res.data?.list,
+        //     total: res.data?.total,
+        //     current: 1,
+        //     pageSize: 20,
+        //     success: true,
+        //   });
+        // } else {
+        //   message.error(res.errMsg, 3);
+        //   return Promise.resolve([]);
+        // }
       }}
       pagination={{
         showSizeChanger: true,

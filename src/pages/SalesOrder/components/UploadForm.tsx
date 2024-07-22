@@ -184,19 +184,19 @@ const UploadInfo: React.FC<uploadParams> = (prop) => {
         setConfirmLoading(false);
       }
       if (info.file.status === 'done') {
-        if (info.file?.response?.errCode === 200) {
-          setConfirmLoading(false);
-          // const name = info.file.response.data.resourceName
-          const url = info.file.response.data.resourceUrl;
-          tempList.forEach((item: any) => {
-            if (item.resourceName === info.file.name) {
-              item.resourceUrl = url;
-            }
-          });
-          setData(tempList);
-        } else {
-          return message.error('文件上传失败，请重新上传');
-        }
+        // if (info.file?.response?.errCode === 200) {
+        //   setConfirmLoading(false);
+        //   // const name = info.file.response.data.resourceName
+        //   const url = info.file.response.data.resourceUrl;
+        //   tempList.forEach((item: any) => {
+        //     if (item.resourceName === info.file.name) {
+        //       item.resourceUrl = url;
+        //     }
+        //   });
+        //   setData(tempList);
+        // } else {
+        //   return message.error('文件上传失败，请重新上传');
+        // }
       } else if (info.file.status === 'error') {
         setConfirmLoading(false);
       }

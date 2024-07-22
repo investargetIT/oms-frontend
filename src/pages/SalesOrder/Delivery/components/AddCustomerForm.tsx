@@ -135,33 +135,33 @@ const AddNewForm: React.FC<closeModal> = (props) => {
           ),
         }}
         request={async (params) => {
-          const searchParams: any = {
-            pageNumber: params.current,
-            pageSize: params.pageSize,
-            customerCode: params.customerCode,
-            customerName: params.customerName,
-          };
-          const res = await getAdminCustomerList(searchParams);
-          if (startPage) {
-            params.current = 1;
-            params.pageSize = 20;
-          }
-          res.data?.list?.forEach((e: any, i: number) => {
-            //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
-            e.index = i;
-          });
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            });
-          } else {
-            message.error(res.errMsg, 3);
-            return Promise.resolve([]);
-          }
+          // const searchParams: any = {
+          //   pageNumber: params.current,
+          //   pageSize: params.pageSize,
+          //   customerCode: params.customerCode,
+          //   customerName: params.customerName,
+          // };
+          // const res = await getAdminCustomerList(searchParams);
+          // if (startPage) {
+          //   params.current = 1;
+          //   params.pageSize = 20;
+          // }
+          // res.data?.list?.forEach((e: any, i: number) => {
+          //   //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
+          //   e.index = i;
+          // });
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     current: 1,
+          //     pageSize: 20,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(res.errMsg, 3);
+          //   return Promise.resolve([]);
+          // }
         }}
         rowKey="index"
         search={{

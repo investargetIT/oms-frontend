@@ -47,29 +47,29 @@ const Index: React.FC = () => {
   }
 
   useEffect(() => {
-    getOrderDateList({ type: 'orderType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderTypeList(res.data.dataList);
-      }
-    });
-    getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderChannelList(res.data.dataList);
-      }
-    });
-    getOrderDateList({ type: 'paymentTerm', code: 'all' }).then((res: any) => {
-      if (res.errCode === 200) {
-        // const arr = [];
-        // for (let i = 0; i < res?.data?.dataList?.length; i++) {
-        //   const element = res?.data?.dataList[i];
-        //   for (let j = 0; j < element.children.length; j++) {
-        //     const ele = element.children[j];
-        //     arr.push(ele);
-        //   }
-        // }
-        setPayment(res?.data?.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'orderType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderTypeList(res.data.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderChannelList(res.data.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'paymentTerm', code: 'all' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     // const arr = [];
+    //     // for (let i = 0; i < res?.data?.dataList?.length; i++) {
+    //     //   const element = res?.data?.dataList[i];
+    //     //   for (let j = 0; j < element.children.length; j++) {
+    //     //     const ele = element.children[j];
+    //     //     arr.push(ele);
+    //     //   }
+    //     // }
+    //     setPayment(res?.data?.dataList);
+    //   }
+    // });
 
     //设置select初始值
     form.setFieldsValue({
@@ -157,20 +157,20 @@ const Index: React.FC = () => {
   const [statusList, setStatusList] = useState<any>([]);
   useEffect(() => {
     // 业务类型list
-    getByKeys({ list: ['businessTypeEnum'] }).then((res: any) => {
-      if (res?.errCode === 200) {
-        if (res?.data[0] == null) return;
-        setStatusList(
-          res?.data?.map((io: any) => {
-            return io.enums.map((ic: any) => ({
-              ...ic,
-              key: ic.code,
-              value: ic.name,
-            }));
-          }),
-        );
-      }
-    });
+    // getByKeys({ list: ['businessTypeEnum'] }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     if (res?.data[0] == null) return;
+    //     setStatusList(
+    //       res?.data?.map((io: any) => {
+    //         return io.enums.map((ic: any) => ({
+    //           ...ic,
+    //           key: ic.code,
+    //           value: ic.name,
+    //         }));
+    //       }),
+    //     );
+    //   }
+    // });
   }, []);
 
   const columns: ProColumns<any>[] = [
@@ -573,19 +573,19 @@ const Index: React.FC = () => {
           searchParams.orderStatus = [34];
           searchParams.pageNumber = params.current;
           searchParams.pageSize = params.pageSize;
-          const res = await getOrderList(searchParams);
-          if (res.errCode === 200) {
-            return Promise.resolve({
-              data: res.data?.list,
-              total: res.data?.total,
-              current: 1,
-              pageSize: 20,
-              success: true,
-            });
-          } else {
-            message.error(res.errMsg, 3);
-            return Promise.resolve([]);
-          }
+          // const res = await getOrderList(searchParams);
+          // if (res.errCode === 200) {
+          //   return Promise.resolve({
+          //     data: res.data?.list,
+          //     total: res.data?.total,
+          //     current: 1,
+          //     pageSize: 20,
+          //     success: true,
+          //   });
+          // } else {
+          //   message.error(res.errMsg, 3);
+          //   return Promise.resolve([]);
+          // }
         }}
         onRow={(record: any) => {
           return {

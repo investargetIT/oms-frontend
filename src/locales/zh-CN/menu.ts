@@ -116,5 +116,17 @@ export default {
   'menu.inquiry.csp-offer': 'CSP报价单',
   'menu.inquiry.csp-offer.csp-apply': 'CSP报价单申请',
   'menu.inquiry.setting': '业务配置',
+  'menu.sales': '销售订单',
+  'menu.sales.list': '全部订单',
+  'menu.sales.service': '订单运维',
+  'menu.sales.CSRMaster': '审核主数据',
+  'menu.sales.CSROrder': '审核订单',
+  'menu.sales.delivery': '发货物流查询',
+  'menu.sales.FRA': '财务放单审核',
+  'menu.sales.ODM': '订单产品修改',
+  'menu.sales.OMARecord': '订单修改申请记录',
+  'menu.sales.WarehouseConfig': '仓库配置',
+  'menu.sales.CSRSettings': 'CSR审核清单',
+
 
 };

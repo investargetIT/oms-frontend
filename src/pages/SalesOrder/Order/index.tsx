@@ -57,7 +57,7 @@ import ApplyCancellation from './components/Button/ApplyCancellation';
 import ApplyModification from './components/Button/ApplyModification';
 import SpeceilinfoDrawer from './components/SpeceilinfoDrawer';
 import TableCom from '@/pages/components/TableCom/Index';
-const prefix = getEnv();
+// const prefix = getEnv();
 
 export function useUnmounted() {
   const unmountedRef = useRef(false);
@@ -142,16 +142,16 @@ const Index: React.FC = () => {
     // setSaleVisible(false);
     if (saleValue == 2) {
       setConfirmload(true);
-      const res = await notReplace(Record.orderNo);
-      if (res.errCode == 200) {
-        message.success('不替换操作成功');
-        setSaleVisible(false);
-        // 增加log标记
-        await saveReplaceLog({ types: [4], orderNo: Record.orderNo });
-        fn(); //?刷新主数据的表格
-      } else {
-        message.warning(res.errMsg);
-      }
+      // const res = await notReplace(Record.orderNo);
+      // if (res.errCode == 200) {
+      //   message.success('不替换操作成功');
+      //   setSaleVisible(false);
+      //   // 增加log标记
+      //   await saveReplaceLog({ types: [4], orderNo: Record.orderNo });
+      //   fn(); //?刷新主数据的表格
+      // } else {
+      //   message.warning(res.errMsg);
+      // }
       setConfirmload(false);
     } else if (saleValue == 1) {
       // console.log(22, '22');
@@ -193,22 +193,22 @@ const Index: React.FC = () => {
         okText: '取消订单',
         cancelText: '撤销操作',
         onOk() {
-          adminCancelOrder({
-            orderNo: selectOrder[0].orderNo,
-          })
-            .then((res) => {
-              if (res.errCode === 200) {
-                message.success('取消订单成功');
-                ref.current?.reload(true);
-                setSelectOrder([]);
-                setSelectedRowKeys([]);
-              } else {
-                message.error(res.errMsg);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          // adminCancelOrder({
+          //   orderNo: selectOrder[0].orderNo,
+          // })
+            // .then((res) => {
+              // if (res.errCode === 200) {
+              //   message.success('取消订单成功');
+              //   ref.current?.reload(true);
+              //   setSelectOrder([]);
+              //   setSelectedRowKeys([]);
+              // } else {
+              //   message.error(res.errMsg);
+              // }
+            // })
+            // .catch((err) => {
+            //   console.log(err);
+            // });
         },
         onCancel() {
           setSelectOrder([]);
@@ -335,15 +335,15 @@ const Index: React.FC = () => {
             key={'分享'}
             type="link"
             onClick={() => {
-              const code = initialState?.currentUser?.code;
-              let link = `${getEnvEnterprise()}/user/transaction/orderDetail.html?orderNo=${
-                record.orderNo
-              }&sc=${code}`;
-              if (record.channelCode === 20) {
-                link = `${getEnvMymro()}/member/orderDetail.html?orderNo=${
-                  record.orderNo
-                }&sc=${code}`;
-              }
+              // const code = initialState?.currentUser?.code;
+              // let link = `${getEnvEnterprise()}/user/transaction/orderDetail.html?orderNo=${
+              //   record.orderNo
+              // }&sc=${code}`;
+              // if (record.channelCode === 20) {
+              //   link = `${getEnvMymro()}/member/orderDetail.html?orderNo=${
+              //     record.orderNo
+              //   }&sc=${code}`;
+              // }
 
               handleOrder({
                 url: link,
@@ -507,26 +507,26 @@ const Index: React.FC = () => {
   const [JVListData, setJVListData] = useState<any>([]);
   useEffect(() => {
     // 业务类型list
-    getByKeys({ list: ['businessTypeEnum'] }).then((res: any) => {
-      if (res?.errCode === 200) {
-        if (res?.data[0] == null) return;
-        setStatusList(
-          res?.data?.map((io: any) => {
-            return io.enums.map((ic: any) => ({
-              ...ic,
-              key: ic.code,
-              value: ic.name,
-            }));
-          }),
-        );
-      }
-    });
+    // getByKeys({ list: ['businessTypeEnum'] }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     if (res?.data[0] == null) return;
+    //     setStatusList(
+    //       res?.data?.map((io: any) => {
+    //         return io.enums.map((ic: any) => ({
+    //           ...ic,
+    //           key: ic.code,
+    //           value: ic.name,
+    //         }));
+    //       }),
+    //     );
+    //   }
+    // });
 
-    queryMasterJV({ pageSize: 200, disable: true }).then((res: any) => {
-      if (res?.errCode === 200) {
-        setJVListData(res?.data?.list);
-      }
-    });
+    // queryMasterJV({ pageSize: 200, disable: true }).then((res: any) => {
+    //   if (res?.errCode === 200) {
+    //     setJVListData(res?.data?.list);
+    //   }
+    // });
   }, []);
   useEffect(() => {
     setIsModalVisible(false);
@@ -541,26 +541,26 @@ const Index: React.FC = () => {
   useEffect(() => {
     const k = Math.random();
     setKey(k);
-    getOrderDateList({ type: 'orderStatus' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderStatusList(res.data.dataList);
-      }
-    });
-    getOrderDateList({ type: 'orderType' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderTypeList(res.data.dataList);
-      }
-    });
-    getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderChannelList(res.data.dataList);
-      }
-    });
-    getCompanyList().then((res: any) => {
-      if (res.errCode === 200) {
-        setOrderCompanyList(res.data.dataList);
-      }
-    });
+    // getOrderDateList({ type: 'orderStatus' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderStatusList(res.data.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderType' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderTypeList(res.data.dataList);
+    //   }
+    // });
+    // getOrderDateList({ type: 'orderChannel' }).then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderChannelList(res.data.dataList);
+    //   }
+    // });
+    // getCompanyList().then((res: any) => {
+    //   if (res.errCode === 200) {
+    //     setOrderCompanyList(res.data.dataList);
+    //   }
+    // });
 
     //设置select初始值
     form.setFieldsValue({
@@ -571,9 +571,9 @@ const Index: React.FC = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    setYClient((initialState?.windowInnerHeight || window.innerHeight) - 340);
-  }, [initialState?.windowInnerHeight]);
+  // useEffect(() => {
+  //   setYClient((initialState?.windowInnerHeight || window.innerHeight) - 340);
+  // }, [initialState?.windowInnerHeight]);
 
   return (
     <div className="omsAntStyle SalesOrderStyle">
@@ -836,16 +836,16 @@ const Index: React.FC = () => {
             if (newString === '0') {
               subOrderNo = JSON.parse(JSON.stringify(searchParams.orderNo.substring(1)));
             }
-            const res = await getAllOrderList({
-              ...searchParams,
-              orderNo: subOrderNo,
-              nc: isNc,
-            });
-            const res1 = await orderList({
-              ...searchParams,
-              orderNo: subOrderNo,
-              nc: isNc,
-            });
+            // const res = await getAllOrderList({
+            //   ...searchParams,
+            //   orderNo: subOrderNo,
+            //   nc: isNc,
+            // });
+            // const res1 = await orderList({
+            //   ...searchParams,
+            //   orderNo: subOrderNo,
+            //   nc: isNc,
+            // });
             setParams(searchParams);
             if (res?.data?.orderAmountNet) {
               const newVal = Number(res?.data?.orderAmountNet)?.toLocaleString();
@@ -863,17 +863,17 @@ const Index: React.FC = () => {
               //? 在表格数据的每一条里面加一个标识，然后用这个标识找到对应要编辑的那一项
               e.index = i;
             });
-            if (res1.errCode === 200) {
-              setOrderTotal(res1.data?.total);
-              return Promise.resolve({
-                data: res1.data?.list,
-                total: res1.data?.total,
-                success: true,
-              });
-            } else {
-              message.error(res1.errMsg);
-              return Promise.resolve([]);
-            }
+            // if (res1.errCode === 200) {
+            //   setOrderTotal(res1.data?.total);
+            //   return Promise.resolve({
+            //     data: res1.data?.list,
+            //     total: res1.data?.total,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(res1.errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           onRow={(record) => {
             return {
@@ -898,9 +898,9 @@ const Index: React.FC = () => {
           actionRef={ref}
           headerTitle={
             <Space>
-              {initialState?.currentUser?.authorizations.includes(
+              {/* {initialState?.currentUser?.authorizations.includes(
                 'salesorder00011:omsallSalesOrdersalesOrder.cancel',
-              ) && (
+              ) && ( */}
                 <Button
                   key="取消订单"
                   danger
@@ -910,7 +910,7 @@ const Index: React.FC = () => {
                 >
                   取消订单
                 </Button>
-              )}
+              {/* )} */}
               <Button
                 key="修改特定信息"
                 type="primary"
@@ -920,9 +920,9 @@ const Index: React.FC = () => {
               >
                 修改特定信息
               </Button>
-              {initialState?.currentUser?.authorizations.includes(
+              {/* {initialState?.currentUser?.authorizations.includes(
                 'salesorder00011:omsallSalesOrdersalesOrder.modify',
-              ) && (
+              ) && ( */}
                 <Button
                   key="修改订单状态"
                   type="primary"
@@ -939,7 +939,7 @@ const Index: React.FC = () => {
                 >
                   修改订单状态
                 </Button>
-              )}
+              {/* )} */}
             </Space>
           }
         />
@@ -1045,27 +1045,27 @@ const Index: React.FC = () => {
                 submitTimeout={2000}
                 onFinish={async (values) => {
                   const { response } = values.file[0];
-                  const res = await updatePayOrderInfo({
-                    orderNo: Record.orderNo,
-                    paymentMethod: Record.paymentMethodCode,
-                    payTime: moment().format('YYYY-MM-DD HH:mm:ss'),
-                    payStatus: '001',
-                    resourceVOList: [
-                      {
-                        resourceUrl: response.data.resourceUrl,
-                        resourceName: response.data.resourceName,
-                        fileType: '付款凭证',
-                      },
-                    ],
-                  });
-                  if (res.errMsg === '成功') {
-                    setIsModalVisible(false);
-                    ref?.current?.reload();
-                    return true;
-                  } else {
-                    message.error(res.errMsg);
-                    return false;
-                  }
+                  // const res = await updatePayOrderInfo({
+                  //   orderNo: Record.orderNo,
+                  //   paymentMethod: Record.paymentMethodCode,
+                  //   payTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+                  //   payStatus: '001',
+                  //   resourceVOList: [
+                  //     {
+                  //       resourceUrl: response.data.resourceUrl,
+                  //       resourceName: response.data.resourceName,
+                  //       fileType: '付款凭证',
+                  //     },
+                  //   ],
+                  // });
+                  // if (res.errMsg === '成功') {
+                  //   setIsModalVisible(false);
+                  //   ref?.current?.reload();
+                  //   return true;
+                  // } else {
+                  //   message.error(res.errMsg);
+                  //   return false;
+                  // }
                 }}
                 trigger={
                   <Button className="editButton" style={{ marginRight: '20px' }}>

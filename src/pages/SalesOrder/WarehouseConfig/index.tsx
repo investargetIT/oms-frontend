@@ -78,122 +78,122 @@ const Index: React.FC = () => {
     setVirtualFlag(b);
   };
   const delReg = async (record: any) => {
-    const res = await deleteWareHouseRegion(record.sid);
-    if (res.errCode === 200) {
-      message.success('删除成功');
-      ref.current.reload();
-    } else {
-      message.error('获取区域失败');
-    }
+    // const res = await deleteWareHouseRegion(record.sid);
+    // if (res.errCode === 200) {
+    //   message.success('删除成功');
+    //   ref.current.reload();
+    // } else {
+    //   message.error('获取区域失败');
+    // }
   };
   //?一进入页面查询仓库信息
   const fn = async () => {
-    const res = await queryWareHouse();
-    if (res.errCode == 200) {
-      if (res.data.length > 0) {
-        setCityInfo(res.data);
-        setHouseInfo(res.data[0]); //?刚进入页面的时候默认是第一个省份的信息
-        setCode(res?.data[0]?.storageLocationCode); //?设置装运点信息
-        const result = await queryWareHouseConfig(res?.data[0]?.wareCode); //?刚一开始进入页面的时候将状态和是否接收售后设置一下
-        if (result.errCode == 200) {
-          const {
-            data: { efficient, afterSale: a, virtualFlag: b },
-          } = result || {};
-          setState(efficient);
-          setafterSale(a);
-          setVirtualFlag(b);
-        } else {
-          message.error('失败' + res.errMsg);
-        }
-      } else {
-        message.error('查询仓库信息接口为空');
-      }
-    } else {
-      message.error('失败' + res.errMsg);
-    }
+    // const res = await queryWareHouse();
+    // if (res.errCode == 200) {
+    //   if (res.data.length > 0) {
+    //     setCityInfo(res.data);
+    //     setHouseInfo(res.data[0]); //?刚进入页面的时候默认是第一个省份的信息
+    //     setCode(res?.data[0]?.storageLocationCode); //?设置装运点信息
+    //     const result = await queryWareHouseConfig(res?.data[0]?.wareCode); //?刚一开始进入页面的时候将状态和是否接收售后设置一下
+    //     if (result.errCode == 200) {
+    //       const {
+    //         data: { efficient, afterSale: a, virtualFlag: b },
+    //       } = result || {};
+    //       setState(efficient);
+    //       setafterSale(a);
+    //       setVirtualFlag(b);
+    //     } else {
+    //       message.error('失败' + res.errMsg);
+    //     }
+    //   } else {
+    //     message.error('查询仓库信息接口为空');
+    //   }
+    // } else {
+    //   message.error('失败' + res.errMsg);
+    // }
   };
   const saleChange = async (e: any) => {
     setafterSale(e);
-    const res = await updateWareHouseConfig({
-      efficient: state,
-      afterSale: e,
-      virtualFlag,
-      wareCode: houseInfo.wareCode,
-    });
-    if (res.errCode === 200) {
-      message.success('修改成功');
-    } else {
-      message.error('修改失败' + res.errMsg);
-    }
+    // const res = await updateWareHouseConfig({
+    //   efficient: state,
+    //   afterSale: e,
+    //   virtualFlag,
+    //   wareCode: houseInfo.wareCode,
+    // });
+    // if (res.errCode === 200) {
+    //   message.success('修改成功');
+    // } else {
+    //   message.error('修改失败' + res.errMsg);
+    // }
   };
   // ?是否虚拟仓
   const vChange = async (e: any) => {
     setVirtualFlag(e);
-    const res = await updateWareHouseConfig({
-      efficient: state,
-      afterSale,
-      virtualFlag: e,
-      wareCode: houseInfo.wareCode,
-    });
-    if (res.errCode === 200) {
-      message.success('修改成功');
-    } else {
-      message.error('修改失败' + res.errMsg);
-    }
+    // const res = await updateWareHouseConfig({
+    //   efficient: state,
+    //   afterSale,
+    //   virtualFlag: e,
+    //   wareCode: houseInfo.wareCode,
+    // });
+    // if (res.errCode === 200) {
+    //   message.success('修改成功');
+    // } else {
+    //   message.error('修改失败' + res.errMsg);
+    // }
   };
   const stateChange = async (e: any) => {
     setState(e);
-    const res = await updateWareHouseConfig({
-      efficient: e,
-      afterSale: afterSale,
-      virtualFlag,
-      wareCode: houseInfo.wareCode,
-    });
-    if (res.errCode === 200) {
-      message.success('修改成功');
-    } else {
-      message.error('修改失败' + res.errMsg);
-    }
+    // const res = await updateWareHouseConfig({
+    //   efficient: e,
+    //   afterSale: afterSale,
+    //   virtualFlag,
+    //   wareCode: houseInfo.wareCode,
+    // });
+    // if (res.errCode === 200) {
+    //   message.success('修改成功');
+    // } else {
+    //   message.error('修改失败' + res.errMsg);
+    // }
   };
   const delServer = async (e: any) => {
-    const res = await deleteWareHouseCustomer(e.sid);
-    if (res.errCode === 200) {
-      message.success('删除成功');
-      ref2.current.reload();
-    } else {
-      message.error('删除失败' + res.errMsg);
-    }
+    // const res = await deleteWareHouseCustomer(e.sid);
+    // if (res.errCode === 200) {
+    //   message.success('删除成功');
+    //   ref2.current.reload();
+    // } else {
+    //   message.error('删除失败' + res.errMsg);
+    // }
   };
   const delHouse = async (record: any) => {
-    const res = await deleteWareHouseMapping(record.sid);
-    if (res.errCode === 200) {
-      message.success('删除成功');
-    } else {
-      message.error('删除失败' + res.errMsg);
-    }
+    // const res = await deleteWareHouseMapping(record.sid);
+    // if (res.errCode === 200) {
+    //   message.success('删除成功');
+    // } else {
+    //   message.error('删除失败' + res.errMsg);
+    // }
   };
   const move = async (record: any, num: any) => {
     if (num == 1) {
       //上移
       const upSid = tableData[record.index - 1].sid;
       const params = { upMappingId: upSid, downMappingId: record.sid };
-      const res = await updateWareHouseMapping(params);
-      if (res.errCode === 200) {
-        message.success('修改优先级成功');
-        reloadTable3();
-      } else {
-        message.error('修改优先级失败' + res.errMsg);
-      }
+      // const res = await updateWareHouseMapping(params);
+      // if (res.errCode === 200) {
+      //   message.success('修改优先级成功');
+      //   reloadTable3();
+      // } else {
+      //   message.error('修改优先级失败' + res.errMsg);
+      // }
     } else {
       const upSid = tableData[record.index + 1].sid;
       const params = { upMappingId: record.sid, downMappingId: upSid };
-      const res = await updateWareHouseMapping(params);
-      if (res.errCode === 200) {
-        message.success('修改优先级成功');
-        reloadTable3();
-      } else {
-        message.error('修改优先级失败' + res.errMsg);
-      }
+      // const res = await updateWareHouseMapping(params);
+      // if (res.errCode === 200) {
+      //   message.success('修改优先级成功');
+      //   reloadTable3();
+      // } else {
+      //   message.error('修改优先级失败' + res.errMsg);
+      // }
     }
   };
   const showDialog = (record: any, tableNo: number) => {
@@ -452,20 +452,20 @@ const Index: React.FC = () => {
                           pageSize: params.pageSize,
                           wareCode: houseInfo.wareCode,
                         };
-                        const res = await queryWareHouseRegion(searchParams);
-                        if (res.errCode === 200) {
-                          res.data?.list.forEach((e: any, i: any) => {
-                            e.index = i;
-                          });
-                          return Promise.resolve({
-                            data: res.data?.list,
-                            total: res.data?.total,
-                            success: true,
-                          });
-                        } else {
-                          Modal.error(res.errMsg);
-                          return Promise.resolve([]);
-                        }
+                        // const res = await queryWareHouseRegion(searchParams);
+                        // if (res.errCode === 200) {
+                        //   res.data?.list.forEach((e: any, i: any) => {
+                        //     e.index = i;
+                        //   });
+                        //   return Promise.resolve({
+                        //     data: res.data?.list,
+                        //     total: res.data?.total,
+                        //     success: true,
+                        //   });
+                        // } else {
+                        //   Modal.error(res.errMsg);
+                        //   return Promise.resolve([]);
+                        // }
                       }}
                       pagination={{
                         defaultPageSize: 10,
@@ -501,20 +501,20 @@ const Index: React.FC = () => {
                           pageSize: params.pageSize,
                           wareCode: houseInfo.wareCode,
                         };
-                        const res = await queryWareHouseCustomer(searchParams);
-                        if (res.errCode === 200) {
-                          res.data?.list.forEach((e: any, i: any) => {
-                            e.index = i;
-                          });
-                          return Promise.resolve({
-                            data: res.data?.list,
-                            total: res.data?.total,
-                            success: true,
-                          });
-                        } else {
-                          Modal.error(res.errMsg);
-                          return Promise.resolve([]);
-                        }
+                        // const res = await queryWareHouseCustomer(searchParams);
+                        // if (res.errCode === 200) {
+                        //   res.data?.list.forEach((e: any, i: any) => {
+                        //     e.index = i;
+                        //   });
+                        //   return Promise.resolve({
+                        //     data: res.data?.list,
+                        //     total: res.data?.total,
+                        //     success: true,
+                        //   });
+                        // } else {
+                        //   Modal.error(res.errMsg);
+                        //   return Promise.resolve([]);
+                        // }
                       }}
                       pagination={{
                         defaultPageSize: 10,
@@ -550,22 +550,22 @@ const Index: React.FC = () => {
                           pageSize: params.pageSize,
                           wareCode: houseInfo.wareCode,
                         };
-                        const res = await queryWareHouseMapping(searchParams);
-                        if (res.errCode === 200) {
-                          res.data?.list.forEach((e: any, i: any) => {
-                            e.index = i;
-                          });
-                          setTableData(res.data?.list);
-                          setLength(res.data?.list?.length);
-                          return Promise.resolve({
-                            data: res.data?.list,
-                            total: res.data?.total,
-                            success: true,
-                          });
-                        } else {
-                          Modal.error(res.errMsg);
-                          return Promise.resolve([]);
-                        }
+                        // const res = await queryWareHouseMapping(searchParams);
+                        // if (res.errCode === 200) {
+                        //   res.data?.list.forEach((e: any, i: any) => {
+                        //     e.index = i;
+                        //   });
+                        //   setTableData(res.data?.list);
+                        //   setLength(res.data?.list?.length);
+                        //   return Promise.resolve({
+                        //     data: res.data?.list,
+                        //     total: res.data?.total,
+                        //     success: true,
+                        //   });
+                        // } else {
+                        //   Modal.error(res.errMsg);
+                        //   return Promise.resolve([]);
+                        // }
                       }}
                       pagination={{
                         defaultPageSize: 10,

@@ -69,14 +69,14 @@ const MyDrawer = ({ reload }: any, ref: any) => {
     setStep(state);
     setOrderNo(e); //?存储上一个页面的行信息
     setIsModalVisible(true);
-    const res2 = await orderDetail(e);
-    if (res2.errCode !== 200) {
-      return message.error(res2.errMsg);
-    }
-    const {
-      data: { salesOrderRespVo },
-    } = res2;
-    setGoodsDetail(salesOrderRespVo);
+    // const res2 = await orderDetail(e);
+    // if (res2.errCode !== 200) {
+    //   return message.error(res2.errMsg);
+    // }
+    // const {
+    //   data: { salesOrderRespVo },
+    // } = res2;
+    // setGoodsDetail(salesOrderRespVo);
     setLoad(false);
     await setTimeout(() => {}, 0);
     //?关闭抽屉销毁组件无须重置
@@ -110,7 +110,7 @@ const MyDrawer = ({ reload }: any, ref: any) => {
     const count2 = count + 1;
     setCount(count2);
     setReplaceArr(arr);
-    const res = await queryCustomerDis(row.customerCode);
+    // const res = await queryCustomerDis(row.customerCode);
     // ?新增行的第一次时候查折扣,用于替换总金额含税的计算
     setDiscountRate(res.data.discountRate);
     tableRef?.current?.reload();
@@ -167,39 +167,39 @@ const MyDrawer = ({ reload }: any, ref: any) => {
     if (!par.requestQty || !par.replaceQty || !par?.replaceSku || par?.replaceSku?.length < 4)
       return;
     setsearchLoad(true);
-    getProductLineInfo(par).then((res) => {
-      if (res.errCode === 200 && res.errMsg == '成功') {
-        replaceArr[record.index].replaceListPrice = res.data.replaceListPrice; //?替换物料原面价含税
-        replaceArr[record.index].replaceInventory = res.data.replaceInventory; //?库存
-        replaceArr[record.index].replacetAmount = res.data.replaceAmount; //?替换总金额含税
-        replaceArr[record.index].replaceProductName = res.data.replaceProductName; //? Product
-        // 联动订单信息的申请替换总价
-        let Price = 0;
-        let Price2 = 0;
-        replaceArr.forEach((ite: any) => {
-          //?精度丢失,需要乘100再除100
-          if (ite.requestAmount) {
-            //?当这一行有申请金额的时候才去累加否则会造成NAN
-            Price = (Price * 100 + Number(ite.requestAmount) * 100) / 100;
-          }
-        });
-        setPrice(Price.toFixed(2));
-        // 联动订单信息的替换产品总价
-        replaceArr.forEach((ite: any) => {
-          if (ite.replaceAmount) {
-            //?当这一行有替换金额的时候才去累加否则会造成NAN
-            Price2 = (Price2 * 100 + Number(ite.replacetAmount) * 100) / 100;
-          }
-        });
-        setPrice2(Price2.toFixed(2));
-        setReplaceArr(replaceArr);
-        tableRef.current.reload();
-        setsearchLoad(false);
-      } else {
-        message.error('获取替换信息失败' + res.errMsg);
-        setsearchLoad(false);
-      }
-    });
+    // getProductLineInfo(par).then((res) => {
+    //   if (res.errCode === 200 && res.errMsg == '成功') {
+    //     replaceArr[record.index].replaceListPrice = res.data.replaceListPrice; //?替换物料原面价含税
+    //     replaceArr[record.index].replaceInventory = res.data.replaceInventory; //?库存
+    //     replaceArr[record.index].replacetAmount = res.data.replaceAmount; //?替换总金额含税
+    //     replaceArr[record.index].replaceProductName = res.data.replaceProductName; //? Product
+    //     // 联动订单信息的申请替换总价
+    //     let Price = 0;
+    //     let Price2 = 0;
+    //     replaceArr.forEach((ite: any) => {
+    //       //?精度丢失,需要乘100再除100
+    //       if (ite.requestAmount) {
+    //         //?当这一行有申请金额的时候才去累加否则会造成NAN
+    //         Price = (Price * 100 + Number(ite.requestAmount) * 100) / 100;
+    //       }
+    //     });
+    //     setPrice(Price.toFixed(2));
+    //     // 联动订单信息的替换产品总价
+    //     replaceArr.forEach((ite: any) => {
+    //       if (ite.replaceAmount) {
+    //         //?当这一行有替换金额的时候才去累加否则会造成NAN
+    //         Price2 = (Price2 * 100 + Number(ite.replacetAmount) * 100) / 100;
+    //       }
+    //     });
+    //     setPrice2(Price2.toFixed(2));
+    //     setReplaceArr(replaceArr);
+    //     tableRef.current.reload();
+    //     setsearchLoad(false);
+    //   } else {
+    //     message.error('获取替换信息失败' + res.errMsg);
+    //     setsearchLoad(false);
+    //   }
+    // });
   };
   //? 申请替换数量输入框
   function repCount(e: any, record: any): any {
@@ -349,16 +349,16 @@ const MyDrawer = ({ reload }: any, ref: any) => {
       lines,
       resourceVOList: FileArr,
     };
-    const res = await createProductUpdate(parm);
-    // console.log(res);
-    if (res.errCode == 200) {
-      message.success('提交成功');
-      setIsModalVisible(false);
-      // console.log(reload, 'reload');
-      reload();
-    } else {
-      message.error('提交失败' + res.errMsg);
-    }
+    // const res = await createProductUpdate(parm);
+    // // console.log(res);
+    // if (res.errCode == 200) {
+    //   message.success('提交成功');
+    //   setIsModalVisible(false);
+    //   // console.log(reload, 'reload');
+    //   reload();
+    // } else {
+    //   message.error('提交失败' + res.errMsg);
+    // }
     setLoading(false);
   };
   const uploadFile = () => {
@@ -703,27 +703,27 @@ const MyDrawer = ({ reload }: any, ref: any) => {
                         subType: 40, //?现在的数组
                         //?刚进入页面的时候传subTyoe40，接下来传的时候传20，区分原来上传和新增上传的附件
                       };
-                      const res = await queryRefResource(searchParams);
-                      const res2 = await queryRefResource(searchParams2);
-                      if (res.errCode === 200) {
-                        res2?.data?.list.forEach((e: any, i: any) => {
-                          e.delete = i; //?添加删除状态
-                        });
-                        //? 接下来合并两个数组
-                        const newArr = res?.data.list.concat(res2?.data.list);
-                        newArr.forEach((e: any, i: any) => {
-                          //?防止key报错
-                          e.index = i;
-                        });
-                        return Promise.resolve({
-                          data: newArr,
-                          total: newArr?.length,
-                          success: true,
-                        });
-                      } else {
-                        // message.error(res.errMsg);
-                        return Promise.resolve([]);
-                      }
+                      // const res = await queryRefResource(searchParams);
+                      // const res2 = await queryRefResource(searchParams2);
+                      // if (res.errCode === 200) {
+                      //   res2?.data?.list.forEach((e: any, i: any) => {
+                      //     e.delete = i; //?添加删除状态
+                      //   });
+                      //   //? 接下来合并两个数组
+                      //   const newArr = res?.data.list.concat(res2?.data.list);
+                      //   newArr.forEach((e: any, i: any) => {
+                      //     //?防止key报错
+                      //     e.index = i;
+                      //   });
+                      //   return Promise.resolve({
+                      //     data: newArr,
+                      //     total: newArr?.length,
+                      //     success: true,
+                      //   });
+                      // } else {
+                      //   // message.error(res.errMsg);
+                      //   return Promise.resolve([]);
+                      // }
                     } else {
                       return Promise.resolve({
                         data: FileArr,
@@ -770,27 +770,28 @@ const MyDrawer = ({ reload }: any, ref: any) => {
                         });
                       } else {
                         // if (goodsDetail?.sid === undefined) return [];
-                        const res = await queryProductLine(row?.sid);
-                        // console.log(res.errMsg);
-                        if (res.errCode === 200) {
-                          let Price2 = 0;
-                          let Price = 0;
-                          res.data.forEach((e: any, i: any) => {
-                            Price2 = (Price2 * 100 + Number(e.replaceAmount) * 100) / 100;
-                            Price = (Price * 100 + Number(e.requestAmount) * 100) / 100;
-                            e.index = i;
-                          });
-                          setPrice2(Price2.toFixed(2));
-                          setPrice(Price.toFixed(2));
-                          return Promise.resolve({
-                            data: res.data,
-                            total: res.data?.total,
-                            success: true,
-                          });
-                        } else {
-                          message.error('暂无数据');
-                          return Promise.resolve([]);
-                        }
+                        //以上原来就屏蔽
+                        // const res = await queryProductLine(row?.sid);
+                        // // console.log(res.errMsg);
+                        // if (res.errCode === 200) {
+                        //   let Price2 = 0;
+                        //   let Price = 0;
+                        //   res.data.forEach((e: any, i: any) => {
+                        //     Price2 = (Price2 * 100 + Number(e.replaceAmount) * 100) / 100;
+                        //     Price = (Price * 100 + Number(e.requestAmount) * 100) / 100;
+                        //     e.index = i;
+                        //   });
+                        //   setPrice2(Price2.toFixed(2));
+                        //   setPrice(Price.toFixed(2));
+                        //   return Promise.resolve({
+                        //     data: res.data,
+                        //     total: res.data?.total,
+                        //     success: true,
+                        //   });
+                        // } else {
+                        //   message.error('暂无数据');
+                        //   return Promise.resolve([]);
+                        // }
                       }
                     }}
                     rowKey="index"

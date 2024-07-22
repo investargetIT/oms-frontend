@@ -372,23 +372,23 @@ const MyDrawer = ({ fn }: any, ref: any) => {
   const [btnStatusData, setbtnStatusData] = useState<any>({});
   const initBtn = async (e?: any) => {
     queryOderChannelConfig(e).then((res: any) => {
-      const { errCode, errMsg, data } = res;
-      if (errCode == 200) {
-        setbtnStatusData(data);
-      } else {
-        message.error(errMsg);
-      }
+      // const { errCode, errMsg, data } = res;
+      // if (errCode == 200) {
+      //   setbtnStatusData(data);
+      // } else {
+      //   message.error(errMsg);
+      // }
     });
   };
 
   //?进入页面的时候搜索所有的公司的下拉
   const searchCompany = async () => {
-    const res = await queryListDataMap(['masterJV']);
-    if (res.errCode == 200) {
-      setCompanyList(res?.data?.masterJV);
-    } else {
-      message.error('失败' + res.errMsg);
-    }
+    // const res = await queryListDataMap(['masterJV']);
+    // if (res.errCode == 200) {
+    //   setCompanyList(res?.data?.masterJV);
+    // } else {
+    //   message.error('失败' + res.errMsg);
+    // }
   };
   const infoColumn: ProColumns<any>[] = [
     {
@@ -696,39 +696,39 @@ const MyDrawer = ({ fn }: any, ref: any) => {
     const res = await goodsDetails(searchParams);
     // console.log(res, 'res');
     // console.log(changeArr, 'changeArr');
-    if (res.errCode == 200) {
-      setTotal(res?.data?.total);
-      for (let i = 0; i < res?.data.list.length; i++) {
-        // const item = res?.data.list[i];
-        // console.log(item, 'item');
-        //   //?一开始进入页面的时候，当有公司的jVCode的时候，让确认项的初始值等于mark，显示成标记JV
-        if (res?.data?.list[i]?.jvCompanyCode) {
-          res.data.list[i].Jvalue = 'mark';
-          res.data.list[i].jv = '是';
-        } else {
-          res.data.list[i].Jvalue = 'unchange';
-          res.data.list[i].jv = '否';
-        }
-      }
-      // console.log(res.data.list, 'res.data.list');
-      // ?拿到changeArr（改变过的）每一项，去请求回来的数据里面去匹配，如果找到一样的就将changeArr里面的那一项，替换掉请求回来的那一项
-      for (let i = 0; i < changeArr.length; i++) {
-        const element = changeArr[i];
-        for (let j = 0; j < res?.data?.list?.length; j++) {
-          const ele = res?.data?.list[j];
-          if (element.sid === ele.sid) {
-            res.data.list[j] = element;
-          }
-        }
-      }
-      setReplaceArr(res?.data?.list);
-      const lp = res?.data?.list?.filter((io: any) =>
-        selectedRowKeys.some((ic: any) => ic == io.orderLineId),
-      );
-      setSelectedRow(lp);
-    } else {
-      message.error('失败' + res.errMsg);
-    }
+    // if (res.errCode == 200) {
+    //   setTotal(res?.data?.total);
+    //   for (let i = 0; i < res?.data.list.length; i++) {
+    //     // const item = res?.data.list[i];
+    //     // console.log(item, 'item');
+    //     //   //?一开始进入页面的时候，当有公司的jVCode的时候，让确认项的初始值等于mark，显示成标记JV
+    //     if (res?.data?.list[i]?.jvCompanyCode) {
+    //       res.data.list[i].Jvalue = 'mark';
+    //       res.data.list[i].jv = '是';
+    //     } else {
+    //       res.data.list[i].Jvalue = 'unchange';
+    //       res.data.list[i].jv = '否';
+    //     }
+    //   }
+    //   // console.log(res.data.list, 'res.data.list');
+    //   // ?拿到changeArr（改变过的）每一项，去请求回来的数据里面去匹配，如果找到一样的就将changeArr里面的那一项，替换掉请求回来的那一项
+    //   for (let i = 0; i < changeArr.length; i++) {
+    //     const element = changeArr[i];
+    //     for (let j = 0; j < res?.data?.list?.length; j++) {
+    //       const ele = res?.data?.list[j];
+    //       if (element.sid === ele.sid) {
+    //         res.data.list[j] = element;
+    //       }
+    //     }
+    //   }
+    //   setReplaceArr(res?.data?.list);
+    //   const lp = res?.data?.list?.filter((io: any) =>
+    //     selectedRowKeys.some((ic: any) => ic == io.orderLineId),
+    //   );
+    //   setSelectedRow(lp);
+    // } else {
+    //   message.error('失败' + res.errMsg);
+    // }
   };
   function onShowSizeChange(current: any, pageSize: any) {
     setCurrentPage(current);
@@ -806,12 +806,12 @@ const MyDrawer = ({ fn }: any, ref: any) => {
                   orderLineId: io.orderLineId,
                   markChangeSupplier: io.markChangeSupplier ? 1 : 0,
                 }));
-                const { errCode, errMsg } = await markLocalSupplier(par);
-                if (errCode != 200) {
-                  message.error(errMsg);
-                  setConfirmload(false);
-                  return false;
-                }
+                // const { errCode, errMsg } = await markLocalSupplier(par);
+                // if (errCode != 200) {
+                //   message.error(errMsg);
+                //   setConfirmload(false);
+                //   return false;
+                // }
               }
               // add 需要制定供應商
               const changeArrS = changeArr.filter((io: any) => io.markAppointSupplier);
@@ -841,12 +841,12 @@ const MyDrawer = ({ fn }: any, ref: any) => {
                     consumedQty: io.consumedQty,
                   })),
                 };
-                const { errCode, errMsg } = await appointSupplier(par);
-                if (errCode != 200) {
-                  message.error(errMsg);
-                  setConfirmload(false);
-                  return false;
-                }
+                // const { errCode, errMsg } = await appointSupplier(par);
+                // if (errCode != 200) {
+                //   message.error(errMsg);
+                //   setConfirmload(false);
+                //   return false;
+                // }
               }
               //?说明有改动的内容，如果没有改动的内容就不替换
               const paramsArr = changeArr
@@ -872,99 +872,99 @@ const MyDrawer = ({ fn }: any, ref: any) => {
               //?如果有改了公司code的就给后端发请求，否则不发
               //! 这个情况就是同时标记了jv但是不用A换B
 
-              if (paramsArr.length > 0 && changePar.length == 0 && changeArrS.length == 0) {
-                const res = await updateJv(paramsArr);
-                if (res.errCode == 200) {
-                  const result = await notReplace(key);
-                  if (result.errCode == 200) {
-                    message.success('操作成功');
-                    // 记录log
-                    const par = {
-                      types: [jvStatus, markSupplierStatus]?.filter((io) => io),
-                      orderNo: key,
-                    };
-                    if (par?.types.length > 0) {
-                      await saveReplaceLog(par);
-                    }
-                    setConfirmload(false);
-                    reloadData(); //?清一下分页缓存和替换数据缓存
-                    setIsModalVisible(false);
-                    fn(); //?刷新主数据的表格
-                  } else {
-                    setConfirmload(false);
-                    message.error('失败' + result.errMsg);
-                  }
-                  //?将所有AhuanB状态的数据筛选出来
-                  // setIsModalVisible(false);
-                } else {
-                  setConfirmload(false);
-                  message.warning(res.errMsg);
-                }
-              } else if (paramsArr.length > 0 && changePar.length == 0 && changeArrS.length > 0) {
-                const res = await updateJv(paramsArr);
-                if (res.errCode == 200) {
-                  message.success('操作成功');
-                  // 记录log
-                  const par = {
-                    types: [jvStatus, markSupplierStatus, markAppointSupplierStatus]?.filter(
-                      (io) => io,
-                    ),
-                    orderNo: key,
-                  };
-                  if (par?.types.length > 0) {
-                    await saveReplaceLog(par);
-                  }
-                  setConfirmload(false);
-                  reloadData(); //?清一下分页缓存和替换数据缓存
-                  setIsModalVisible(false);
-                  fn(); //?刷新主数据的表格
-                } else {
-                  setConfirmload(false);
-                  message.warning(res.errMsg);
-                }
-              } else if (paramsArr.length > 0 && changePar.length > 0) {
-                //? 先把从不处理到标记jv的存到后端数据库
-                const res = await updateJv(paramsArr);
-                if (res.errCode == 200) {
-                  message.success('操作成功');
-                  //?顺便把a换b就带到下一个页面
-                  ModalRef?.current?.openModal(Row, changePar);
-                  setConfirmload(false);
-                  reloadData(); //?清一下分页缓存和替换数据缓存
-                  setIsModalVisible(false);
-                } else {
-                  setConfirmload(false);
-                  message.error('操作失败' + res.errMsg);
-                }
-                // } else if (changePar.length > 0 && changePar.length == 0) {
-                ModalRef?.current?.openModal(Row, changePar);
-                reloadData(); //?清一下分页缓存和替换数据缓存
-                setIsModalVisible(false);
-                setConfirmload(false);
-                // } else {
-                //   message.success('保存成功');
-                //   setIsModalVisible(false);
-                // }
-                //! 这个情况就是只有A换B
-              } else if (paramsArr.length == 0 && changePar.length > 0) {
-                setConfirmload(false);
-                ModalRef?.current?.openModal(Row, changePar);
-                setChageArr([]); //?将分页记忆的数组清空一下
-                setIsModalVisible(false);
-              }
+              // if (paramsArr.length > 0 && changePar.length == 0 && changeArrS.length == 0) {
+              //   const res = await updateJv(paramsArr);
+              //   if (res.errCode == 200) {
+              //     const result = await notReplace(key);
+              //     if (result.errCode == 200) {
+              //       message.success('操作成功');
+              //       // 记录log
+              //       const par = {
+              //         types: [jvStatus, markSupplierStatus]?.filter((io) => io),
+              //         orderNo: key,
+              //       };
+              //       if (par?.types.length > 0) {
+              //         await saveReplaceLog(par);
+              //       }
+              //       setConfirmload(false);
+              //       reloadData(); //?清一下分页缓存和替换数据缓存
+              //       setIsModalVisible(false);
+              //       fn(); //?刷新主数据的表格
+              //     } else {
+              //       setConfirmload(false);
+              //       message.error('失败' + result.errMsg);
+              //     }
+              //     //?将所有AhuanB状态的数据筛选出来
+              //     // setIsModalVisible(false);
+              //   } else {
+              //     setConfirmload(false);
+              //     message.warning(res.errMsg);
+              //   }
+              // } else if (paramsArr.length > 0 && changePar.length == 0 && changeArrS.length > 0) {
+              //   const res = await updateJv(paramsArr);
+              //   if (res.errCode == 200) {
+              //     message.success('操作成功');
+              //     // 记录log
+              //     const par = {
+              //       types: [jvStatus, markSupplierStatus, markAppointSupplierStatus]?.filter(
+              //         (io) => io,
+              //       ),
+              //       orderNo: key,
+              //     };
+              //     if (par?.types.length > 0) {
+              //       await saveReplaceLog(par);
+              //     }
+              //     setConfirmload(false);
+              //     reloadData(); //?清一下分页缓存和替换数据缓存
+              //     setIsModalVisible(false);
+              //     fn(); //?刷新主数据的表格
+              //   } else {
+              //     setConfirmload(false);
+              //     message.warning(res.errMsg);
+              //   }
+              // } else if (paramsArr.length > 0 && changePar.length > 0) {
+              //   //? 先把从不处理到标记jv的存到后端数据库
+              //   const res = await updateJv(paramsArr);
+              //   if (res.errCode == 200) {
+              //     message.success('操作成功');
+              //     //?顺便把a换b就带到下一个页面
+              //     ModalRef?.current?.openModal(Row, changePar);
+              //     setConfirmload(false);
+              //     reloadData(); //?清一下分页缓存和替换数据缓存
+              //     setIsModalVisible(false);
+              //   } else {
+              //     setConfirmload(false);
+              //     message.error('操作失败' + res.errMsg);
+              //   }
+              //   // } else if (changePar.length > 0 && changePar.length == 0) {
+              //   ModalRef?.current?.openModal(Row, changePar);
+              //   reloadData(); //?清一下分页缓存和替换数据缓存
+              //   setIsModalVisible(false);
+              //   setConfirmload(false);
+              //   // } else {
+              //   //   message.success('保存成功');
+              //   //   setIsModalVisible(false);
+              //   // }
+              //   //! 这个情况就是只有A换B
+              // } else if (paramsArr.length == 0 && changePar.length > 0) {
+              //   setConfirmload(false);
+              //   ModalRef?.current?.openModal(Row, changePar);
+              //   setChageArr([]); //?将分页记忆的数组清空一下
+              //   setIsModalVisible(false);
+              // }
             } else {
               //?当没有改动的内容的时候直接调用不替换的接口
               await saveReplaceLog({ types: [4], orderNo: key });
-              const result = await notReplace(key);
-              if (result.errCode == 200) {
-                message.success('操作成功');
-                setConfirmload(false);
-                setIsModalVisible(false);
-                fn(); //?刷新主数据的表格
-              } else {
-                setConfirmload(false);
-                message.error('失败' + result.errMsg);
-              }
+              // const result = await notReplace(key);
+              // if (result.errCode == 200) {
+              //   message.success('操作成功');
+              //   setConfirmload(false);
+              //   setIsModalVisible(false);
+              //   fn(); //?刷新主数据的表格
+              // } else {
+              //   setConfirmload(false);
+              //   message.error('失败' + result.errMsg);
+              // }
             }
             setConfirmload(false);
           } else {
@@ -1018,12 +1018,12 @@ const MyDrawer = ({ fn }: any, ref: any) => {
             orderLineId: io.orderLineId,
             markChangeSupplier: io.markChangeSupplier ? 1 : 0,
           }));
-          const { errCode, errMsg } = await markLocalSupplier(par);
-          if (errCode != 200) {
-            message.error(errMsg);
-            setConfirmload(false);
-            return false;
-          }
+          // const { errCode, errMsg } = await markLocalSupplier(par);
+          // if (errCode != 200) {
+          //   message.error(errMsg);
+          //   setConfirmload(false);
+          //   return false;
+          // }
         }
         // add 需要制定供應商
         const changeArrS = changeArr.filter((io: any) => io.markAppointSupplier);
@@ -1053,12 +1053,12 @@ const MyDrawer = ({ fn }: any, ref: any) => {
               consumedQty: io.consumedQty,
             })),
           };
-          const { errCode, errMsg } = await appointSupplier(par);
-          if (errCode != 200) {
-            message.error(errMsg);
-            setConfirmload(false);
-            return false;
-          }
+          // const { errCode, errMsg } = await appointSupplier(par);
+          // if (errCode != 200) {
+          //   message.error(errMsg);
+          //   setConfirmload(false);
+          //   return false;
+          // }
         }
         //?说明有改动的内容，如果没有改动的内容就不替换
         const paramsArr = changeArr
@@ -1085,67 +1085,67 @@ const MyDrawer = ({ fn }: any, ref: any) => {
         //! 这个情况就是同时标记了jv但是不用A换B
 
         if (paramsArr.length > 0 && changePar.length == 0 && changeArrS.length == 0) {
-          const res = await updateJv(paramsArr);
-          if (res.errCode == 200) {
-            const result = await notReplace(key);
-            if (result.errCode == 200) {
-              message.success('操作成功');
-              // 记录log
-              const par = {
-                types: [jvStatus, markSupplierStatus]?.filter((io) => io),
-                orderNo: key,
-              };
-              if (par?.types.length > 0) {
-                await saveReplaceLog(par);
-              }
-              setConfirmload(false);
-              reloadData(); //?清一下分页缓存和替换数据缓存
-              setIsModalVisible(false);
-              fn(); //?刷新主数据的表格
-            } else {
-              setConfirmload(false);
-              message.error('失败' + result.errMsg);
-            }
-            //?将所有AhuanB状态的数据筛选出来
-            // setIsModalVisible(false);
-          } else {
-            setConfirmload(false);
-            message.warning(res.errMsg);
-          }
+          // const res = await updateJv(paramsArr);
+          // if (res.errCode == 200) {
+          //   const result = await notReplace(key);
+          //   if (result.errCode == 200) {
+          //     message.success('操作成功');
+          //     // 记录log
+          //     const par = {
+          //       types: [jvStatus, markSupplierStatus]?.filter((io) => io),
+          //       orderNo: key,
+          //     };
+          //     if (par?.types.length > 0) {
+          //       await saveReplaceLog(par);
+          //     }
+          //     setConfirmload(false);
+          //     reloadData(); //?清一下分页缓存和替换数据缓存
+          //     setIsModalVisible(false);
+          //     fn(); //?刷新主数据的表格
+          //   } else {
+          //     setConfirmload(false);
+          //     message.error('失败' + result.errMsg);
+          //   }
+          //   //?将所有AhuanB状态的数据筛选出来
+          //   // setIsModalVisible(false);
+          // } else {
+          //   setConfirmload(false);
+          //   message.warning(res.errMsg);
+          // }
         } else if (paramsArr.length > 0 && changePar.length == 0 && changeArrS.length > 0) {
-          const res = await updateJv(paramsArr);
-          if (res.errCode == 200) {
-            message.success('操作成功');
-            // 记录log
-            const par = {
-              types: [jvStatus, markSupplierStatus, markAppointSupplierStatus]?.filter((io) => io),
-              orderNo: key,
-            };
-            if (par?.types.length > 0) {
-              await saveReplaceLog(par);
-            }
-            setConfirmload(false);
-            reloadData(); //?清一下分页缓存和替换数据缓存
-            setIsModalVisible(false);
-            fn(); //?刷新主数据的表格
-          } else {
-            setConfirmload(false);
-            message.warning(res.errMsg);
-          }
+          // const res = await updateJv(paramsArr);
+          // if (res.errCode == 200) {
+          //   message.success('操作成功');
+          //   // 记录log
+          //   const par = {
+          //     types: [jvStatus, markSupplierStatus, markAppointSupplierStatus]?.filter((io) => io),
+          //     orderNo: key,
+          //   };
+          //   if (par?.types.length > 0) {
+          //     await saveReplaceLog(par);
+          //   }
+          //   setConfirmload(false);
+          //   reloadData(); //?清一下分页缓存和替换数据缓存
+          //   setIsModalVisible(false);
+          //   fn(); //?刷新主数据的表格
+          // } else {
+          //   setConfirmload(false);
+          //   message.warning(res.errMsg);
+          // }
         } else if (paramsArr.length > 0 && changePar.length > 0) {
           //? 先把从不处理到标记jv的存到后端数据库
-          const res = await updateJv(paramsArr);
-          if (res.errCode == 200) {
-            message.success('操作成功');
-            //?顺便把a换b就带到下一个页面
-            ModalRef?.current?.openModal(Row, changePar);
-            setConfirmload(false);
-            reloadData(); //?清一下分页缓存和替换数据缓存
-            setIsModalVisible(false);
-          } else {
-            setConfirmload(false);
-            message.error('操作失败' + res.errMsg);
-          }
+          // const res = await updateJv(paramsArr);
+          // if (res.errCode == 200) {
+          //   message.success('操作成功');
+          //   //?顺便把a换b就带到下一个页面
+          //   ModalRef?.current?.openModal(Row, changePar);
+          //   setConfirmload(false);
+          //   reloadData(); //?清一下分页缓存和替换数据缓存
+          //   setIsModalVisible(false);
+          // } else {
+          //   setConfirmload(false);
+          //   message.error('操作失败' + res.errMsg);
+          // }
           // } else if (changePar.length > 0 && changePar.length == 0) {
           ModalRef?.current?.openModal(Row, changePar);
           reloadData(); //?清一下分页缓存和替换数据缓存
@@ -1165,16 +1165,16 @@ const MyDrawer = ({ fn }: any, ref: any) => {
       } else {
         //?当没有改动的内容的时候直接调用不替换的接口
         await saveReplaceLog({ types: [4], orderNo: key });
-        const result = await notReplace(key);
-        if (result.errCode == 200) {
-          message.success('操作成功');
-          setConfirmload(false);
-          setIsModalVisible(false);
-          fn(); //?刷新主数据的表格
-        } else {
-          setConfirmload(false);
-          message.error('失败' + result.errMsg);
-        }
+        // const result = await notReplace(key);
+        // if (result.errCode == 200) {
+        //   message.success('操作成功');
+        //   setConfirmload(false);
+        //   setIsModalVisible(false);
+        //   fn(); //?刷新主数据的表格
+        // } else {
+        //   setConfirmload(false);
+        //   message.error('失败' + result.errMsg);
+        // }
       }
       setConfirmload(false);
     } else {
@@ -1312,11 +1312,11 @@ const MyDrawer = ({ fn }: any, ref: any) => {
               {
                 <Access
                   key={'标记项目单匹配'}
-                  accessible={
-                    initialState?.currentUser?.authorizations.includes(
-                      'salesorder00011:omssallOrederMarkAppointSupplier',
-                    ) && !!btnStatusData?.markAppointSupplier
-                  }
+                  // accessible={
+                    // initialState?.currentUser?.authorizations.includes(
+                    //   'salesorder00011:omssallOrederMarkAppointSupplier',
+                    // ) && !!btnStatusData?.markAppointSupplier
+                  // }
                 >
                   <Button
                     key={'标记项目单匹配'}
@@ -1586,16 +1586,16 @@ const MyDrawer = ({ fn }: any, ref: any) => {
                 }}
                 request={async (e: any) => {
                   let list = [] as any;
-                  const { data, errCode } = await getSupplierSearchByCode({
-                    supplierCode: e.keyWords,
-                  });
-                  if (errCode === 200) {
-                    list = data?.dataList?.map((io: any) => ({
-                      ...io,
-                      label: `${io.supplierCode}: ${io.supplierNameZh}`,
-                      value: io.supplierCode,
-                    }));
-                  }
+                  // const { data, errCode } = await getSupplierSearchByCode({
+                  //   supplierCode: e.keyWords,
+                  // });
+                  // if (errCode === 200) {
+                  //   list = data?.dataList?.map((io: any) => ({
+                  //     ...io,
+                  //     label: `${io.supplierCode}: ${io.supplierNameZh}`,
+                  //     value: io.supplierCode,
+                  //   }));
+                  // }
                   return list;
                 }}
               />
@@ -1701,22 +1701,22 @@ const MyDrawer = ({ fn }: any, ref: any) => {
           bordered
           scroll={{ x: 800 }}
           size="small"
-          request={async () => {
-            const par = {
-              skuCode: rpObj?.sku,
-              orderNo: key,
-            };
-            const { data, errCode, errMsg } = await getReportLogDetail(par);
-            if (errCode === 200) {
-              return Promise.resolve({
-                data: data?.dataList,
-                total: data?.total,
-                success: true,
-              });
-            } else {
-              return message.error(errMsg);
-            }
-          }}
+          // request={async () => {
+          //   const par = {
+          //     skuCode: rpObj?.sku,
+          //     orderNo: key,
+          //   };
+          //   const { data, errCode, errMsg } = await getReportLogDetail(par);
+          //   if (errCode === 200) {
+          //     return Promise.resolve({
+          //       data: data?.dataList,
+          //       total: data?.total,
+          //       success: true,
+          //     });
+          //   } else {
+          //     return message.error(errMsg);
+          //   }
+          // }}
           rowKey="id"
           rowSelection={{
             type: 'radio',

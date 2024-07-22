@@ -77,19 +77,21 @@ const RelatedProcesses: React.FC<{ billNo: string }> = (props: any) => {
         //   pageSize: params.pageSize,
         //   billNo: billNo,
         // };
-        const res = await getRelatedProcessesListOrder(billNo);
-        if (res.errCode === 200) {
-          return Promise.resolve({
-            data: res.data?.dataList,
-            total: res.data?.dataList.length,
-            current: 1,
-            pageSize: 20,
-            success: true,
-          });
-        } else {
-          message.error(res.errMsg, 3);
-          return Promise.resolve([]);
-        }
+        //以上原来就屏蔽
+
+        // const res = await getRelatedProcessesListOrder(billNo);
+        // if (res.errCode === 200) {
+        //   return Promise.resolve({
+        //     data: res.data?.dataList,
+        //     total: res.data?.dataList.length,
+        //     current: 1,
+        //     pageSize: 20,
+        //     success: true,
+        //   });
+        // } else {
+        //   message.error(res.errMsg, 3);
+        //   return Promise.resolve([]);
+        // }
       }}
       pagination={{
         pageSize: 20,

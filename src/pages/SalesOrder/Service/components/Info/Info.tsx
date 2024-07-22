@@ -134,17 +134,17 @@ const Info = (props: any, Ref: any) => {
                 pageSize: params.pageSize,
                 orderNo: id,
               };
-              const res = await quotation(searchParams);
-              if (res.errCode === 200) {
-                return Promise.resolve({
-                  data: res.data?.list,
-                  total: res.data?.total,
-                  success: true,
-                });
-              } else {
-                Modal.error(res.errMsg);
-                return Promise.resolve([]);
-              }
+              // const res = await quotation(searchParams);
+              // if (res.errCode === 200) {
+              //   return Promise.resolve({
+              //     data: res.data?.list,
+              //     total: res.data?.total,
+              //     success: true,
+              //   });
+              // } else {
+              //   Modal.error(res.errMsg);
+              //   return Promise.resolve([]);
+              // }
             }}
             pagination={{
               defaultPageSize: 10,
@@ -178,20 +178,20 @@ const Info = (props: any, Ref: any) => {
                 // startTime: moment(pageParams.createTime[0]).format('YYYY-MM-DD HH:mm:ss'),
                 // endTime: moment(pageParams.createTime[1]).format('YYYY-MM-DD HH:mm:ss'),
               };
-              const res = await queryObdInfo(searchParams);
-              res.data?.list?.forEach((e: any, i: number) => {
-                e.index = i;
-              });
-              if (res.errCode === 200) {
-                return Promise.resolve({
-                  data: res.data?.list,
-                  total: res.data?.total,
-                  success: true,
-                });
-              } else {
-                Modal.error(res.errMsg);
-                return Promise.resolve([]);
-              }
+              // const res = await queryObdInfo(searchParams);
+              // res.data?.list?.forEach((e: any, i: number) => {
+              //   e.index = i;
+              // });
+              // if (res.errCode === 200) {
+              //   return Promise.resolve({
+              //     data: res.data?.list,
+              //     total: res.data?.total,
+              //     success: true,
+              //   });
+              // } else {
+              //   Modal.error(res.errMsg);
+              //   return Promise.resolve([]);
+              // }
             }}
             pagination={{
               defaultPageSize: 10,

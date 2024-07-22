@@ -97,20 +97,20 @@ const Index = function ({ getInfo }: any, ref: any) {
               pageSize: params.pageSize,
               orderNo: rowDetail,
             };
-            const res = await goodsDetails(searchParams);
-            if (res.errCode === 200) {
-              res.data?.list.forEach((e: any, i: any) => {
-                e.index = i;
-              });
-              return Promise.resolve({
-                data: res.data?.list,
-                total: res.data?.total,
-                success: true,
-              });
-            } else {
-              Modal.error(res.errMsg);
-              return Promise.resolve([]);
-            }
+            // const res = await goodsDetails(searchParams);
+            // if (res.errCode === 200) {
+            //   res.data?.list.forEach((e: any, i: any) => {
+            //     e.index = i;
+            //   });
+            //   return Promise.resolve({
+            //     data: res.data?.list,
+            //     total: res.data?.total,
+            //     success: true,
+            //   });
+            // } else {
+            //   Modal.error(res.errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           onRow={(record) => {
             return {
