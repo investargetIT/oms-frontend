@@ -17,7 +17,7 @@ const Welcome: React.FC = () => {
 
   return (
     <PageContainer>
-      <Card>
+      {/* <Card>
         <Alert
           message={intl.formatMessage({
             id: 'pages.welcome.alertMessage',
@@ -58,7 +58,7 @@ const Welcome: React.FC = () => {
           </a>
         </Typography.Text>
         <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
-      </Card>
+      </Card> */}
     </PageContainer>
   );
 };
