@@ -19,9 +19,9 @@ const Index: React.FC = () => {
     setCurrentPage(current);
     setCurrentPageSize(pageSize);
   }
-  const approveModalHandleOk = () => {
-    setIsModalVisible(false);
-  };
+  // const approveModalHandleOk = () => {
+  //   setIsModalVisible(false);
+  // };
   // const drawerWidth = window.innerWidth;
   // const key = new Date().getTime();
 

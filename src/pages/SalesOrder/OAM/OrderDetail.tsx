@@ -42,9 +42,9 @@ const MasterDataDetail: React.FC<{ id: string; tableRowData: object }, closeModa
     props.approveModalHandleOk();
   };
   const downloadVatClick = () => {
-    setTimeout(() => {
-      message.warning('此订单无VAT附件', 3);
-    }, 100);
+    // setTimeout(() => {
+    //   message.warning('此订单无VAT附件', 3);
+    // }, 100);
   };
   const dateFormat = 'YYYY-MM-DD';
 

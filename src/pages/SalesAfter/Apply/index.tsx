@@ -535,21 +535,21 @@ const SalesAfter: React.FC<any> = () => {
               pageNumber: params?.current,
               pageSize: params?.pageSize,
             };
-            const {
-              data: { list, total },
-              errCode,
-              errMsg,
-            } = await afterSalesInquiry(paramsCust);
-            if (errCode === 200) {
-              return Promise.resolve({
-                data: list,
-                total: total,
-                success: true,
-              });
-            } else {
-              message.error(errMsg);
-              return Promise.resolve([]);
-            }
+            // const {
+            //   data: { list, total },
+            //   errCode,
+            //   errMsg,
+            // } = await afterSalesInquiry(paramsCust);
+            // if (errCode === 200) {
+            //   return Promise.resolve({
+            //     data: list,
+            //     total: total,
+            //     success: true,
+            //   });
+            // } else {
+            //   message.error(errMsg);
+            //   return Promise.resolve([]);
+            // }
           }}
           options={{ reload: false, density: false }}
           rowKey="sid"
@@ -565,21 +565,21 @@ const SalesAfter: React.FC<any> = () => {
           tableAlertRender={false}
           defaultSize="small"
           actionRef={actionRef}
-          headerTitle={
-            initialState?.currentUser?.authorizations.includes('salesafter0002:afterSales.add') ? (
-              <Button
-                type="primary"
-                style={{ marginLeft: '10px' }}
-                onClick={() => {
-                  history.push(`/sales-after/apply/add?type=add&&id=${1}`);
-                }}
-              >
-                新增售后申请
-              </Button>
-            ) : (
-              <></>
-            )
-          }
+          // headerTitle={
+          //   initialState?.currentUser?.authorizations.includes('salesafter0002:afterSales.add') ? (
+          //     <Button
+          //       type="primary"
+          //       style={{ marginLeft: '10px' }}
+          //       onClick={() => {
+          //         history.push(`/sales-after/apply/add?type=add&&id=${1}`);
+          //       }}
+          //     >
+          //       新增售后申请
+          //     </Button>
+          //   ) : (
+          //     <></>
+          //   )
+          // }
         />
         {/* 详情------- */}
         <Drawer

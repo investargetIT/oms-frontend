@@ -30,13 +30,13 @@ const ApplyForm: React.FC<{ id: string }, closeModal> = (props) => {
     }
     formData.append('ChangeComment', values.ChangeComment);
 
-    setTimeout(() => {
-      props.applyModalHandleOk();
-      setConfirmLoading(false);
-      message.success('申请提交成功', 3);
-      applyForm.resetFields();
-      setValue(10);
-    }, 2000);
+    // setTimeout(() => {
+    //   props.applyModalHandleOk();
+    //   setConfirmLoading(false);
+    //   message.success('申请提交成功', 3);
+    //   applyForm.resetFields();
+    //   setValue(10);
+    // }, 2000);
   };
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
